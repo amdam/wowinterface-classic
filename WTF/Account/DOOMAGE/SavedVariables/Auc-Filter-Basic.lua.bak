@@ -1,0 +1,19 @@
+
+AucAdvancedFilterBasic_IgnoreList = {
+	["Smolderweb"] = {
+		["List"] = {
+		},
+	},
+	["Skeram"] = {
+		["List"] = {
+		},
+	},
+	["Fairbanks"] = {
+		["List"] = {
+		},
+	},
+	["Sulfuras"] = {
+		["List"] = {
+		},
+	},
+}

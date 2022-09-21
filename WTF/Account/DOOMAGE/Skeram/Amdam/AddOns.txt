@@ -1,0 +1,15 @@
+WeakAurasCompanion: enabled
+Kui_Nameplates: enabled
+Auc-Advanced: disabled
+Auc-Filter-Basic: disabled
+Auc-ScanData: disabled
+Auc-Stat-Histogram: disabled
+Auc-Stat-iLevel: disabled
+Auc-Stat-Simple: disabled
+Auc-Stat-Purchased: disabled
+Auc-Stat-StdDev: disabled
+Auc-Util-FixAH: disabled
+BeanCounter: disabled
+Enchantrix: disabled
+Informant: disabled
+Atlas: disabled

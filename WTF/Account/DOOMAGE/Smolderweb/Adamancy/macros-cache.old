@@ -1,0 +1,29 @@
+VER 3 0000000001000003 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/stopcasting
+/cast Counterspell
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000001 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/dismount
+/cast [nomodifier] Fire Blast; /cast [modifier:alt] Frost Nova
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000005 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [nomodifier] Scorch; /cast [modifier:alt] Blizzard
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000004 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/stopcasting
+/cancelaura Ice Block
+/cast Ice Block
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000002 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [nomodifier] Frostbolt; /cast [modifier:alt] Arcane Explosion; /cast [modifier:shift] Scorch
+/script UIErrorsFrame:Clear()
+END

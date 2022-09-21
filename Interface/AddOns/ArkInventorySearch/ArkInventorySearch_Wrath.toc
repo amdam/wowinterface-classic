@@ -1,0 +1,16 @@
+## Interface: 30400
+
+## Title: ArkInventory [Wrath] [Search]
+## Author: Arkayenro - Khaz'goroth
+## Email: arkayenro at gmail dot com
+## Version: 30968
+
+## Notes: Search for ArkInventory
+
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## RequiredDeps: ArkInventory
+
+
+ArkInventorySearch.lua
+ArkInventorySearch.xml

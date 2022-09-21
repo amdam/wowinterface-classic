@@ -1,0 +1,15 @@
+## Interface: 30400
+
+## Title: ArkInventory [Wrath] [Configuration]
+## Author: Arkayenro - Khaz'goroth
+## Email: arkayenro at gmail dot com
+## Version: 30968
+
+## Notes: Configuration options for ArkInventory
+
+## DefaultState: Enabled
+## LoadOnDemand: 1
+## RequiredDeps: ArkInventory
+
+
+ArkInventoryConfig.lua

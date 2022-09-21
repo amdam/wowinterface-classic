@@ -1,0 +1,6 @@
+
+TukuiSettingsPerChar = {
+	["ActionBars"] = {
+		["HotKey"] = true,
+	},
+}

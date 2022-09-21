@@ -1,0 +1,12 @@
+VER 3 0000000001000001 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/startattack
+/cast [nomodifier] Heroic Strike; /cast [modifier:alt] Cleave
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000002 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/startattack
+/cast Sunder Armor
+/script UIErrorsFrame:Clear()
+END

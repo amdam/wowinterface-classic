@@ -1,0 +1,18 @@
+## Interface: 30400
+
+## Title: ArkInventory [Wrath] [Rules]
+## Notes: Rules for ArkInventory
+## Author: Arkayenro
+## Email: arkayenro at gmail dot com
+## Version: 30968
+
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## RequiredDeps: ArkInventory
+
+## LoadManagers: AddonLoader
+## X-LoadOn-Always: delayed
+
+ArkInventoryRules.lua
+
+ArkInventoryRules.xml

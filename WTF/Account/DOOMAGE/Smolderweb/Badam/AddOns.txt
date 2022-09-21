@@ -1,0 +1,13 @@
+WeakAurasCompanion: enabled
+Atlas: disabled
+AtlasLootClassic_Maps: enabled
+Atlas_ClassicWoW: disabled
+Auc-Advanced: enabled
+Auc-Filter-Basic: enabled
+Auc-ScanData: enabled
+Auc-Stat-Histogram: enabled
+Auc-Stat-iLevel: enabled
+Auc-Stat-Purchased: enabled
+Auc-Stat-Simple: enabled
+Auc-Util-FixAH: enabled
+BeanCounter: enabled
