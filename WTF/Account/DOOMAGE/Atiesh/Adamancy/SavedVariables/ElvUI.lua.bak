@@ -1,0 +1,118 @@
+
+ElvCharacterDB = {
+	["ConvertKeybindings"] = true,
+	["ChatEditHistory"] = {
+	},
+	["ChatHistoryLog"] = {
+		{
+			"Healer LFG/LFM H UK", -- [1]
+			"Krup", -- [2]
+			"", -- [3]
+			"1. LookingForGroup", -- [4]
+			"Krup", -- [5]
+			"", -- [6]
+			26, -- [7]
+			1, -- [8]
+			"LookingForGroup", -- [9]
+			0, -- [10]
+			1, -- [11]
+			"Player-4372-0344BFBC", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Krup",
+			[51] = 1664769921,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [1]
+		{
+			"LF1M SHATTERED HALLS", -- [1]
+			"Stxne", -- [2]
+			"", -- [3]
+			"1. LookingForGroup", -- [4]
+			"Stxne", -- [5]
+			"", -- [6]
+			26, -- [7]
+			1, -- [8]
+			"LookingForGroup", -- [9]
+			0, -- [10]
+			2, -- [11]
+			"Player-4372-0346FF91", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Stxne",
+			[51] = 1664769925,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [2]
+		{
+			"LF1M DPS HoL H", -- [1]
+			"Aberion", -- [2]
+			"", -- [3]
+			"1. LookingForGroup", -- [4]
+			"Aberion", -- [5]
+			"", -- [6]
+			26, -- [7]
+			1, -- [8]
+			"LookingForGroup", -- [9]
+			0, -- [10]
+			3, -- [11]
+			"Player-4372-01E52F93", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Aberion",
+			[51] = 1664769928,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [3]
+		{
+			"lf 1 dps h AN/ H OK", -- [1]
+			"Embyrean", -- [2]
+			"", -- [3]
+			"1. LookingForGroup", -- [4]
+			"Embyrean", -- [5]
+			"", -- [6]
+			26, -- [7]
+			1, -- [8]
+			"LookingForGroup", -- [9]
+			0, -- [10]
+			4, -- [11]
+			"Player-4372-032239EF", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "Embyrean",
+			[51] = 1664769929,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [4]
+		{
+			"LF2M H AN need heals/dps", -- [1]
+			"Pasties", -- [2]
+			"", -- [3]
+			"1. LookingForGroup", -- [4]
+			"Pasties", -- [5]
+			"", -- [6]
+			26, -- [7]
+			1, -- [8]
+			"LookingForGroup", -- [9]
+			0, -- [10]
+			1, -- [11]
+			"Player-4372-00687B73", -- [12]
+			0, -- [13]
+			false, -- [14]
+			false, -- [15]
+			false, -- [16]
+			false, -- [17]
+			[52] = "|cfff48cbaPasties|r",
+			[51] = 1664769963,
+			[50] = "CHAT_MSG_CHANNEL",
+		}, -- [5]
+	},
+}

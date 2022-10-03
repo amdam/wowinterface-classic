@@ -2,11 +2,12 @@
 AtlasLootClassicDB = {
 	["profileKeys"] = {
 		["Fernie - Skeram"] = "Fernie - Skeram",
+		["Adamancy - Atiesh"] = "Adamancy - Atiesh",
 		["Ninjee - Sulfuras"] = "Ninjee - Sulfuras",
 		["Concillus - Sulfuras"] = "Concillus - Sulfuras",
 		["Adamancy - Sulfuras"] = "Adamancy - Sulfuras",
-		["Fernie - Skyfury"] = "Fernie - Skyfury",
 		["Aduum - Whitemane"] = "Aduum - Whitemane",
+		["Fernie - Skyfury"] = "Fernie - Skyfury",
 		["Amdam - Sulfuras"] = "Amdam - Sulfuras",
 		["Adan - Fairbanks"] = "Adan - Fairbanks",
 		["Ninjee - Smolderweb"] = "Ninjee - Smolderweb",
@@ -27,6 +28,8 @@ AtlasLootClassicDB = {
 	},
 	["profiles"] = {
 		["Fernie - Skeram"] = {
+		},
+		["Adamancy - Atiesh"] = {
 		},
 		["Ninjee - Sulfuras"] = {
 			["minimap"] = {
@@ -53,13 +56,6 @@ AtlasLootClassicDB = {
 		},
 		["Adamancy - Sulfuras"] = {
 			["GUI"] = {
-				["point"] = {
-					nil, -- [1]
-					nil, -- [2]
-					"CENTER", -- [3]
-					-1.999937057495117, -- [4]
-					-0.592402458190918, -- [5]
-				},
 				["selectedGameVersion"] = 2,
 				["selected"] = {
 					nil, -- [1]
@@ -68,11 +64,18 @@ AtlasLootClassicDB = {
 					6, -- [4]
 					0, -- [5]
 				},
+				["point"] = {
+					nil, -- [1]
+					nil, -- [2]
+					"CENTER", -- [3]
+					-1.999937057495117, -- [4]
+					-0.592402458190918, -- [5]
+				},
 			},
 		},
-		["Fernie - Skyfury"] = {
-		},
 		["Aduum - Whitemane"] = {
+		},
+		["Fernie - Skyfury"] = {
 		},
 		["Amdam - Sulfuras"] = {
 			["GUI"] = {

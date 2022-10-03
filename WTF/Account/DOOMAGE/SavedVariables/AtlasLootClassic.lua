@@ -12,21 +12,24 @@ AtlasLootClassicDB = {
 	},
 	["profileKeys"] = {
 		["Fernie - Skeram"] = "Fernie - Skeram",
-		["Ninjee - Sulfuras"] = "Ninjee - Sulfuras",
 		["Deadchild - Whitemane"] = "Deadchild - Whitemane",
+		["Ninjee - Sulfuras"] = "Ninjee - Sulfuras",
 		["Adamancy - Sulfuras"] = "Adamancy - Sulfuras",
 		["Amdam - Skeram"] = "Amdam - Skeram",
-		["Ninjee - Smolderweb"] = "Ninjee - Smolderweb",
 		["Amdam - Sulfuras"] = "Amdam - Sulfuras",
+		["Ninjee - Smolderweb"] = "Ninjee - Smolderweb",
+		["Adamancy - Atiesh"] = "Adamancy - Atiesh",
 		["Adan - Fairbanks"] = "Adan - Fairbanks",
-		["Fernie - Skyfury"] = "Fernie - Skyfury",
-		["Badam - Smolderweb"] = "Badam - Smolderweb",
 		["Aduum - Whitemane"] = "Aduum - Whitemane",
+		["Badam - Smolderweb"] = "Badam - Smolderweb",
+		["Fernie - Skyfury"] = "Fernie - Skyfury",
 		["Adamancy - Smolderweb"] = "Adamancy - Smolderweb",
 		["Concillus - Sulfuras"] = "Concillus - Sulfuras",
 	},
 	["profiles"] = {
 		["Fernie - Skeram"] = {
+		},
+		["Deadchild - Whitemane"] = {
 		},
 		["Ninjee - Sulfuras"] = {
 			["GUI"] = {
@@ -49,17 +52,8 @@ AtlasLootClassicDB = {
 				["minimapPos"] = 208.398713447704,
 			},
 		},
-		["Deadchild - Whitemane"] = {
-		},
 		["Adamancy - Sulfuras"] = {
 			["GUI"] = {
-				["point"] = {
-					nil, -- [1]
-					nil, -- [2]
-					"CENTER", -- [3]
-					-1.999937057495117, -- [4]
-					-0.592402458190918, -- [5]
-				},
 				["selectedGameVersion"] = 2,
 				["selected"] = {
 					nil, -- [1]
@@ -67,6 +61,13 @@ AtlasLootClassicDB = {
 					2, -- [3]
 					6, -- [4]
 					0, -- [5]
+				},
+				["point"] = {
+					nil, -- [1]
+					nil, -- [2]
+					"CENTER", -- [3]
+					-1.999937057495117, -- [4]
+					-0.592402458190918, -- [5]
 				},
 			},
 		},
@@ -88,8 +89,6 @@ AtlasLootClassicDB = {
 				},
 			},
 		},
-		["Ninjee - Smolderweb"] = {
-		},
 		["Amdam - Sulfuras"] = {
 			["GUI"] = {
 				["point"] = {
@@ -107,6 +106,10 @@ AtlasLootClassicDB = {
 					0, -- [5]
 				},
 			},
+		},
+		["Ninjee - Smolderweb"] = {
+		},
+		["Adamancy - Atiesh"] = {
 		},
 		["Adan - Fairbanks"] = {
 			["minimap"] = {
@@ -129,11 +132,11 @@ AtlasLootClassicDB = {
 				},
 			},
 		},
-		["Fernie - Skyfury"] = {
+		["Aduum - Whitemane"] = {
 		},
 		["Badam - Smolderweb"] = {
 		},
-		["Aduum - Whitemane"] = {
+		["Fernie - Skyfury"] = {
 		},
 		["Adamancy - Smolderweb"] = {
 			["GUI"] = {
