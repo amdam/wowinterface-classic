@@ -1968,7 +1968,7 @@ function ArkInventory:EVENT_ARKINV_BATTLEPET_OPENING_DONE( event, ... )
 	-- WARNING WARNING WARNING - THIS MUST RUN TO COLLECT SPECIES DATA FOR THE LEGENDARY / ELITE / TRAINER PETS
 	
 	
-	local player = ArkInventory.Const.BLIZZARD.GLOBAL.BATTLEPET.ENEMY
+	local player = ArkInventory.Const.ENUM.BATTLEPET.ENEMY
 	local isnpc = C_PetBattles.IsPlayerNPC( player )
 	local opponents = C_PetBattles.GetNumPets( player )
 	

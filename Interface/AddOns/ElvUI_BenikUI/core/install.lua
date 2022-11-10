@@ -72,9 +72,9 @@ local function SetupLayout(layout)
 	E.private["skins"]["blizzard"]["questChoice"] = true
 	E.private["skins"]["parchmentRemoverEnable"] = true
 
-	E.db["benikuiDatabars"]["reputation"]["buttonStyle"] = "DEFAULT"
-	E.db["benikuiDatabars"]["reputation"]["notifiers"]["position"] = "LEFT"
-	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
+	E.db["benikui"]["Databars"]["reputation"]["buttonStyle"] = "DEFAULT"
+	E.db["benikui"]["Databars"]["reputation"]["notifiers"]["position"] = "LEFT"
+	E.db["benikui"]["Databars"]["experience"]["buiStyle"] = false
 	E.db["benikui"]["general"]["auras"] = false
 	E.db["benikui"]["datatexts"]["chat"]["enable"] = true
 
@@ -285,6 +285,7 @@ local function SetupChat()
 end
 
 local function SetupActionbars(layout)
+	if E.private.actionbar.enable ~= true then return end
 	-- Actionbars
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true

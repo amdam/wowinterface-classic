@@ -1,0 +1,63 @@
+VER 3 0000000001000001 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Blood Boil; Heart Strike;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000002 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/startattack
+/cast [mod:alt] Pestilence; Plague Strike;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000006 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [] Dancing Rune Weapon;
+/use 13;
+/use 14;
+/script UIErrorsFrame:Clear();
+END
+VER 3 0000000001000004 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt,target=self][mod:alt] Death Coil; Death Coil;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000007 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Blood Boil; Blood Strike;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000008 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/startattack
+/cast [mod:alt] Death and Decay; Obliterate;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000003 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Death Coil; Frost Strike;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000005 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/startattack
+/cast [mod:alt] Death and Decay; Death Strike;
+/cast [nomodifier] !Rune Strike
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000009 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [] Unbreakable Armor;
+/use 13;
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000A " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Dark Command; Howling Blast;
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000B " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/startattack
+/cast [] Icy Touch;
+/script UIErrorsFrame:Clear()
+END

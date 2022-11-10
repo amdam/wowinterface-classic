@@ -13,7 +13,7 @@ local GetProfessionInfo = GetProfessionInfo
 local CastSpellByName = CastSpellByName
 local TRADE_SKILLS, PROFESSIONS_FISHING = TRADE_SKILLS, PROFESSIONS_FISHING
 
--- GLOBALS: hooksecurefunc, MMHolder
+-- GLOBALS: hooksecurefunc
 
 local DASH_HEIGHT = 20
 local DASH_SPACING = 3
@@ -26,7 +26,7 @@ local function sortFunction(a, b)
 end
 
 function mod:UpdateProfessions()
-	local db = E.db.dashboards.professions
+	local db = E.db.benikui.dashboards.professions
 	local holder = BUI_ProfessionsDashboard
 
 	if(BUI.ProfessionsDB[1]) then
@@ -83,13 +83,13 @@ function mod:UpdateProfessions()
 						bar.Status:SetValue(skillRank)
 					end
 
-					if E.db.dashboards.barColor == 1 then
+					if E.db.benikui.dashboards.barColor == 1 then
 						bar.Status:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 					else
-						bar.Status:SetStatusBarColor(E.db.dashboards.customBarColor.r, E.db.dashboards.customBarColor.g, E.db.dashboards.customBarColor.b)
+						bar.Status:SetStatusBarColor(E.db.benikui.dashboards.customBarColor.r, E.db.benikui.dashboards.customBarColor.g, E.db.benikui.dashboards.customBarColor.b)
 					end
 
-					bar.Text:FontTemplate(LSM:Fetch('font', E.db.dashboards.dashfont.dbfont), E.db.dashboards.dashfont.dbfontsize, E.db.dashboards.dashfont.dbfontflags)
+					bar.Text:FontTemplate(LSM:Fetch('font', E.db.benikui.dashboards.dashfont.dbfont), E.db.benikui.dashboards.dashfont.dbfontsize, E.db.benikui.dashboards.dashfont.dbfontflags)
 
 					if (skillModifier and skillModifier > 0) then
 						bar.Text:SetFormattedText('%s: %s |cFF6b8df4+%s|r / %s', skillName, skillRank, skillModifier, skillMaxRank)
@@ -97,10 +97,10 @@ function mod:UpdateProfessions()
 						bar.Text:SetFormattedText('%s: %s / %s', skillName, skillRank, skillMaxRank)
 					end
 
-					if E.db.dashboards.textColor == 1 then
+					if E.db.benikui.dashboards.textColor == 1 then
 						bar.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 					else
-						bar.Text:SetTextColor(BUI:unpackColor(E.db.dashboards.customTextColor))
+						bar.Text:SetTextColor(BUI:unpackColor(E.db.benikui.dashboards.customTextColor))
 					end
 
 					bar:SetScript('OnEnter', function(self)
@@ -168,13 +168,13 @@ function mod:ProfessionsEvents()
 end
 
 function mod:CreateProfessionsDashboard()
-	local mapholderWidth = E.private.general.minimap.enable and MMHolder:GetWidth() or 150
-	local DASH_WIDTH = E.db.dashboards.professions.width or 150
+	local mapholderWidth = E.private.general.minimap.enable and _G.ElvUI_MinimapHolder:GetWidth() or 150
+	local DASH_WIDTH = E.db.benikui.dashboards.professions.width or 150
 
 	self.proHolder = self:CreateDashboardHolder('BUI_ProfessionsDashboard', 'professions')
 
 	if E.private.general.minimap.enable then
-		self.proHolder:Point('TOPLEFT', MMHolder, 'BOTTOMLEFT', 0, -5)
+		self.proHolder:Point('TOPLEFT', _G.ElvUI_MinimapHolder, 'BOTTOMLEFT', 0, -5)
 	else
 		self.proHolder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 2, -120)
 	end
@@ -190,7 +190,7 @@ function mod:CreateProfessionsDashboard()
 end
 
 function mod:LoadProfessions()
-	if E.db.dashboards.professions.enableProfessions ~= true then return end
+	if E.db.benikui.dashboards.professions.enableProfessions ~= true then return end
 
 	mod:CreateProfessionsDashboard()
 	mod:ProfessionsEvents()

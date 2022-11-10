@@ -57,6 +57,7 @@ L["WOW_CLASS_WARRIOR"] = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"] or true
 L["WOW_CLASS_DEATHKNIGHT"] = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"] or true
 L["WOW_CLASS_MONK"] = LOCALIZED_CLASS_NAMES_MALE["MONK"] or true
 L["WOW_CLASS_DEMONHUNTER"] = LOCALIZED_CLASS_NAMES_MALE["DEMONHUNTER"] or true
+L["WOW_CLASS_EVOKER"] = LOCALIZED_CLASS_NAMES_MALE["EVOKER"] or true
 
 
 -- skills that we dont need to lookup
@@ -117,6 +118,7 @@ L["APPEARANCE"] = APPEARANCE_LABEL or true
 L["ARTIFACT_POWER"] = ARTIFACT_POWER or true
 L["ASSIGN"] = COMBAT_ALLY_START_MISSION or true
 L["AT_WAR"] = AT_WAR or true
+L["AUCTION_HOUSE"] = BUTTON_LAG_AUCTIONHOUSE or true
 L["AUCTIONS"] = AUCTIONS or true
 L["BACKPACK"] = BACKPACK_TOOLTIP or true
 L["BAG"] = INVTYPE_BAG or true
@@ -146,7 +148,6 @@ L["COMBAT"] = COMBAT or true
 L["COMPANIONS"] = COMPANIONS or true
 L["COMPLETE"] = COMPLETE or true
 L["CONTROLS"] = CONTROLS_LABEL or true
-L["COSMETIC"] = ITEM_COSMETIC or true
 L["CURRENCY"] = CURRENCY or true
 L["CURRENT"] = REFORGE_CURRENT or true
 L["CUSTOM"] = CUSTOM or true
@@ -225,6 +226,7 @@ L["NO"] = NO or true
 L["NONE"] = NONE or true
 L["NOT_COLLECTED"] = NOT_COLLECTED or true
 L["NOT_BOUND"] = NOT_BOUND or true
+L["OBLITERUM_FORGE"] = OBLITERUM_FORGE_TITLE
 L["OFFLINE"] = PLAYER_OFFLINE or true
 L["OKAY"] = OKAY or true
 L["ONLINE"] = FRIENDS_LIST_ONLINE or true
@@ -278,6 +280,7 @@ L["TRADE"] = TRADE or true
 L["TRADESKILL"] = BATTLE_PET_SOURCE_4 or true
 L["TRADESKILLS"] = TRADE_SKILLS or true
 L["TRANSMOGRIFY"] = TRANSMOGRIFY or true
+L["TRANSMOGRIFIER"] = MINIMAP_TRACKING_TRANSMOGRIFIER or true
 L["TYPE"] = TYPE or true
 L["UNAVAILABLE"] = UNAVAILABLE or true
 L["UNKNOWN"] = UNKNOWN or true
@@ -286,7 +289,8 @@ L["UNTRACK"] = UNTRACK_QUEST_ABBREV or true
 L["UNUSED"] = UNUSED or true
 L["UPGRADE"] = UPGRADE or true
 L["VAULT"] = GUILD_BANK or true
-L["VOIDSTORAGE"] = VOID_STORAGE or true
+L["VENDOR"] = BATTLE_PET_SOURCE_3 or true
+L["VOID_STORAGE"] = VOID_STORAGE or true
 L["VIEW"] = VIEW or true
 L["WEEKLY"] = WEEKLY or true
 L["YES"] = YES or true
@@ -345,125 +349,209 @@ L["UNKNOWN_OBJECT"] = "Unknown Object [%s]"
 
 local itemClassTable = {
 	
-	{ "WOW_ITEM_CLASS_WEAPON", ArkInventory.Const.ItemClass.WEAPON },
+	{ "WOW_ITEM_CLASS_CONSUMABLE", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT },
+	-- nil, CLASSIC, 0, 0 = consumable
+	{ "WOW_ITEM_CLASS_CONSUMABLE_EXPLOSIVES_AND_DEVICES", ArkInventory.Const.ENUM.EXPANSION.SHADOWLANDS, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.EXPLOSIVES_AND_DEVICES },
+	-- nil, CLASSIC, 0, 1 = chese bread (obsolete)
+	{ "WOW_ITEM_CLASS_CONSUMABLE_POTION", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.POTION },
+	-- nil, CLASSIC, 0, 2 = liquid (obsolete)
+	{ "WOW_ITEM_CLASS_CONSUMABLE_ELIXIR", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.ELIXIR },
+	{ "WOW_ITEM_CLASS_CONSUMABLE_FLASK", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.FLASK },
+	{ "WOW_ITEM_CLASS_CONSUMABLE_SCROLL", ArkInventory.Const.ENUM.EXPANSION.WRATH, ArkInventory.Const.ENUM.EXPANSION.BFA, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.SCROLL },
+	{ "WOW_ITEM_CLASS_CONSUMABLE_FOOD_AND_DRINK", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.FOOD_AND_DRINK },
+	{ "WOW_ITEM_CLASS_CONSUMABLE_ITEM_ENHANCEMENT", ArkInventory.Const.ENUM.EXPANSION.WRATH, ArkInventory.Const.ENUM.EXPANSION.BFA, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.ITEM_ENHANCEMENT },
+	{ "WOW_ITEM_CLASS_CONSUMABLE_BANDAGE", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.BANDAGE },
+	{ "WOW_ITEM_CLASS_CONSUMABLE_OTHER", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.OTHER },
+	{ "WOW_ITEM_CLASS_CONSUMABLE_VANTUSRUNE", ArkInventory.Const.ENUM.EXPANSION.BFA, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONSUMABLE.VANTUSRUNE },
 	
-	{ "WOW_ITEM_CLASS_ARMOR", ArkInventory.Const.ItemClass.ARMOR },
-	{ "WOW_ITEM_CLASS_ARMOR_CLOTH", ArkInventory.Const.ItemClass.ARMOR, ArkInventory.Const.ItemClass.ARMOR_CLOTH },
-	{ "WOW_ITEM_CLASS_ARMOR_LEATHER", ArkInventory.Const.ItemClass.ARMOR, ArkInventory.Const.ItemClass.ARMOR_LEATHER },
+	{ "WOW_ITEM_CLASS_CONTAINER", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT },
+	{ "WOW_ITEM_CLASS_CONTAINER_BAG", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.BAG },
+	{ "WOW_ITEM_CLASS_CONTAINER_SOULSHARD", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.SOULSHARD },
+	{ "WOW_ITEM_CLASS_CONTAINER_HERBALISM", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.HERBALISM },
+	{ "WOW_ITEM_CLASS_CONTAINER_ENCHANTING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.ENCHANTING },
+	{ "WOW_ITEM_CLASS_CONTAINER_ENGINEERING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.ENGINEERING },
+	{ "WOW_ITEM_CLASS_CONTAINER_JEWELCRAFTING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.JEWELCRAFTING },
+	{ "WOW_ITEM_CLASS_CONTAINER_MINING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.MINING },
+	{ "WOW_ITEM_CLASS_CONTAINER_LEATHERWORKING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.LEATHERWORKING },
+	{ "WOW_ITEM_CLASS_CONTAINER_INSCRIPTION", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.INSCRIPTION },
+	{ "WOW_ITEM_CLASS_CONTAINER_FISHING", ArkInventory.Const.ENUM.EXPANSION.CATACLYSM, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.FISHING },
+	{ "WOW_ITEM_CLASS_CONTAINER_COOKING", ArkInventory.Const.ENUM.EXPANSION.PANDARIA, nil, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.COOKING },
 	
-	{ "WOW_ITEM_CLASS_CONTAINER", ArkInventory.Const.ItemClass.CONTAINER },
-	{ "WOW_ITEM_CLASS_CONTAINER_BAG", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_BAG },
-	{ "WOW_ITEM_CLASS_CONTAINER_COOKING", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_COOKING },
-	{ "WOW_ITEM_CLASS_CONTAINER_ENCHANTING", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_ENCHANTING },
-	{ "WOW_ITEM_CLASS_CONTAINER_ENGINEERING", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_ENGINEERING },
-	{ "WOW_ITEM_CLASS_CONTAINER_FISHING", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_FISHING },
-	{ "WOW_ITEM_CLASS_CONTAINER_HERBALISM", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_HERB },
-	{ "WOW_ITEM_CLASS_CONTAINER_INSCRIPTION", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_INSCRIPTION },
-	{ "WOW_ITEM_CLASS_CONTAINER_JEWELCRAFTING", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_JEWELCRAFTING },
-	{ "WOW_ITEM_CLASS_CONTAINER_LEATHERWORKING", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_LEATHERWORKING },
-	{ "WOW_ITEM_CLASS_CONTAINER_MINING", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_MINING },
-	{ "WOW_ITEM_CLASS_CONTAINER_SOULSHARD", ArkInventory.Const.ItemClass.CONTAINER, ArkInventory.Const.ItemClass.CONTAINER_SOULSHARD },
+	{ "WOW_ITEM_CLASS_WEAPON", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.WEAPON.PARENT },
+	-- 01 = one-handed axes
+	-- 02 = two-handed axes
+	-- 03 = bows
+	-- 04 = guns
+	-- 05 = one-handed maces
+	-- 06 = two-handed maces
+	-- 07 = polearms
+	-- 08 = one-handed swords
+	-- 09 = two-handed swords
+	-- 10 = obsolete
+	-- 11 = staves
+	-- 12 = one-handed exotics
+	-- 13 = two-handed exotics
+	-- 14 = fist weapons
+	-- 15 = miscellanous
+	-- 16 = daggers
+	-- 17 = thrown
+	-- 18 = spears
+	-- 19 = crossbows
+	-- 20 = wands
+	-- 21 = fishing pole
 	
-	{ "WOW_ITEM_CLASS_QUIVER", ArkInventory.Const.ItemClass.QUIVER },
-	{ "WOW_ITEM_CLASS_QUIVER_ARROW", ArkInventory.Const.ItemClass.QUIVER, ArkInventory.Const.ItemClass.QUIVER_ARROW },
-	{ "WOW_ITEM_CLASS_QUIVER_BULLET", ArkInventory.Const.ItemClass.QUIVER, ArkInventory.Const.ItemClass.QUIVER_BULLET },
+	-- 3 = jewelry
+	-- 0 = jewelry
 	
-	{ "WOW_ITEM_CLASS_PROJECTILE", ArkInventory.Const.ItemClass.PROJECTILE },
-	{ "WOW_ITEM_CLASS_PROJECTILE_ARROW", ArkInventory.Const.ItemClass.PROJECTILE, ArkInventory.Const.ItemClass.PROJECTILE_ARROW },
-	{ "WOW_ITEM_CLASS_PROJECTILE_BULLET", ArkInventory.Const.ItemClass.PROJECTILE, ArkInventory.Const.ItemClass.PROJECTILE_BULLET },
+	{ "WOW_ITEM_CLASS_ARMOR", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.PARENT },
+	-- 0 = miscellaneous
+	{ "WOW_ITEM_CLASS_ARMOR_CLOTH", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.CLOTH },
+	{ "WOW_ITEM_CLASS_ARMOR_LEATHER", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.LEATHER },
+	-- 3 = mail
+	-- 4 = plate
+	-- 5 = bucklers
+	-- 6 = shields
+	-- 7 = librams
+	-- 8 = idols
+	-- 9 = totems
 	
-	{ "WOW_ITEM_CLASS_CONSUMABLE", ArkInventory.Const.ItemClass.CONSUMABLE },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_EXPLOSIVES_AND_DEVICES", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_EXPLOSIVES_AND_DEVICES },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_POTION", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_POTION },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_ELIXIR", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_ELIXIR },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_FLASK", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_FLASK },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_SCROLL", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_SCROLL },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_FOOD_AND_DRINK", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_FOOD_AND_DRINK },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_ITEM_ENHANCEMENT", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_ITEM_ENHANCEMENT },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_BANDAGE", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_BANDAGE },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_OTHER", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_OTHER },
-	{ "WOW_ITEM_CLASS_CONSUMABLE_VANTUSRUNE", ArkInventory.Const.ItemClass.CONSUMABLE, ArkInventory.Const.ItemClass.CONSUMABLE_VANTUSRUNE },
+	-- 5 = reagent
+	-- 0 = reagent
 	
-	{ "WOW_ITEM_CLASS_GLYPH", ArkInventory.Const.ItemClass.GLYPH },
+	{ "WOW_ITEM_CLASS_PROJECTILE", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.PROJECTILE.PARENT },
+	-- 0 = wand (obsolete)
+	-- 1 = bolt (obsolete)
+	{ "WOW_ITEM_CLASS_PROJECTILE_ARROW", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.PROJECTILE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.PROJECTILE.ARROW },
+	{ "WOW_ITEM_CLASS_PROJECTILE_BULLET", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.PROJECTILE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.PROJECTILE.BULLET },
+	-- 4 = thrown (obsolete)
 	
-	{ "WOW_ITEM_CLASS_TRADEGOODS", ArkInventory.Const.ItemClass.TRADEGOODS },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_PARTS", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_PARTS },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_EXPLOSIVES", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_EXPLOSIVES },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_DEVICES", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_DEVICES },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_JEWELCRAFTING", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_JEWELCRAFTING },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_CLOTH", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_CLOTH },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_LEATHER", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_LEATHER },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_METAL_AND_STONE", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_METAL_AND_STONE },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_COOKING", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_COOKING },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_HERBS", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_HERBS },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_ELEMENTAL", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_ELEMENTAL },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_OTHER", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_OTHER },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_ENCHANTING", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_ENCHANTING },
-	{ "WOW_ITEM_CLASS_TRADEGOODS_INSCRIPTION", ArkInventory.Const.ItemClass.TRADEGOODS, ArkInventory.Const.ItemClass.TRADEGOODS_INSCRIPTION },
+	{ "WOW_ITEM_CLASS_TRADEGOODS", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT },
+	-- 0 tradegoods
+	{ "WOW_ITEM_CLASS_TRADEGOODS_PARTS", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARTS },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_EXPLOSIVES", nil, ArkInventory.Const.ENUM.EXPANSION.BFA, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.EXPLOSIVES },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_DEVICES", nil, ArkInventory.Const.ENUM.EXPANSION.BFA, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.DEVICES },
 	
-	{ "WOW_ITEM_CLASS_RECIPE", ArkInventory.Const.ItemClass.RECIPE },
-	{ "WOW_ITEM_CLASS_RECIPE_LEATHERWORKING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_LEATHERWORKING },
-	{ "WOW_ITEM_CLASS_RECIPE_TAILORING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_TAILORING },
-	{ "WOW_ITEM_CLASS_RECIPE_ENGINEERING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_ENGINEERING },
-	{ "WOW_ITEM_CLASS_RECIPE_BLACKSMITHING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_BLACKSMITHING },
-	{ "WOW_ITEM_CLASS_RECIPE_COOKING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_COOKING },
-	{ "WOW_ITEM_CLASS_RECIPE_ALCHEMY", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_ALCHEMY },
-	{ "WOW_ITEM_CLASS_RECIPE_FIRST_AID", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_FIRST_AID },
-	{ "WOW_ITEM_CLASS_RECIPE_ENCHANTING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_ENCHANTING },
-	{ "WOW_ITEM_CLASS_RECIPE_FISHING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_FISHING },
-	{ "WOW_ITEM_CLASS_RECIPE_JEWELCRAFTING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_JEWELCRAFTING },
-	{ "WOW_ITEM_CLASS_RECIPE_INSCRIPTION", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_INSCRIPTION },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_JEWELCRAFTING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.JEWELCRAFTING },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_CLOTH", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.CLOTH },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_LEATHER", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.LEATHER },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_METAL_AND_STONE", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.METAL_AND_STONE },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_COOKING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.COOKING },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_HERBS", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.HERBS },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_ELEMENTAL", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.ELEMENTAL },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_OTHER", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.OTHER },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_ENCHANTING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.ENCHANTING },
+	{ "WOW_ITEM_CLASS_TRADEGOODS_INSCRIPTION", ArkInventory.Const.ENUM.EXPANSION.SHADOWLANDS, nil, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.TRADEGOODS.INSCRIPTION },
 	
-	{ "WOW_ITEM_CLASS_GEM", ArkInventory.Const.ItemClass.GEM },
---	{ "WOW_ITEM_CLASS_GEM_ARTIFACTRELIC", ArkInventory.Const.ItemClass.GEM, ArkInventory.Const.ItemClass.GEM_ARTIFACTRELIC },
+	-- 8 = generic (obsolete)
+	-- 0 = generic (obsolete)
 	
-	{ "WOW_ITEM_CLASS_ITEM_ENHANCEMENT", ArkInventory.Const.ItemClass.ITEM_ENHANCEMENT },
+	{ "WOW_ITEM_CLASS_RECIPE", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT },
+	-- 0 = book
+	{ "WOW_ITEM_CLASS_RECIPE_LEATHERWORKING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.LEATHERWORKING },
+	{ "WOW_ITEM_CLASS_RECIPE_TAILORING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.TAILORING },
+	{ "WOW_ITEM_CLASS_RECIPE_ENGINEERING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.ENGINEERING },
+	{ "WOW_ITEM_CLASS_RECIPE_BLACKSMITHING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.BLACKSMITHING },
+	{ "WOW_ITEM_CLASS_RECIPE_COOKING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.COOKING },
+	{ "WOW_ITEM_CLASS_RECIPE_ALCHEMY", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.ALCHEMY },
+	{ "WOW_ITEM_CLASS_RECIPE_FIRST_AID", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.FIRST_AID },
+	{ "WOW_ITEM_CLASS_RECIPE_ENCHANTING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.ENCHANTING },
+	{ "WOW_ITEM_CLASS_RECIPE_FISHING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.FISHING },
 	
-	{ "WOW_ITEM_CLASS_REAGENT", ArkInventory.Const.ItemClass.REAGENT },
+	{ "WOW_ITEM_CLASS_RECIPE_JEWELCRAFTING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.JEWELCRAFTING },
+	{ "WOW_ITEM_CLASS_RECIPE_INSCRIPTION", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.INSCRIPTION },
 	
-	{ "WOW_ITEM_CLASS_PET", ArkInventory.Const.ItemClass.BATTLEPET },
+	-- 10 = money
+	-- 0 = money
 	
-	{ "WOW_ITEM_CLASS_KEY", ArkInventory.Const.ItemClass.KEY },
+	{ "WOW_ITEM_CLASS_QUIVER", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.QUIVER.PARENT },
+	-- 0 quiver (obsolete)
+	-- 1 quiver (obsolete)
+	{ "WOW_ITEM_CLASS_QUIVER_ARROW", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.QUIVER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.QUIVER.ARROW },
+	{ "WOW_ITEM_CLASS_QUIVER_BULLET", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.QUIVER.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.QUIVER.BULLET },
 	
-	{ "WOW_ITEM_CLASS_MISC", ArkInventory.Const.ItemClass.MISC },
-	{ "WOW_ITEM_CLASS_MISC_JUNK", ArkInventory.Const.ItemClass.MISC, 0 },
-	{ "WOW_ITEM_CLASS_MISC_REAGENT", ArkInventory.Const.ItemClass.MISC, ArkInventory.Const.ItemClass.MISC_REAGENT },
-	{ "WOW_ITEM_CLASS_MISC_PET", ArkInventory.Const.ItemClass.MISC, ArkInventory.Const.ItemClass.MISC_PET },
-	{ "WOW_ITEM_CLASS_MISC_HOLIDAY", ArkInventory.Const.ItemClass.MISC, ArkInventory.Const.ItemClass.MISC_HOLIDAY },
-	{ "WOW_ITEM_CLASS_MISC_OTHER", ArkInventory.Const.ItemClass.MISC, ArkInventory.Const.ItemClass.MISC_OTHER },
-	{ "WOW_ITEM_CLASS_MISC_MOUNT", ArkInventory.Const.ItemClass.MISC, ArkInventory.Const.ItemClass.MISC_MOUNT },
+	{ "WOW_ITEM_CLASS_QUEST", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.QUEST.PARENT },
+	-- 0 = quest
 	
-	{ "WOW_ITEM_CLASS_QUEST", ArkInventory.Const.ItemClass.QUEST },
+	{ "WOW_ITEM_CLASS_KEY", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.KEY.PARENT },
+	-- 0 = key
+	-- 1 = lockpick
+	
+	-- 14 = permanent (obsolete)
+	-- 0 = permanent
+	
+	{ "WOW_ITEM_CLASS_MISC", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT },
+	{ "WOW_ITEM_CLASS_MISC_JUNK", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.MISC.JUNK },
+	--
+	{ "WOW_ITEM_CLASS_MISC_REAGENT", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.MISC.REAGENT },
+	{ "WOW_ITEM_CLASS_MISC_PET", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PET },
+	{ "WOW_ITEM_CLASS_MISC_HOLIDAY", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.MISC.HOLIDAY },
+	{ "WOW_ITEM_CLASS_MISC_OTHER", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.MISC.OTHER },
+	{ "WOW_ITEM_CLASS_MISC_MOUNT", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.MISC.MOUNT },
+	{ "WOW_ITEM_CLASS_MISC_MOUNT-EQUIPMENT", ArkInventory.Const.ENUM.EXPANSION.BFA, nil, ArkInventory.Const.ENUM.ITEMCLASS.MISC.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.MISC.MOUNT_EQUIPMENT },
+	
+	{ "WOW_ITEM_CLASS_GLYPH", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.GLYPH.PARENT },
+	
+	-- 17 = 
+	-- 0 = humanoid
+	-- 1 = dragonkin
+	-- 2 = flying
+	-- 3 = undead
+	-- 4 = critter
+	-- 5 = magic
+	-- 6 = elemental
+	-- 7 = beast
+	-- 8 = aquatic
+	-- 9 = mechanical
+	
+	-- 18 = wowtoken
+	
+	
+	
+	{ "WOW_ITEM_CLASS_GEM", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.GEM.PARENT },
+--	{ "WOW_ITEM_CLASS_GEM_ARTIFACTRELIC", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.GEM.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.GEM.ARTIFACTRELIC },
+	
+	{ "WOW_ITEM_CLASS_ITEM_ENHANCEMENT", ArkInventory.Const.ENUM.EXPANSION.SHADOWLANDS, nil, ArkInventory.Const.ENUM.ITEMCLASS.ITEM_ENHANCEMENT.PARENT },
+	
+	{ "WOW_ITEM_CLASS_REAGENT", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.REAGENT.PARENT },
+	
+	{ "WOW_ITEM_CLASS_PET", ArkInventory.Const.ENUM.EXPANSION.SHADOWLANDS, nil, ArkInventory.Const.ENUM.ITEMCLASS.BATTLEPET.PARENT },
+	
+	
 	
 	-- skills that dont have a hardcoded
-	{ "WOW_SKILL_ALCHEMY", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_ALCHEMY },
-	{ "WOW_SKILL_BLACKSMITHING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_BLACKSMITHING },
-	{ "WOW_SKILL_ENCHANTING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_ENCHANTING },
-	{ "WOW_SKILL_ENGINEERING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_ENGINEERING },
---	{ "WOW_SKILL_INSCRIPTION", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_INSCRIPTION },
-	{ "WOW_SKILL_JEWELCRAFTING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_JEWELCRAFTING },
-	{ "WOW_SKILL_LEATHERWORKING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_LEATHERWORKING },
-	{ "WOW_SKILL_TAILORING", ArkInventory.Const.ItemClass.RECIPE, ArkInventory.Const.ItemClass.RECIPE_TAILORING },
+	{ "WOW_SKILL_ALCHEMY", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.ALCHEMY },
+	{ "WOW_SKILL_BLACKSMITHING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.BLACKSMITHING },
+	{ "WOW_SKILL_ENCHANTING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.ENCHANTING },
+	{ "WOW_SKILL_ENGINEERING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.ENGINEERING },
+--	{ "WOW_SKILL_INSCRIPTION", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.INSCRIPTION },
+	{ "WOW_SKILL_LEATHERWORKING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.LEATHERWORKING },
+	{ "WOW_SKILL_TAILORING", nil, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.TAILORING },
+	{ "WOW_SKILL_JEWELCRAFTING", ArkInventory.Const.ENUM.EXPANSION.WRATH, nil, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.PARENT, ArkInventory.Const.ENUM.ITEMCLASS.RECIPE.JEWELCRAFTING },
 	
 }
 
 for _, v in ipairs( itemClassTable ) do
 	
-	local key, i1, i2 = v[1], v[2], v[3]
+	local key, e1, e2, i1, i2 = v[1], v[2], v[3],  v[4],  v[5]
 	
 	if key then
 		
-		local text = nil
-		
-		if i1 and i2 then
-			text = GetItemSubClassInfo( i1, i2 )
-		elseif i1 then
-			text = GetItemClassInfo( i1 )
-		end
-		
-		if text then
-			L[key] = text
-			--print( string.format( "%s (%s-%s) = %s", key, i1, i2 or 0, text or "nil" ) )
+		if ArkInventory.ClientCheck( e1, e2 ) then
+			
+			local text = nil
+			
+			if i1 and i2 then
+				text = GetItemSubClassInfo( i1, i2 )
+			elseif i1 then
+				text = GetItemClassInfo( i1 )
+			end
+			
+			if text then
+				L[key] = text
+			end
+			
+			--ArkInventory.Output( key, " (", i1, "-", i2 or "*", ") = ", text or "nil" )
+			
 		end
 		
 		

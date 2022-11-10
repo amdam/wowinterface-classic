@@ -621,7 +621,7 @@ S:AddCallbackForAddon("Blizzard_ItemUpgradeUI", "BenikUI_ItemUpgradeUI", style_I
 
 -- LookingForGroupUI
 local function style_LookingForGroupUI()
-	if E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
+	if E.Classic or E.private.skins.blizzard.lfg ~= true or E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then
 		return
@@ -803,7 +803,7 @@ S:AddCallbackForAddon("Blizzard_TalentUI", "BenikUI_TalentUI", style_TalentUI)
 
 -- TalkingHeadUI
 local function style_TalkingHeadUI()
-	if E.private.skins.blizzard.talkinghead ~= true or E.db.benikuiSkins.variousSkins.talkingHead ~= true or
+	if E.private.skins.blizzard.talkinghead ~= true or E.db.benikui.Skins.variousSkins.talkingHead ~= true or
 		E.private.skins.blizzard.enable ~= true or
 		E.db.benikui.general.benikuiStyle ~= true
 	then

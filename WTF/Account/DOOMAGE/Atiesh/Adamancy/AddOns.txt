@@ -12,3 +12,8 @@ WeakAurasCompanion: enabled
 WeakAurasArchive: enabled
 ElvUI_OptionsUI: enabled
 Kui_Nameplates: disabled
+AuctionMaster: disabled
+OPie_Classic: disabled
+ElvUI_UnitFramePlugin: disabled
+ArkInventory: enabled
+ArkInventoryRules_Example: enabled

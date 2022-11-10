@@ -1812,17 +1812,17 @@ function ArkInventory.DatabaseUpgradePostLoad( )
 		
 		for k, v in pairs( ArkInventory.acedb.global.option.auto.open ) do
 			if v == true then
-				ArkInventory.acedb.global.option.auto.open[k] = 1
+				ArkInventory.acedb.global.option.auto.open[k] = ArkInventory.Const.ENUM.BAGAUTOACTION.YES
 			elseif v == false then
-				ArkInventory.acedb.global.option.auto.open[k] = 0
+				ArkInventory.acedb.global.option.auto.open[k] = ArkInventory.Const.ENUM.BAGAUTOACTION.NO
 			end
 		end
 			
 		for k, v in pairs( ArkInventory.acedb.global.option.auto.close ) do
 			if v == true then
-				ArkInventory.acedb.global.option.auto.close[k] = 1
+				ArkInventory.acedb.global.option.auto.close[k] = ArkInventory.Const.ENUM.BAGAUTOACTION.YES
 			elseif v == false then
-				ArkInventory.acedb.global.option.auto.close[k] = 0
+				ArkInventory.acedb.global.option.auto.close[k] = ArkInventory.Const.ENUM.BAGAUTOACTION.NO
 			end
 		end
 		
@@ -2002,6 +2002,22 @@ function ArkInventory.DatabaseUpgradePostLoad( )
 		
 	end
 	
+	
+	
+	upgrade_version = 31001
+	if ArkInventory.acedb.global.player.version < upgrade_version then
+		
+		ArkInventory.Output( string.format( ArkInventory.Localise["UPGRADE_GLOBAL"], "player", upgrade_version ) )
+		for k, v in pairs( ArkInventory.acedb.global.player.data ) do
+			if v.info and v.info.proj then
+				v.info.proj = nil
+			end
+		end
+		
+		
+		ArkInventory.acedb.global.player.version = upgrade_version
+		
+	end
 	
 	
 	

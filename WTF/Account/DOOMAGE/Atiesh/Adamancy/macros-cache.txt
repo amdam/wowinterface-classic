@@ -1,23 +1,15 @@
-VER 3 0000000001000006 " " "INV_MISC_QUESTIONMARK"
-#showtooltip
-/cast [mod:alt] Freeze; Shoot;
-/script UIErrorsFrame:Clear()
-END
-VER 3 0000000001000001 " " "INV_MISC_QUESTIONMARK"
-#showtooltip
-/dismount
-/cast [mod:alt] Frost Nova; Ice Lance;
-/script UIErrorsFrame:Clear()
-END
 VER 3 0000000001000007 " " "INV_MISC_QUESTIONMARK"
-#showtooltip
-/cast Icy Veins
+#showtooltip Icy Veins
 /use 13
+/use Mana Sapphire
+/cast Mirror Image
+/cast Icy Veins
+/cast Arcane Power
 /script UIErrorsFrame:Clear()
 END
 VER 3 0000000001000005 " " "INV_MISC_QUESTIONMARK"
 #showtooltip
-/cast [mod:alt] Blizzard; Fireball;
+/cast [mod:alt] Blizzard; Frostfire Bolt;
 /script UIErrorsFrame:Clear()
 END
 VER 3 0000000001000004 " " "INV_MISC_QUESTIONMARK"
@@ -42,5 +34,47 @@ VER 3 0000000001000003 " " "INV_MISC_QUESTIONMARK"
 #showtooltip
 /stopcasting
 /cast Counterspell
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000006 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Freeze; Shoot;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000001 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/dismount
+/cast [mod:alt] Frost Nova; Ice Lance;
+/script UIErrorsFrame:Clear()
+END
+VER 3 0000000001000009 " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/petattack
+/cast [mod:alt] Arcane Explosion; [mod:shift] Scorch; [nochanneling] Arcane Blast;
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000A " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Frost Nova; [nochanneling] Arcane Barrage;
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000B " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Blizzard; [nochanneling] Arcane Missiles;
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000D " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [mod:alt] Flamestrike; [mod:shift] Flamestrike(Rank 8); [nochanneling] Cone of Cold;
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000E " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [@mouseover,help,exists][] Slow Fall;
+/script UIErrorsFrame:Clear()
+END
+VER 3 000000000100000F " " "INV_MISC_QUESTIONMARK"
+#showtooltip
+/cast [@mouseover,help,exists][] Remove Curse;
 /script UIErrorsFrame:Clear()
 END

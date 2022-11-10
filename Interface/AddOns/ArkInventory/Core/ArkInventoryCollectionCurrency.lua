@@ -87,11 +87,11 @@ local function FilterActionBackup( )
 		
 		for index = 1, n do
 			
-			local name, isHeader, isExpanded = ArkInventory.CrossClient.GetCurrencyListInfo( index )
+			local info = ArkInventory.CrossClient.GetCurrencyListInfo( index )
 			
-			--ArkInventory.Output( "i=[",index,"] h=[", isHeader, "] e=[", isExpanded, "] [", name, "]" )
+			--ArkInventory.Output( "i=[",index,"] h=[", info.isHeader, "] e=[", info.isExpanded, "] [", info.name, "]" )
 			
-			if isHeader and not isExpanded then
+			if info.isHeader and not info.isExpanded then
 				--ArkInventory.Output( "expanding ", index )
 				collection.filter.expanded[index] = true
 				ArkInventory.CrossClient.ExpandCurrencyList( index, 1 )
@@ -243,6 +243,8 @@ local function ScanBase( id )
 				
 				collection.numTotal = collection.numTotal + 1
 				
+				--ArkInventory.OutputDebug( "CURRENCY: ", id, " = ", info.name )
+				
 			end
 			
 		else
@@ -265,7 +267,7 @@ end
 
 local function ScanInit( )
 	
-	--ArkInventory.Output( "Currency Init: Start Scan @ ", time( ) )
+	ArkInventory.OutputDebug( "CURRENCY: Init - Start Scan @ ", time( ) )
 	
 	for id = 1, 5000 do
 		ScanBase( id )
@@ -275,7 +277,7 @@ local function ScanInit( )
 		collection.isInit = true
 	end
 	
-	--ArkInventory.Output( "Currency Init: End Scan @ ", time( ), " [", collection.numTotal, "]" )
+	ArkInventory.OutputDebug( "CURRENCY: Init - End Scan @ ", time( ), " total = [", collection.numTotal, "]" )
 	
 end
 
@@ -286,7 +288,7 @@ local function Scan_Threaded( thread_id )
 	local numOwned = 0
 	local YieldCount = 0
 	
-	--ArkInventory.Output( "Currency: Start Scan @ ", time( ) )
+	ArkInventory.OutputDebug( "CURRENCY: Start Scan @ ", time( ) )
 	
 	if not collection.isInit then
 		ScanInit( )
@@ -310,13 +312,13 @@ local function Scan_Threaded( thread_id )
 		YieldCount = YieldCount + 1
 		
 		if TokenFrame:IsVisible( ) then
-			--ArkInventory.Output( "ABORTED (CURRENCY FRAME WAS OPENED)" )
+			ArkInventory.OutputDebug( "CURRENCY: ABORTED (FRAME WAS OPENED)" )
 			--FilterActionRestore( )
 			--return
 		end
 		
 		local info = ArkInventory.CrossClient.GetCurrencyListInfo( index )
-		--ArkInventory.Output2( { index, " / ", info } )
+		--ArkInventory.OutputDebug( "CURRENCY: ", index, " = ", info )
 		
 		local isChild = false
 		
@@ -325,7 +327,7 @@ local function Scan_Threaded( thread_id )
 			-- cater for list headers like other and inactive that dont have a faction id assigned to them
 			fakeID = fakeID - 1
 			CurrencyID = fakeID
-			--ArkInventory.Output2( "used a fake id: ", CurrencyID, " / ", index, " / ", info.name  )
+			--ArkInventory.OutputDebug( "CURRENCY: used a fake id: ", CurrencyID, " / ", index, " / ", info.name  )
 		end
 		
 		if not list[index] then
@@ -351,7 +353,7 @@ local function Scan_Threaded( thread_id )
 			else
 				
 				if info.name == ArkInventory.Localise["UNUSED"] then
-					--ArkInventory.Output( "unused currency header at ", index, " = ", info )
+					--ArkInventory.OutputDebug( "CURRENCY: unused header at ", index, " = ", info )
 					active = false
 				end
 				
@@ -433,7 +435,7 @@ local function Scan_Threaded( thread_id )
 	
 	collection.numOwned = numOwned
 	
-	--ArkInventory.Output( "Currency: End Scan @ ", time( ), " [", collection.numOwned, "] [", collection.numTotal, "] [", update, "]" )
+	ArkInventory.OutputDebug( "CURRENCY: End Scan @ ", time( ), " [", collection.numOwned, "] [", collection.numTotal, "] [", update, "]" )
 	
 	if not collection.isReady then
 		collection.isReady = true

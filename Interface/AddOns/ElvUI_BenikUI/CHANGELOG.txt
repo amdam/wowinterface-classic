@@ -1,3 +1,25 @@
+v2.03 - Oct 26, 2022
+Fixed Profession Dashboard error
+
+v2.02 - Oct 26, 2022
+The db had to be updated. This may result of some settings reset
+Added RXPGuides skin. User request
+Enabled Tokens for WotLK
+Fixed Stance bar shadows
+
+v2.01 - Oct 2, 2022
+Applied ElvUI changes that were not released yet
+
+v2.00 - Oct 2, 2022
+AiO version for Wrath and Classic
+Fixed InfoPanel color feature
+Disable Actionbar step during install, when ElvUI Actionbars are disabled
+Define game version
+Fixed double shadow on castbar
+Print the correct link
+Fixed UFs
+Fixed the dropmenu table
+
 v1.16 - Sep 12, 2022
 Update raid movers in installer
 Move TopCenterWidget below LocPlus - credit Tsxy

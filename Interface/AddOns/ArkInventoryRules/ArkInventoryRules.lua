@@ -2,8 +2,8 @@
 
 License: All Rights Reserved, (c) 2009-2018
 
-$Revision: 2948 $
-$Date: 2021-11-14 23:51:47 +1100 (Sun, 14 Nov 2021) $
+$Revision: 2996 $
+$Date: 2022-10-27 00:36:21 +1100 (Thu, 27 Oct 2022) $
 
 ]]--
 
@@ -27,6 +27,8 @@ function ArkInventoryRules.ItemCacheClear( )
 end
 
 function ArkInventoryRules.OnInitialize( )
+	
+	if ArkInventory.TOCVersionFail( true ) then return end
 	
 	ArkInventoryRules.Tooltip = ArkInventory.TooltipScanInit( "ARKINV_RuleTooltip" )
 	
@@ -96,6 +98,8 @@ function ArkInventoryRules.OnInitialize( )
 end
 
 function ArkInventoryRules.OnEnable( )
+	
+	if ArkInventory.TOCVersionFail( true ) then return end
 	
 	-- update all rules, set non damaged and format correctly, first use of each rule will validate them
 	--LEGION TODO
@@ -444,8 +448,10 @@ function ArkInventoryRules.System.boolean_equip( ... )
 		return false
 	end
 	
+	
 	local e = string.trim( ArkInventoryRules.Object.info.equiploc )
-	if e == "" or e == "INVTYPE_BAG" then return false end
+	if e == "" or ArkInventoryRules.Object.info.itemtypeid == ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT then return false end
+	
 	
 	local ge = string.trim( _G[e] or e )
 	if ge == "" then return false end
@@ -581,7 +587,7 @@ function ArkInventoryRules.System.boolean_expansion( ... )
 	
 	if ac == 0 then
 		
-		if ArkInventory.Const.BLIZZARD.GLOBAL.EXPANSION.CURRENT == ArkInventoryRules.Object.info.expansion then
+		if ArkInventory.Const.ENUM.EXPANSION.CURRENT == ArkInventoryRules.Object.info.expansion then
 			return true
 		end
 		
@@ -798,7 +804,7 @@ function ArkInventoryRules.System.boolean_itemfamily( ... )
 			
 			error( string.format( ArkInventory.Localise["RULE_FAILED_ARGUMENT_IS_NOT"], fn, ax, ArkInventory.Localise["NUMBER"] ), 0 )
 			
-		elseif ArkInventoryRules.Object.info.equiploc ~= "INVTYPE_BAG" then
+		elseif ArkInventoryRules.Object.info.itemtypeid ~= ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT then
 			
 			local it = GetItemFamily( ArkInventoryRules.Object.h ) or 0
 			
@@ -895,7 +901,7 @@ function ArkInventoryRules.System.boolean_outfit( ... )
 	end
 	
 	local e = string.trim( ArkInventoryRules.Object.info.equiploc )
-	if e == "" or e == "INVTYPE_BAG" then return false end
+	if e == "" or ArkInventoryRules.Object.info.itemtypeid == ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT then return false end
 	
 	local fn = "outfit"
 	
@@ -915,27 +921,33 @@ function ArkInventoryRules.System.boolean_outfit( ... )
 		
 	end	
 	
-	if IsAddOnLoaded( "Outfitter" ) and Outfitter:IsInitialized( ) then
-		return ArkInventoryRules.System.boolean_outfit_outfitter( ... )
+	local pass = false
+	
+	if not pass then
+		pass = ArkInventoryRules.System.boolean_outfit_outfitter( ... )
 	end
 	
-	if IsAddOnLoaded( "ItemRack" ) then
-		return ArkInventoryRules.System.boolean_outfit_itemrack( ... )
+	if not pass then
+		pass = ArkInventoryRules.System.boolean_outfit_itemrack( ... )
 	end
 	
-	if IsAddOnLoaded( "GearQuipper" ) or IsAddOnLoaded( "GearQuipper-TBC" ) then
-		return ArkInventoryRules.System.boolean_outfit_gearquipper( ... )
+	if not pass then
+		pass = ArkInventoryRules.System.boolean_outfit_gearquipper( ... )
 	end
 	
-	if C_EquipmentSet and C_EquipmentSet.CanUseEquipmentSets( ) then
-		return ArkInventoryRules.System.boolean_outfit_blizzard( ... )
+	if not pass then
+		pass = ArkInventoryRules.System.boolean_outfit_blizzard( ... )
 	end
 	
-	return false
+	return pass
 	
 end
 
 function ArkInventoryRules.System.boolean_outfit_outfitter( ... )
+	
+	if not ( IsAddOnLoaded( "Outfitter" ) and Outfitter:IsInitialized( ) ) then
+		return
+	end
 	
 	local blizzard_id = ArkInventory.InternalIdToBlizzardBagId( ArkInventoryRules.Object.loc_id, ArkInventoryRules.Object.bag_id )
 	local ItemInfo = Outfitter:GetBagItemInfo( blizzard_id, ArkInventoryRules.Object.slot_id )
@@ -988,6 +1000,10 @@ function ArkInventoryRules.System.boolean_outfit_itemrack( ... )
 	
 	-- item rack 3.66
 	
+	if not ( IsAddOnLoaded( "ItemRack" ) ) then
+		return
+	end
+	
 	local outfits = { }
 	local osd
 	
@@ -1036,12 +1052,16 @@ function ArkInventoryRules.System.boolean_outfit_itemrack( ... )
 	end
 	
 	return false
-
+	
 end
 
 function ArkInventoryRules.System.boolean_outfit_gearquipper( ... )
 	
 	-- gearquipper - Classic 41 / TBC 7
+	
+	if not ( IsAddOnLoaded( "GearQuipper" ) or IsAddOnLoaded( "GearQuipper-TBC" ) ) then
+		return
+	end
 	
 	local outfits = { }
 	local osd
@@ -1104,6 +1124,10 @@ function ArkInventoryRules.System.boolean_outfit_blizzard( ... )
 	
 	-- blizzard equipment manager
 	
+	if not ( C_EquipmentSet and C_EquipmentSet.CanUseEquipmentSets and C_EquipmentSet.CanUseEquipmentSets( ) ) then
+		return
+	end
+	
 	local equipsets = C_EquipmentSet.GetNumEquipmentSets( )
 	if equipsets == 0 then
 		return false
@@ -1114,9 +1138,8 @@ function ArkInventoryRules.System.boolean_outfit_blizzard( ... )
 	
 	-- get a list of outfits the item is in
 	for setnum, setid in pairs( setids ) do
-		
 		local setname = C_EquipmentSet.GetEquipmentSetInfo( setid )
-		--ArkInventory.Output( setid, " = [", setname, "] [", type( setname ), "]" )
+		--ArkInventory.Output( setnum, ": ", setid, " = [", setname, "] [", type( setname ), "]" )
 		setname = string.trim( tostring( setname or "" ) )
 		
 		local items = C_EquipmentSet.GetItemLocations( setid )
@@ -1133,7 +1156,11 @@ function ArkInventoryRules.System.boolean_outfit_blizzard( ... )
 				slot_id = nil
 				id = nil
 				
-				player, bank, bags, void, slot, bag, voidtab, voidslot = EquipmentManager_UnpackLocation( location )
+				if ArkInventory.Global.Location[ArkInventory.Const.Location.Void].proj then
+					player, bank, bags, void, slot, bag, voidtab, voidslot = EquipmentManager_UnpackLocation( location )
+				else
+					player, bank, bags, slot, bag = EquipmentManager_UnpackLocation( location )
+				end
 				
 				--ArkInventory.Output( setname, ":", k, " -> [", player, ", ", bank, ", ", bags, ", ", void, "] [", bag, ".", slot, "] [", voidtab, ".", voidslot, "] = ", location )
 				
@@ -1423,9 +1450,101 @@ function ArkInventoryRules.System.boolean_usable( )
 	end
 	
 	ArkInventory.TooltipSetHyperlink( ArkInventoryRules.Tooltip, ArkInventoryRules.Object.h )
-	
 	return ArkInventory.TooltipCanUse( ArkInventoryRules.Tooltip )
 	
+end
+
+function ArkInventoryRules.System.internal_unwearable( wearable )
+	
+	if not ArkInventoryRules.Object.h then
+		return false
+	end
+	
+	-- can it be equipped?
+	if not ArkInventoryRules.System.boolean_equip( ) then
+		return false
+	end
+	
+	-- is there any red text making it unwearable?
+	if not ArkInventoryRules.System.boolean_usable( ) then
+		if wearable then
+			--ArkInventory.Output( "wearable fail 1: ", ArkInventoryRules.Object.h )
+			return false
+		else
+			--ArkInventory.Output( "unwearable pass 1: ", ArkInventoryRules.Object.h )
+			return true
+		end
+	end
+	
+	
+	-- everything past here should be wearable
+	
+	-- anything that isnt armour is wearable
+	if ArkInventoryRules.Object.info.itemtypeid ~= ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.PARENT then
+		if wearable then
+			--ArkInventory.Output( "wearable pass 1: ", ArkInventoryRules.Object.h )
+			return true
+		else
+			--ArkInventory.Output( "unwearable fail 0: ", ArkInventoryRules.Object.h )
+			return false
+		end
+	end
+	
+	-- cloaks are cloth, but everyone can wear them
+	if ArkInventoryRules.Object.info.equiploc == "INVTYPE_CLOAK" then
+		if wearble then
+			return true
+		else
+			return false
+		end
+	end
+	
+	
+	-- class based armor subtype restrictions
+	local class = ArkInventoryRules.Object.playerinfo.class
+	if class == HUNTER and ArkInventoryRules.Object.playerinfo.level < 40 then
+		class = LOWLEVELHUNTER
+	end
+	
+	
+	-- can this class wear this type of armor
+	if ( not ArkInventory.Const.ClassArmor[ArkInventoryRules.Object.info.itemsubtypeid] ) or ( ArkInventory.Const.ClassArmor[ArkInventoryRules.Object.info.itemsubtypeid] and ArkInventory.Const.ClassArmor[ArkInventoryRules.Object.info.itemsubtypeid][class] ) then
+		if wearable then
+			--ArkInventory.Output( "wearable pass 2: ", ArkInventoryRules.Object.h )
+			return true
+		else
+			--ArkInventory.Output( "unwearable fail 1: ", ArkInventoryRules.Object.h )
+			return false
+		end
+	end
+	
+	if ( ArkInventory.Const.ClassArmor[ArkInventoryRules.Object.info.itemsubtypeid] and not ArkInventory.Const.ClassArmor[ArkInventoryRules.Object.info.itemsubtypeid][class] ) then
+		if wearable then
+			--ArkInventory.Output( "wearable fail 3: ", ArkInventoryRules.Object.h )
+			return false
+		else
+			--ArkInventory.Output( "unwearable pass 2: ", ArkInventoryRules.Object.h )
+			return true
+		end
+	end
+	
+	
+	if wearable then
+		--ArkInventory.Output( "wearable fail final: ", ArkInventoryRules.Object.h )
+	else
+		--ArkInventory.Output( "unwearable fail final: ", ArkInventoryRules.Object.h, " / ", ArkInventory.Const.ClassArmor[ArkInventoryRules.Object.info.itemsubtypeid] )
+	end
+	
+	return false
+	
+end
+
+function ArkInventoryRules.System.boolean_unwearable( )
+	return ArkInventoryRules.System.internal_unwearable( )
+end
+
+function ArkInventoryRules.System.boolean_wearable( )
+	return ArkInventoryRules.System.internal_unwearable( true )
 end
 
 function ArkInventoryRules.System.boolean_count( ... )
@@ -1655,7 +1774,7 @@ function ArkInventoryRules.System.boolean_itemstat( ... )
 	end
 	
 	local e = string.trim( ArkInventoryRules.Object.info.equiploc )
-	if e == "" or e == "INVTYPE_BAG" then return false end
+	if e == "" or ArkInventoryRules.Object.info.itemtypeid == ArkInventory.Const.ENUM.ITEMCLASS.CONTAINER.PARENT then return false end
 	
 	local fn = "itemstat"
 	
@@ -2162,6 +2281,10 @@ ArkInventoryRules.Environment = {
 	use = ArkInventoryRules.System.boolean_usable,
 	useable = ArkInventoryRules.System.boolean_usable,
 	
+	wearable = ArkInventoryRules.System.boolean_wearable,
+	
+	unwearable = ArkInventoryRules.System.boolean_unwearable,
+	
 	count = ArkInventoryRules.System.boolean_count,
 	
 	stacks = ArkInventoryRules.System.boolean_stacks,
@@ -2198,6 +2321,8 @@ ArkInventoryRules.Environment = {
 }
 
 function ArkInventoryRules.Register( a, n, f, o ) -- addon, rule name, function, overwrite
+	
+	if ArkInventory.TOCVersionFail( true ) then return end
 	
 	local n = string.trim( string.lower( tostring( n ) ) )
 	
@@ -2400,14 +2525,14 @@ function ArkInventoryRules.Frame_Rules_Table_Row_OnClick( frame )
 
 	local f = frame:GetName( )
 	
-	-- ArkInventory.Print( "RuleTableClick( " .. f .. " )" )
+	-- ArkInventory.OutputDebug( "RuleTableClick( ", f, " )" )
 	local parent = _G[f]:GetParent( ):GetName( )
 	
 	local cs = _G[parent .. "SelectedRow"]:GetText( )
 	local ns = tostring( _G[f]:GetID( ) )
 
 	if ns == "0" then
-		ArkInventory.Output( "OOPS: widget [", f, "] has no ID allocated" )
+		ArkInventory.Output( "code failure: widget [", f, "] has no ID allocated" )
 		return false
 	end
 	
@@ -2473,7 +2598,7 @@ function ArkInventoryRules.Frame_Rules_Table_Refresh( frame )
 	ArkInventoryRules.Frame_Rules_Table_Reset( f )
 
 	local filter = _G[f .. "SearchFilter"]:GetText( )
-	--ArkInventory.Print( "filter = [" .. filter .. "]" )
+	--ArkInventory.OutputDebug( "filter = [", filter, "]" )
 
 	local tt = { }
 	local tc = 0

@@ -12,7 +12,7 @@ local QuestieCorrections = QuestieLoader:ImportModule("QuestieCorrections")
 local l10n = QuestieLoader:ImportModule("l10n")
 
 
-QuestieCorrections.reversedKillCreditQuestIDs = {
+QuestieCorrections.killCreditObjectiveFirst = {
     [10503] = true, -- The Bladespire Threat
 }
 
@@ -78,6 +78,12 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.requiredLevel] = 15,
         },
         [748] = {
+            [questKeys.requiredRaces] = raceIDs.TAUREN,
+        },
+        [756] = {
+            [questKeys.requiredRaces] = raceIDs.TAUREN,
+        },
+        [759] = {
             [questKeys.requiredRaces] = raceIDs.TAUREN,
         },
         [870] = {
@@ -199,7 +205,52 @@ function QuestieTBCQuestFixes:Load()
         [3001] = {
             [questKeys.requiredRaces] = raceIDs.ORC + raceIDs.UNDEAD + raceIDs.BLOOD_ELF,
         },
+        [3088] = {
+            [questKeys.requiredRaces] = raceIDs.ORC,
+        },
+        [3090] = {
+            [questKeys.requiredRaces] = raceIDs.ORC,
+        },
+        [3091] = {
+            [questKeys.requiredRaces] = raceIDs.TAUREN,
+        },
+        [3092] = {
+            [questKeys.requiredRaces] = raceIDs.TAUREN,
+        },
+        [3093] = {
+            [questKeys.requiredRaces] = raceIDs.TAUREN,
+        },
+        [3094] = {
+            [questKeys.requiredRaces] = raceIDs.TAUREN,
+        },
+        [3095] = {
+            [questKeys.requiredRaces] = raceIDs.UNDEAD,
+        },
+        [3096] = {
+            [questKeys.requiredRaces] = raceIDs.UNDEAD,
+        },
+        [3097] = {
+            [questKeys.requiredRaces] = raceIDs.UNDEAD,
+        },
+        [3098] = {
+            [questKeys.requiredRaces] = raceIDs.UNDEAD,
+        },
+        [3099] = {
+            [questKeys.requiredRaces] = raceIDs.UNDEAD,
+        },
+        [3116] = {
+            [questKeys.requiredRaces] = raceIDs.NIGHT_ELF,
+        },
         [3117] = {
+            [questKeys.requiredRaces] = raceIDs.NIGHT_ELF,
+        },
+        [3118] = {
+            [questKeys.requiredRaces] = raceIDs.NIGHT_ELF,
+        },
+        [3119] = {
+            [questKeys.requiredRaces] = raceIDs.NIGHT_ELF,
+        },
+        [3120] = {
             [questKeys.requiredRaces] = raceIDs.NIGHT_ELF,
         },
         [3505] = {
@@ -246,6 +297,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [4842] = {
             [questKeys.triggerEnd] = {"Discover Darkwhisper Gorge", {[zoneIDs.WINTERSPRING]={{60.1,73.44}}}},
+        },
+        [4983] = {
+            [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
         },
         [5168] = {
             [questKeys.preQuestSingle] = {5210},
@@ -451,6 +505,9 @@ function QuestieTBCQuestFixes:Load()
         [8482] = {
             [questKeys.startedBy] = {{15968},nil,{20765}},
         },
+        [8484] = {
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+        },
         [8487] = {
             [questKeys.preQuestSingle] = {},
         },
@@ -475,12 +532,6 @@ function QuestieTBCQuestFixes:Load()
         },
         [8574] = {
             [questKeys.specialFlags] = 1,
-        },
-        [8894] = {
-            [questKeys.preQuestSingle] = {},
-        },
-        [8484] = {
-            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
         },
         [8619] = {
             [questKeys.questLevel] = -1,
@@ -665,6 +716,9 @@ function QuestieTBCQuestFixes:Load()
         [8883] = {
             [questKeys.questLevel] = 70,
         },
+        [8894] = {
+            [questKeys.preQuestSingle] = {},
+        },
         [9130] = {
             [questKeys.requiredMinRep] = {},
         },
@@ -774,6 +828,9 @@ function QuestieTBCQuestFixes:Load()
         },
         [9421] = {
             [questKeys.preQuestSingle] = {9280,9369},
+        },
+        [9425] = {
+            [questKeys.requiredRaces] = raceIDs.BLOOD_ELF,
         },
         [9428] = {
             [questKeys.requiredRaces] = raceIDs.BLOOD_ELF,
@@ -1100,6 +1157,7 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.requiredSourceItems] = {25509},
         },
         [9927] = {
+            [questKeys.objectives] = {nil,nil,nil,nil,{{{17146,17147,17148},17147,"Warmaul Ogre Banner Planted"}}},
             [questKeys.preQuestSingle] = {10107,10108},
         },
         [9928] = {
@@ -1920,7 +1978,7 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.extraObjectives] = {{{[zoneIDs.TEROKKAR_FOREST]={{33.2,51.8}}}, ICON_TYPE_EVENT, l10n("Help Akuno find his way to the Refugee Caravan in Terokkar Forest.")}},
         },
         [10896] = {
-            [questKeys.extraObjectives] = {{nil, ICON_TYPE_SLAY, l10n("Kill Rotting Forest-Ragers and Infested Root-Walkers to spawn Wood Mited"), 0, {{"monster", 22307}, {"monster", 22095}}}},
+            [questKeys.extraObjectives] = {{nil, ICON_TYPE_SLAY, l10n("Kill Rotting Forest-Ragers and Infested Root-Walkers to spawn Wood Mites"), 0, {{"monster", 22307}, {"monster", 22095}}}},
         },
         [10897] = {
             [questKeys.preQuestSingle] = {},
@@ -2337,7 +2395,12 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.triggerEnd] = {"Put Out the Fires", {[zoneIDs.DUN_MOROGH]={{53.1,51.4}},[zoneIDs.ELWYNN_FOREST]={{42,66.5}},[zoneIDs.AZUREMYST_ISLE]={{49.3,51.5}}}},
         },
         [11142] = {
-            [questKeys.triggerEnd] = {"Survey Alcaz Island", {[zoneIDs.DUSTWALLOW_MARSH]={{69.96,19.55},{67.36,50.87}}}},
+            [questKeys.objectives] = {nil,{{500007},{500007}}},
+            [questKeys.triggerEnd] = {"Survey Alcaz Island", {[zoneIDs.DUSTWALLOW_MARSH]={{69.96,19.55}}}},
+            [questKeys.extraObjectives] = {
+                {{[zoneIDs.DUSTWALLOW_MARSH]={{69.96,19.55}}}, ICON_TYPE_EVENT, l10n("Survey Alcaz Island"),},
+                {nil, ICON_TYPE_TALK, l10n("Speak to Cassa Crimsonwing to fly on a gryphon"), 0, {{"monster", 23704}}},
+            },
         },
         [11146] = {
             [questKeys.objectives] = {{{4351,"Raptors Captured"}},nil,nil,nil},
@@ -3382,7 +3445,7 @@ function QuestieTBCQuestFixes:Load()
         [12155] = {
             [questKeys.name] = "Smash the Pumpkin",
             [questKeys.startedBy] = {nil,{186887},nil,},
-            [questKeys.finishedBy] = {{24519,},nil,},
+            [questKeys.finishedBy] = {{23973,},nil,},
             [questKeys.requiredLevel] = 1,
             [questKeys.questLevel] = -1,
             [questKeys.requiredRaces] = raceIDs.ALL_HORDE,
@@ -4135,12 +4198,13 @@ function QuestieTBCQuestFixes:Load()
             [questKeys.sourceItemId] = 37737,
             [questKeys.zoneOrSort] = -370,
         },
-        [12513] = {
+        [12513] = { --* tbc? Weird one... https://www.wowhead.com/wotlk/quest=12513/nice-hat
             [questKeys.exclusiveTo] = {12515},
             [questKeys.finishedBy] = {{28126},nil},
         },
-        [12515] = {
+        [12515] = {  --* wotlk? looks more correct https://www.wowhead.com/wotlk/quest=12515/nice-hat
             [questKeys.exclusiveTo] = {12513},
+            [questKeys.finishedBy] = {{28126},nil},
         },
 
         -- Below are quests that were not originally in TBC or in a different form

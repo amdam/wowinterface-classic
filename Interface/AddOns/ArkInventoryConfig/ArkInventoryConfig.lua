@@ -2,11 +2,13 @@
 
 License: All Rights Reserved, (c) 2006-2018
 
-$Revision: 2962 $
-$Date: 2021-11-24 19:28:09 +1100 (Wed, 24 Nov 2021) $
+$Revision: 2995 $
+$Date: 2022-10-27 00:36:13 +1100 (Thu, 27 Oct 2022) $
 
 ]]--
 
+
+if ArkInventory.TOCVersionFail( true ) then return end
 
 local _G = _G
 local select = _G.select
@@ -193,49 +195,49 @@ local function helperColourSet( v, r, g, b, a )
 end
 
 local anchorpoints = {
-	[ArkInventory.Const.Anchor.Default] = ArkInventory.Localise["DEFAULT"],
-	[ArkInventory.Const.Anchor.BottomRight] = ArkInventory.Localise["BOTTOMRIGHT"],
-	[ArkInventory.Const.Anchor.BottomLeft] = ArkInventory.Localise["BOTTOMLEFT"],
-	[ArkInventory.Const.Anchor.TopLeft] = ArkInventory.Localise["TOPLEFT"],
-	[ArkInventory.Const.Anchor.TopRight] = ArkInventory.Localise["TOPRIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.DEFAULT] = ArkInventory.Localise["DEFAULT"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOMRIGHT] = ArkInventory.Localise["BOTTOMRIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOMLEFT] = ArkInventory.Localise["BOTTOMLEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOPLEFT] = ArkInventory.Localise["TOPLEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOPRIGHT] = ArkInventory.Localise["TOPRIGHT"],
 }
 
 local anchorpoints2 = {
-	[ArkInventory.Const.Anchor.Default] = ArkInventory.Localise["DEFAULT"],
-	[ArkInventory.Const.Anchor.BottomRight] = ArkInventory.Localise["BOTTOMRIGHT"],
-	[ArkInventory.Const.Anchor.Bottom] = ArkInventory.Localise["BOTTOM"],
-	[ArkInventory.Const.Anchor.BottomLeft] = ArkInventory.Localise["BOTTOMLEFT"],
-	[ArkInventory.Const.Anchor.Left] = ArkInventory.Localise["LEFT"],
-	[ArkInventory.Const.Anchor.TopLeft] = ArkInventory.Localise["TOPLEFT"],
-	[ArkInventory.Const.Anchor.Top] = ArkInventory.Localise["TOP"],
-	[ArkInventory.Const.Anchor.TopRight] = ArkInventory.Localise["TOPRIGHT"],
-	[ArkInventory.Const.Anchor.Right] = ArkInventory.Localise["RIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.DEFAULT] = ArkInventory.Localise["DEFAULT"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOMRIGHT] = ArkInventory.Localise["BOTTOMRIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOM] = ArkInventory.Localise["BOTTOM"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOMLEFT] = ArkInventory.Localise["BOTTOMLEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.LEFT] = ArkInventory.Localise["LEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOPLEFT] = ArkInventory.Localise["TOPLEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOP] = ArkInventory.Localise["TOP"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOPRIGHT] = ArkInventory.Localise["TOPRIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.RIGHT] = ArkInventory.Localise["RIGHT"],
 }
 
 local anchorpoints3 = {
-	[ArkInventory.Const.Anchor.Default] = ArkInventory.Localise["DEFAULT"],
-	[ArkInventory.Const.Anchor.Left] = ArkInventory.Localise["LEFT"],
-	[ArkInventory.Const.Anchor.Right] = ArkInventory.Localise["RIGHT"],
-	[ArkInventory.Const.Anchor.Center] = ArkInventory.Localise["CENTER"],
+	[ArkInventory.Const.ENUM.ANCHOR.DEFAULT] = ArkInventory.Localise["DEFAULT"],
+	[ArkInventory.Const.ENUM.ANCHOR.LEFT] = ArkInventory.Localise["LEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.RIGHT] = ArkInventory.Localise["RIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.CENTER] = ArkInventory.Localise["CENTER"],
 }
 
 local anchorpoints4 = {
-	[ArkInventory.Const.Anchor.Default] = ArkInventory.Localise["AUTOMATIC"],
-	[ArkInventory.Const.Anchor.Top] = ArkInventory.Localise["TOP"],
-	[ArkInventory.Const.Anchor.Bottom] = ArkInventory.Localise["BOTTOM"],
+	[ArkInventory.Const.ENUM.ANCHOR.DEFAULT] = ArkInventory.Localise["AUTOMATIC"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOP] = ArkInventory.Localise["TOP"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOM] = ArkInventory.Localise["BOTTOM"],
 }
 
 local anchorpoints5 = {
-	[ArkInventory.Const.Anchor.Default] = ArkInventory.Localise["DEFAULT"],
-	[ArkInventory.Const.Anchor.Center] = ArkInventory.Localise["CENTER"],
-	[ArkInventory.Const.Anchor.Top] = ArkInventory.Localise["TOP"],
-	[ArkInventory.Const.Anchor.TopRight] = ArkInventory.Localise["TOPRIGHT"],
-	[ArkInventory.Const.Anchor.Right] = ArkInventory.Localise["RIGHT"],
-	[ArkInventory.Const.Anchor.BottomRight] = ArkInventory.Localise["BOTTOMRIGHT"],
-	[ArkInventory.Const.Anchor.Bottom] = ArkInventory.Localise["BOTTOM"],
-	[ArkInventory.Const.Anchor.BottomLeft] = ArkInventory.Localise["BOTTOMLEFT"],
-	[ArkInventory.Const.Anchor.Left] = ArkInventory.Localise["LEFT"],
-	[ArkInventory.Const.Anchor.TopLeft] = ArkInventory.Localise["TOPLEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.DEFAULT] = ArkInventory.Localise["DEFAULT"],
+	[ArkInventory.Const.ENUM.ANCHOR.CENTER] = ArkInventory.Localise["CENTER"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOP] = ArkInventory.Localise["TOP"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOPRIGHT] = ArkInventory.Localise["TOPRIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.RIGHT] = ArkInventory.Localise["RIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOMRIGHT] = ArkInventory.Localise["BOTTOMRIGHT"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOM] = ArkInventory.Localise["BOTTOM"],
+	[ArkInventory.Const.ENUM.ANCHOR.BOTTOMLEFT] = ArkInventory.Localise["BOTTOMLEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.LEFT] = ArkInventory.Localise["LEFT"],
+	[ArkInventory.Const.ENUM.ANCHOR.TOPLEFT] = ArkInventory.Localise["TOPLEFT"],
 }
 
 function ArkInventory.ConfigInternal( )
@@ -437,11 +439,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								bank = {
 									order = 100,
-									name = ArkInventory.Localise["CONFIG_AUTO_BANK"],
+									name = ArkInventory.Localise["BANK"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_BANK"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["BANK"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -454,12 +456,12 @@ function ArkInventory.ConfigInternal( )
 								},
 								vault = {
 									order = 200,
-									name = ArkInventory.Localise["CONFIG_AUTO_VAULT"],
+									name = ArkInventory.Localise["VAULT"],
 									disabled = not ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].proj ),
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_VAULT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["VAULT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -472,11 +474,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								mail = {
 									order = 300,
-									name = ArkInventory.Localise["CONFIG_AUTO_MAILBOX"],
+									name = ArkInventory.Localise["MAILBOX"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_MAILBOX"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["MAILBOX"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -489,11 +491,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								merchant = {
 									order = 400,
-									name = ArkInventory.Localise["CONFIG_AUTO_MERCHANT"],
+									name = ArkInventory.Localise["MERCHANT"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_MERCHANT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["MERCHANT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -506,11 +508,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								trade = {
 									order = 500,
-									name = ArkInventory.Localise["CONFIG_AUTO_TRADE"],
+									name = ArkInventory.Localise["TRADE"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_TRADE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["TRADE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -523,11 +525,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								auction = {
 									order = 600,
-									name = ArkInventory.Localise["CONFIG_AUTO_AUCTION"],
+									name = ArkInventory.Localise["AUCTION_HOUSE"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_AUCTION"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["AUCTION_HOUSE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -540,12 +542,12 @@ function ArkInventory.ConfigInternal( )
 								},
 								void = {
 									order = 700,
-									name = ArkInventory.Localise["CONFIG_AUTO_VOID"],
+									name = ArkInventory.Localise["VOID_STORAGE"],
 									disabled = not ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].proj ),
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_VOID"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["VOID_STORAGE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -556,14 +558,32 @@ function ArkInventory.ConfigInternal( )
 										ArkInventory.BlizzardAPIHook( false, true )
 									end,
 								},
+								obliterum = {
+									order = 750,
+									name = ArkInventory.Localise["OBLITERUM_FORGE"],
+									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.LEGION ),
+									type = "select",
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["OBLITERUM_FORGE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									values = function( )
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										return t
+									end,
+									get = function( info )
+										return ArkInventory.db.option.auto.open.obliterum
+									end,
+									set = function( info, v )
+										ArkInventory.db.option.auto.open.obliterum = v
+										ArkInventory.BlizzardAPIHook( false, true )
+									end,
+								},
 								scrap = {
 									order = 800,
 									name = ArkInventory.Localise["CONFIG_AUTO_SCRAP"],
-									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ),
+									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.BFA ),
 									type = "select",
 									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_SCRAP"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -576,12 +596,12 @@ function ArkInventory.ConfigInternal( )
 								},
 								transmog = {
 									order = 900,
-									name = ArkInventory.Localise["CONFIG_AUTO_TRANSMOG"],
-									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ),
+									name = ArkInventory.Localise["TRANSMOGRIFIER"],
+									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.CATACLYSM ),
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["CONFIG_AUTO_TRANSMOG"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_OPEN_DESC"], ArkInventory.Localise["TRANSMOGRIFIER"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -608,11 +628,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								bank = {
 									order = 100,
-									name = ArkInventory.Localise["CONFIG_AUTO_BANK"],
+									name = ArkInventory.Localise["BANK"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_BANK"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["BANK"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -625,12 +645,12 @@ function ArkInventory.ConfigInternal( )
 								},
 								vault = {
 									order = 200,
-									name = ArkInventory.Localise["CONFIG_AUTO_VAULT"],
+									name = ArkInventory.Localise["VAULT"],
 									disabled = not ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Vault].proj ),
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_VAULT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["VAULT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -643,11 +663,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								mail = {
 									order = 300,
-									name = ArkInventory.Localise["CONFIG_AUTO_MAILBOX"],
+									name = ArkInventory.Localise["MAILBOX"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_MAILBOX"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["MAILBOX"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -660,11 +680,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								merchant = {
 									order = 400,
-									name = ArkInventory.Localise["CONFIG_AUTO_MERCHANT"],
+									name = ArkInventory.Localise["MERCHANT"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_MERCHANT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["MERCHANT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -677,11 +697,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								trade = {
 									order = 500,
-									name = ArkInventory.Localise["CONFIG_AUTO_TRADE"],
+									name = ArkInventory.Localise["TRADE"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_TRADE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["TRADE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -694,11 +714,11 @@ function ArkInventory.ConfigInternal( )
 								},
 								auction = {
 									order = 600,
-									name = ArkInventory.Localise["CONFIG_AUTO_AUCTION"],
+									name = ArkInventory.Localise["AUCTION_HOUSE"],
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_AUCTION"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["AUCTION_HOUSE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -711,12 +731,12 @@ function ArkInventory.ConfigInternal( )
 								},
 								void = {
 									order = 700,
-									name = ArkInventory.Localise["CONFIG_AUTO_VOID"],
+									name = ArkInventory.Localise["VOID_STORAGE"],
 									disabled = not ArkInventory.ClientCheck( ArkInventory.Global.Location[ArkInventory.Const.Location.Void].proj ),
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_VOID"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["VOID_STORAGE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -727,14 +747,32 @@ function ArkInventory.ConfigInternal( )
 										ArkInventory.BlizzardAPIHook( false, true )
 									end,
 								},
+								obliterum = {
+									order = 750,
+									name = ArkInventory.Localise["OBLITERUM_FORGE"],
+									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.LEGION ),
+									type = "select",
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["OBLITERUM_FORGE"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									values = function( )
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
+										return t
+									end,
+									get = function( info )
+										return ArkInventory.db.option.auto.close.obliterum
+									end,
+									set = function( info, v )
+										ArkInventory.db.option.auto.close.obliterum = v
+										ArkInventory.BlizzardAPIHook( false, true )
+									end,
+								},
 								scrap = {
 									order = 800,
 									name = ArkInventory.Localise["CONFIG_AUTO_SCRAP"],
-									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ),
+									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.BFA ),
 									type = "select",
 									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_SCRAP"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -747,12 +785,12 @@ function ArkInventory.ConfigInternal( )
 								},
 								transmog = {
 									order = 900,
-									name = ArkInventory.Localise["CONFIG_AUTO_TRANSMOG"],
-									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ),
+									name = ArkInventory.Localise["TRANSMOGRIFIER"],
+									disabled = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.CATACLYSM ),
 									type = "select",
-									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["CONFIG_AUTO_TRANSMOG"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
+									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_DESC"], ArkInventory.Localise["TRANSMOGRIFIER"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"], ArkInventory.Localise["ALWAYS"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"], [2] = ArkInventory.Localise["ALWAYS"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"], [ArkInventory.Const.ENUM.BAGAUTOACTION.ALWAYS] = ArkInventory.Localise["ALWAYS"] }
 										return t
 									end,
 									get = function( info )
@@ -769,7 +807,7 @@ function ArkInventory.ConfigInternal( )
 									type = "select",
 									desc = string.format( ArkInventory.Localise["CONFIG_AUTO_CLOSE_COMBAT_DESC"], ArkInventory.Localise["CONFIG_AUTO_COMBAT"], ArkInventory.Localise["BACKPACK"], ArkInventory.Localise["NO"], ArkInventory.Localise["YES"] ),
 									values = function( )
-										local t = { [0] = ArkInventory.Localise["NO"], [1] = ArkInventory.Localise["YES"] }
+										local t = { [ArkInventory.Const.ENUM.BAGAUTOACTION.NO] = ArkInventory.Localise["NO"], [ArkInventory.Const.ENUM.BAGAUTOACTION.YES] = ArkInventory.Localise["YES"] }
 										return t
 									end,
 									get = function( info )
@@ -1475,7 +1513,7 @@ function ArkInventory.ConfigInternal( )
 							order = 300,
 							name = ArkInventory.Localise["CONFIG_DESIGN_ITEM_BORDER_QUALITY_CUTOFF"],
 							desc = function( info )
-								return string.format( ArkInventory.Localise["CONFIG_JUNK_QUALITY_CUTOFF_DESC"], ( select( 5, ArkInventory.GetItemQualityColor( ArkInventory.db.option.junk.raritycutoff ) ) ), _G[string.format( "ITEM_QUALITY%d_DESC", ArkInventory.db.option.junk.raritycutoff or ArkInventory.Const.BLIZZARD.GLOBAL.ITEMQUALITY.POOR )] )
+								return string.format( ArkInventory.Localise["CONFIG_JUNK_QUALITY_CUTOFF_DESC"], ( select( 5, ArkInventory.GetItemQualityColor( ArkInventory.db.option.junk.raritycutoff ) ) ), _G[string.format( "ITEM_QUALITY%d_DESC", ArkInventory.db.option.junk.raritycutoff or ArkInventory.Const.ENUM.ITEMQUALITY.POOR )] )
 							end,
 							type = "select",
 							disabled = function( info )
@@ -1484,14 +1522,14 @@ function ArkInventory.ConfigInternal( )
 							values = function( )
 								local t = { }
 								for z in pairs( ITEM_QUALITY_COLORS ) do
-									if z >= ArkInventory.Const.BLIZZARD.GLOBAL.ITEMQUALITY.POOR then
+									if z >= ArkInventory.Const.ENUM.ITEMQUALITY.POOR then
 										t[tostring( z )] = string.format( "%s%s", select( 5, ArkInventory.GetItemQualityColor( z ) ), _G[string.format( "ITEM_QUALITY%d_DESC", z )] )
 									end
 								end
 								return t
 							end,
 							get = function( info )
-								return tostring( ArkInventory.db.option.junk.raritycutoff or ArkInventory.Const.BLIZZARD.GLOBAL.ITEMQUALITY.POOR )
+								return tostring( ArkInventory.db.option.junk.raritycutoff or ArkInventory.Const.ENUM.ITEMQUALITY.POOR )
 							end,
 							set = function( info, v )
 								ArkInventory.db.option.junk.raritycutoff = tonumber( v )
@@ -1807,7 +1845,7 @@ function ArkInventory.ConfigInternal( )
 				transmog = {
 					order = 1000,
 					name = ArkInventory.Localise["TRANSMOGRIFY"],
-					disabled = not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ),
+					disabled = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.CLASSIC ), -- FIX ME
 					type = "group",
 					args = {
 						show1 = {
@@ -2740,6 +2778,32 @@ function ArkInventory.ConfigInternal( )
 									end,
 									set = function( info, v )
 										ArkInventory.db.option.bugfix.zerosizebag.alert = v
+									end,
+								},
+							},
+						},
+						interaction = {
+							order = 100,
+							name = "Player Interaction Frame Manager",
+							type = "group",
+							--inline = true,
+							args = {
+								desc = {
+									order = 100,
+									name = "In Dragonflight the default bank and vault frames will open unless I override them.  The problem is that they are now controlled by the PlayerInteractionFrameManager and the way I need to override that will cause taint which means that eventually the frames for several other interactions will end up warning about various blizzard only secure functions being called and want to disable arkiventory.\n\nits a bit of a catch 22 but if required you can disable that override here to stop the alerts but you will get the default frames opening as well\n\nYou will need to reload for this to take effect.",
+									type = "description",
+								},
+								enabled = {
+									order = 200,
+									name = ArkInventory.Localise["ENABLED"],
+									desc = "Override the PlayerInteractionFrameManager",
+									type = "toggle",
+									get = function( info )
+										return ArkInventory.db.option.bugfix.interaction.enable
+									end,
+									set = function( info, v )
+										ArkInventory.db.option.bugfix.interaction.enable = v
+										ArkInventory.OutputWarning( "dont forget to reload" )
 									end,
 								},
 							},
@@ -6305,6 +6369,58 @@ function ArkInventory.ConfigInternalDesignData( path )
 								},
 							},
 						},	
+						scrollbar = {
+							order = 1000,
+							name = ArkInventory.Localise["CONFIG_DESIGN_WINDOW_SCROLLBAR"],
+							type = "group",
+							args = {
+								style = {
+									order = 100,
+									name = ArkInventory.Localise["STYLE"],
+									desc = ArkInventory.Localise["CONFIG_DESIGN_WINDOW_SCROLLBAR_STYLE_DESC"],
+									type = "select",
+									width = "double",
+									dialogControl = "LSM30_Background",
+									values = ArkInventory.Lib.SharedMedia:HashTable( ArkInventory.Lib.SharedMedia.MediaType.BACKGROUND ),
+									get = function( info )
+										local id = ConfigGetNodeArg( info, #info - 4 )
+										local style = ArkInventory.ConfigInternalDesignGet( id )
+										return style.window.scrollbar.style or ArkInventory.Const.Texture.BackgroundDefault
+									end,
+									set = function( info, v )
+										local id = ConfigGetNodeArg( info, #info - 4 )
+										local style = ArkInventory.ConfigInternalDesignGet( id )
+										if style.window.scrollbar.style ~= v then
+											style.window.scrollbar.style = v
+											ArkInventory.Frame_Main_Paint_All( )
+										end
+									end,
+								},
+								colour = {
+									order = 200,
+									name = ArkInventory.Localise["COLOUR"],
+									desc = ArkInventory.Localise["CONFIG_DESIGN_WINDOW_SCROLLBAR_COLOUR_DESC"],
+									type = "color",
+									hasAlpha = true,
+									hidden = function( info )
+										local id = ConfigGetNodeArg( info, #info - 4 )
+										local style = ArkInventory.ConfigInternalDesignGet( id )
+										return style.window.scrollbar.style ~= ArkInventory.Const.Texture.BackgroundDefault
+									end,
+									get = function( info )
+										local id = ConfigGetNodeArg( info, #info - 4 )
+										local style = ArkInventory.ConfigInternalDesignGet( id )
+										return helperColourGet( style.window.scrollbar.colour )
+									end,
+									set = function( info, r, g, b, a )
+										local id = ConfigGetNodeArg( info, #info - 4 )
+										local style = ArkInventory.ConfigInternalDesignGet( id )
+										helperColourSet( style.window.scrollbar.colour, r, g, b, a )
+										ArkInventory.Frame_Main_Paint_All( )
+									end,
+								},
+							},
+						},
 						border = {
 							order = 1000,
 							name = ArkInventory.Localise["BORDER"],
@@ -6494,9 +6610,9 @@ function ArkInventory.ConfigInternalDesignData( path )
 									type = "select",
 									values = function( )
 										local t = {
-											[ArkInventory.Const.SortWhen.Instant] = ArkInventory.Localise["CONFIG_SORTING_WHEN_INSTANT"],
-											[ArkInventory.Const.SortWhen.Open] = ArkInventory.Localise["CONFIG_SORTING_WHEN_OPEN"],
-											[ArkInventory.Const.SortWhen.Manual] = ArkInventory.Localise["CONFIG_SORTING_WHEN_MANUAL"],
+											[ArkInventory.Const.ENUM.SORTWHEN.ALWAYS] = ArkInventory.Localise["CONFIG_SORTING_WHEN_INSTANT"],
+											[ArkInventory.Const.ENUM.SORTWHEN.ONOPEN] = ArkInventory.Localise["CONFIG_SORTING_WHEN_OPEN"],
+											[ArkInventory.Const.ENUM.SORTWHEN.MANUAL] = ArkInventory.Localise["CONFIG_SORTING_WHEN_MANUAL"],
 										}
 										return t
 									end,
@@ -7492,7 +7608,7 @@ function ArkInventory.ConfigInternalDesignData( path )
 									desc = function( info )
 										local id = ConfigGetNodeArg( info, #info - 4 )
 										local style = ArkInventory.ConfigInternalDesignGet( id )
-										return string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_BORDER_QUALITY_CUTOFF_DESC"], ( select( 5, ArkInventory.GetItemQualityColor( style.slot.border.raritycutoff ) ) ), _G[string.format( "ITEM_QUALITY%d_DESC", style.slot.border.raritycutoff or ArkInventory.Const.BLIZZARD.GLOBAL.ITEMQUALITY.POOR )] )
+										return string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_BORDER_QUALITY_CUTOFF_DESC"], ( select( 5, ArkInventory.GetItemQualityColor( style.slot.border.raritycutoff ) ) ), _G[string.format( "ITEM_QUALITY%d_DESC", style.slot.border.raritycutoff or ArkInventory.Const.ENUM.ITEMQUALITY.POOR )] )
 									end,
 									type = "select",
 									disabled = function( info )
@@ -7503,7 +7619,7 @@ function ArkInventory.ConfigInternalDesignData( path )
 									values = function( )
 										local t = { }
 										for z in pairs( ITEM_QUALITY_COLORS ) do
-											if z >= ArkInventory.Const.BLIZZARD.GLOBAL.ITEMQUALITY.POOR then
+											if z >= ArkInventory.Const.ENUM.ITEMQUALITY.POOR then
 												t[tostring( z )] = string.format( "%s%s", select( 5, ArkInventory.GetItemQualityColor( z ) ), _G[string.format( "ITEM_QUALITY%d_DESC", z )] )
 											end
 										end
@@ -7512,7 +7628,7 @@ function ArkInventory.ConfigInternalDesignData( path )
 									get = function( info )
 										local id = ConfigGetNodeArg( info, #info - 4 )
 										local style = ArkInventory.ConfigInternalDesignGet( id )
-										return tostring( style.slot.border.raritycutoff or ArkInventory.Const.BLIZZARD.GLOBAL.ITEMQUALITY.POOR )
+										return tostring( style.slot.border.raritycutoff or ArkInventory.Const.ENUM.ITEMQUALITY.POOR )
 									end,
 									set = function( info, v )
 										local id = ConfigGetNodeArg( info, #info - 4 )
@@ -8406,13 +8522,13 @@ function ArkInventory.ConfigInternalDesignData( path )
 							args = {
 								upgrade = {
 									order = 100,
-									name = ArkInventory.Localise["UPGRADE"],
+									name = ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE"],
 									type = "group",
 									args = {
 										show = {
 											order = 10,
 											name = ArkInventory.Localise["ENABLED"],
-											desc = ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE_SHOW_DESC"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE"] ) ),
 											type = "toggle",
 											get = function( info )
 												local id = ConfigGetNodeArg( info, #info - 5 )
@@ -8429,7 +8545,7 @@ function ArkInventory.ConfigInternalDesignData( path )
 										anchor = {
 											order = 20,
 											name = ArkInventory.Localise["ANCHOR"],
-											desc = string.format( ArkInventory.Localise["ANCHOR_TEXT2"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE"], "" ),
+											desc = string.format( ArkInventory.Localise["ANCHOR_TEXT2"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE"] ), "" ),
 											type = "select",
 											values = anchorpoints5,
 											disabled = function( info )
@@ -8451,6 +8567,35 @@ function ArkInventory.ConfigInternalDesignData( path )
 												end
 											end,
 										},
+										size = {
+											order = 30,
+											name = ArkInventory.Localise["SIZE"],
+											type = "range",
+											min = 8,
+											max = 32,
+											step = 1,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.upgradeicon.show
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.upgradeicon.size
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												local v = math.floor( v )
+												if v < 8 then v = 8 end
+												if v > 32 then v = 32 end
+												if style.slot.upgradeicon.size ~= v then
+													style.slot.upgradeicon.size = v
+													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+												end
+											end,
+										},
 									},
 								},
 								junk = {
@@ -8461,7 +8606,7 @@ function ArkInventory.ConfigInternalDesignData( path )
 										show = {
 											order = 10,
 											name = ArkInventory.Localise["ENABLED"],
-											desc = ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_JUNK_SHOW_DESC"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["JUNK"] ) ),
 											type = "toggle",
 											get = function( info )
 												local id = ConfigGetNodeArg( info, #info - 5 )
@@ -8478,7 +8623,7 @@ function ArkInventory.ConfigInternalDesignData( path )
 										anchor = {
 											order = 20,
 											name = ArkInventory.Localise["ANCHOR"],
-											desc = string.format( ArkInventory.Localise["ANCHOR_TEXT2"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_JUNK"], "" ),
+											desc = string.format( ArkInventory.Localise["ANCHOR_TEXT2"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["JUNK"] ), "" ),
 											type = "select",
 											values = anchorpoints5,
 											disabled = function( info )
@@ -8500,6 +8645,35 @@ function ArkInventory.ConfigInternalDesignData( path )
 												end
 											end,
 										},
+										size = {
+											order = 30,
+											name = ArkInventory.Localise["SIZE"],
+											type = "range",
+											min = 8,
+											max = 32,
+											step = 1,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.junkicon.show
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.junkicon.size
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												local v = math.floor( v )
+												if v < 8 then v = 8 end
+												if v > 32 then v = 32 end
+												if style.slot.junkicon.size ~= v then
+													style.slot.junkicon.size = v
+													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+												end
+											end,
+										},
 									},
 								},
 								quest = {
@@ -8507,25 +8681,8 @@ function ArkInventory.ConfigInternalDesignData( path )
 									name = ArkInventory.Localise["QUEST"],
 									type = "group",
 									args = {
-										bang = {
-											order = 10,
-											name = string.format( "%s (!)", ArkInventory.Localise["ICON"] ),
-											desc = ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_QUEST_BANG_DESC"],
-											type = "toggle",
-											get = function( info )
-												local id = ConfigGetNodeArg( info, #info - 5 )
-												local style = ArkInventory.ConfigInternalDesignGet( id )
-												return style.slot.quest.bang
-											end,
-											set = function( info, v )
-												local id = ConfigGetNodeArg( info, #info - 5 )
-												local style = ArkInventory.ConfigInternalDesignGet( id )
-												style.slot.quest.bang = v
-												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
-											end,
-										},
 										border = {
-											order = 20,
+											order = 10,
 											name = ArkInventory.Localise["BORDER"],
 											desc = ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_QUEST_BORDER_DESC"],
 											type = "toggle",
@@ -8541,18 +8698,90 @@ function ArkInventory.ConfigInternalDesignData( path )
 												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
 											end,
 										},
+										bang = {
+											order = 20,
+											name = string.format( "%s (!)", ArkInventory.Localise["ICON"] ),
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["QUEST"] ), "" ),
+											type = "toggle",
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.quest.bang
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												style.slot.quest.bang = v
+												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+											end,
+										},
+										anchor = {
+											order = 30,
+											name = ArkInventory.Localise["ANCHOR"],
+											desc = string.format( ArkInventory.Localise["ANCHOR_TEXT2"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["QUEST"] ), "" ),
+											type = "select",
+											values = anchorpoints5,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.quest.bang
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.quest.anchor
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												if style.slot.quest.anchor ~= v then
+													style.slot.quest.anchor = v
+													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Restart )
+												end
+											end,
+										},
+										size = {
+											order = 40,
+											name = ArkInventory.Localise["SIZE"],
+											type = "range",
+											min = 8,
+											max = 32,
+											step = 1,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.quest.bang
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.quest.size
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												local v = math.floor( v )
+												if v < 12 then v = 12 end
+												if v > 32 then v = 32 end
+												if style.slot.quest.size ~= v then
+													style.slot.quest.size = v
+													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+												end
+											end,
+										},
 									},
 								},
 								-- overlays
 								azerite = {
-									order = 200,
-									name = ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_AZERITE"],
+									order = 100,
+									name = ArkInventory.Localise["AZERITE"],
 									type = "group",
+									hidden = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.BFA ),
 									args = {
 										show = {
 											order = 10,
 											name = ArkInventory.Localise["ENABLED"],
-											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_DESC"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_AZERITE"] ),
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["AZERITE"] ) ),
 											type = "toggle",
 											get = function( info )
 												local id = ConfigGetNodeArg( info, #info - 5 )
@@ -8568,15 +8797,40 @@ function ArkInventory.ConfigInternalDesignData( path )
 										},
 									},
 								},
-								nzoth = {
-									order = 200,
-									name = ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_NZOTH"],
+								cosmetic = {
+									order = 100,
+									name = ArkInventory.Localise["COSMETIC"],
 									type = "group",
 									args = {
 										show = {
 											order = 10,
 											name = ArkInventory.Localise["ENABLED"],
-											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_DESC"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_NZOTH"] ),
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["COSMETIC"] ) ),
+											type = "toggle",
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.cosmetic.show
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												style.slot.overlay.cosmetic.show = v
+												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+											end,
+										},
+									},
+								},
+								nzoth = {
+									order = 100,
+									name = ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_NZOTH"],
+									type = "group",
+									hidden = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.BFA ),
+									args = {
+										show = {
+											order = 10,
+											name = ArkInventory.Localise["ENABLED"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_NZOTH"] ) ),
 											type = "toggle",
 											get = function( info )
 												local id = ConfigGetNodeArg( info, #info - 5 )
@@ -8613,6 +8867,197 @@ function ArkInventory.ConfigInternalDesignData( path )
 													style.slot.overlay.nzoth.anchor = v
 													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Restart )
 												end
+											end,
+										},
+										size = {
+											order = 30,
+											name = ArkInventory.Localise["SIZE"],
+											type = "range",
+											min = 8,
+											max = 32,
+											step = 1,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.overlay.nzoth.show
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.nzoth.size
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												local v = math.floor( v )
+												if v < 8 then v = 8 end
+												if v > 32 then v = 32 end
+												if style.slot.overlay.nzoth.size ~= v then
+													style.slot.overlay.nzoth.size = v
+													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+												end
+											end,
+										},
+									},
+								},
+								conduit = {
+									order = 100,
+									name = ArkInventory.Localise["CONDUITS"],
+									type = "group",
+									hidden = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.SHADOWLANDS ),
+									args = {
+										show = {
+											order = 10,
+											name = ArkInventory.Localise["ENABLED"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["CONDUITS"] ) ),
+											type = "toggle",
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.conduit.show
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												style.slot.overlay.conduit.show = v
+												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+											end,
+										},
+									},
+								},
+								professionrank = {
+									order = 100,
+									name = ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"],
+									type = "group",
+									hidden = not ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.DRAGONFLIGHT ),
+									args = {
+										show = {
+											order = 10,
+											name = ArkInventory.Localise["ENABLED"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"] ) ),
+											type = "toggle",
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.professionrank.show
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												style.slot.overlay.professionrank.show = v
+												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+											end,
+										},
+										anchor = {
+											order = 20,
+											name = ArkInventory.Localise["ANCHOR"],
+											desc = string.format( ArkInventory.Localise["ANCHOR_TEXT2"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"] ), "" ),
+											type = "select",
+											values = anchorpoints5,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.overlay.professionrank.show
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.professionrank.anchor
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												if style.slot.overlay.professionrank.anchor ~= v then
+													style.slot.overlay.professionrank.anchor = v
+													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Restart )
+												end
+											end,
+										},
+										size = {
+											order = 30,
+											name = ArkInventory.Localise["SIZE"],
+											desc = string.format( ArkInventory.Localise["ANCHOR_TEXT2"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"] ), "" ),
+											type = "range",
+											min = 12,
+											max = 36,
+											step = 1,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.overlay.professionrank.show
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.professionrank.size
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												local v = math.floor( v )
+												if v < 12 then v = 12 end
+												if v > 36 then v = 36 end
+												if style.slot.overlay.professionrank.size ~= v then
+													style.slot.overlay.professionrank.size = v
+													ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+												end
+											end,
+										},
+										number = {
+											order = 40,
+											name = ArkInventory.Localise["NUMBER"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK_NUMBER_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"] ) ),
+											type = "toggle",
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.professionrank.number
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												style.slot.overlay.professionrank.number = v
+												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+											end,
+										},
+										custom = {
+											order = 50,
+											name = ArkInventory.Localise["CUSTOM"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK_CUSTOM_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"] ) ),
+											type = "toggle",
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return style.slot.overlay.professionrank.custom
+											end,
+											set = function( info, v )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												style.slot.overlay.professionrank.custom = v
+												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
+											end,
+										},
+										colour = {
+											order = 60,
+											name = ArkInventory.Localise["COLOUR"],
+											desc = string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK_COLOUR_DESC"], string.format( ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"], ArkInventory.Localise["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"] ) ),
+											type = "color",
+											hasAlpha = false,
+											disabled = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return not style.slot.overlay.professionrank.show or not style.slot.overlay.professionrank.custom
+											end,
+											get = function( info )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												return helperColourGet( style.slot.overlay.professionrank.colour )
+											end,
+											set = function( info, r, g, b )
+												local id = ConfigGetNodeArg( info, #info - 5 )
+												local style = ArkInventory.ConfigInternalDesignGet( id )
+												helperColourSet( style.slot.overlay.professionrank.colour, r, g, b )
+												ArkInventory.Frame_Main_Generate( nil, ArkInventory.Const.Window.Draw.Refresh )
 											end,
 										},
 									},

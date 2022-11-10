@@ -375,6 +375,7 @@ end
 function ArkInventory.ConfigInternalDesignGet( id, default )
 	
 	local id = id
+	local defaulted = nil
 	
 	if not default then
 		assert( id, "code error: id is nil" )
@@ -384,12 +385,12 @@ function ArkInventory.ConfigInternalDesignGet( id, default )
 	local data = ArkInventory.ConfigInternalDesignGet( id )
 	
 	if not data or data.used ~= "Y" then
-		--ArkInventory.OutputWarning( "design ", id, " requested, status=", data.used, ", returning default instead" )
+		defaulted = true
 		id = 9999
 		data = ArkInventory.ConfigInternalDesignGet( id )
 	end
 	
-	return id, data
+	return id, data, defaulted
 	
 end
 
@@ -967,6 +968,7 @@ end
 function ArkInventory.ConfigInternalCategorysetGet( id, default )
 	
 	local id = id
+	local defaulted = nil
 	
 	if not default then
 		assert( id, "code error: id is nil" )
@@ -976,12 +978,13 @@ function ArkInventory.ConfigInternalCategorysetGet( id, default )
 	local data = ArkInventory.ConfigInternalCategorysetGet( id )
 	
 	if not data or data.used ~= "Y" then
-		--ArkInventory.OutputWarning( "design ", id, " requested, status=", data.used, ", returning default instead" )
+		--ArkInventory.OutputWarning( "categoryset ", id, " is either missing or deleted. the default will be used instead" )
+		defaulted = true
 		id = 9999
 		data = ArkInventory.ConfigInternalCategorysetGet( id )
 	end
 	
-	return id, data
+	return id, data, defaulted
 	
 end
 

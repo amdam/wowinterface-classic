@@ -60,7 +60,7 @@ function S:ContainerFrame()
 			local questIcon = _G['ContainerFrame'..i..'Item'..j..'IconQuestTexture']
 			local cooldown = _G['ContainerFrame'..i..'Item'..j..'Cooldown']
 
-			item:SetNormalTexture('')
+			item:SetNormalTexture(E.ClearTexture)
 			item:SetTemplate(nil, true)
 			item:StyleButton()
 
@@ -72,8 +72,7 @@ function S:ContainerFrame()
 			questIcon:SetTexCoord(0, 1, 0, 1)
 			questIcon:SetInside()
 
-			cooldown.CooldownOverride = 'bags'
-			E:RegisterCooldown(cooldown)
+			E:RegisterCooldown(cooldown, 'bags')
 		end
 	end
 
@@ -148,7 +147,7 @@ function S:ContainerFrame()
 		local icon = _G['BankFrameItem'..i..'IconTexture']
 		local cooldown = _G['BankFrameItem'..i..'Cooldown']
 
-		button:SetNormalTexture('')
+		button:SetNormalTexture(E.ClearTexture)
 		button:SetTemplate(nil, true)
 		button:StyleButton()
 		button.IconBorder:StripTextures()
@@ -162,8 +161,7 @@ function S:ContainerFrame()
 		button.IconQuestTexture:SetTexCoord(0, 1, 0, 1)
 		button.IconQuestTexture:SetInside()
 
-		cooldown.CooldownOverride = 'bags'
-		E:RegisterCooldown(cooldown)
+		E:RegisterCooldown(cooldown, 'bags')
 	end
 
 	BankFrame.itemBackdrop = CreateFrame('Frame', 'BankFrameItemBackdrop', BankFrame)
@@ -180,7 +178,7 @@ function S:ContainerFrame()
 		local id = button:GetID()
 
 		if button.isBag then
-			button:SetNormalTexture('')
+			button:SetNormalTexture(E.ClearTexture)
 			button:SetTemplate(nil, true)
 			button:StyleButton()
 

@@ -1,4 +1,10 @@
-﻿# ArkInventory (for Retail, Classic, and Burning Crusade)
+﻿# ArkInventory (for Retail, Classic, and Wrath)
+
+**Dragonflight Warning**
+
+The next set of Alpha builds are being updated for Dragonflight/PrePatch and as such may cause issues in Classic, Wrath, and Shadowlands.  If you notice anything wrong please [check for an existing issue](https://github.com/arkayenro/arkinventory/issues) and create a new issue if required so i can fix it.
+
+---
 
 ArkInventory's display windows are built from "virtual bars", you assign categories to bars so that items in that category are displayed on the specific bars you want. There is no limit to the number of bars you can have inside a window but obviously you only have so much screen real estate before it becomes "too many".
 
@@ -25,44 +31,49 @@ You can also over-ride the default category by creating a rule that matches eith
 - scroll down to ArkInventory
 - bind the keys you want to use
 
-<br>
+---
 
-:bulb: **Wiki:** https://github.com/arkayenro/arkinventory/wiki
+**Need Help?**
 
-:bulb: **FAQ:** https://github.com/arkayenro/arkinventory/wiki/FAQ
+:memo: [Wiki](https://github.com/arkayenro/arkinventory/wiki)
 
-:bulb: **Sorting:** https://github.com/arkayenro/arkinventory/wiki/UserGuide_HowTo_Sorting
+:memo: [Frequently Asked Questions](https://github.com/arkayenro/arkinventory/wiki/FAQ)
 
-:bulb: **Rules:** https://github.com/arkayenro/arkinventory/wiki/Rules
+:memo: [Sorting](https://github.com/arkayenro/arkinventory/wiki/UserGuide_HowTo_Sorting)
 
-<br>
-
-:memo: **If you are having an issue then the first step is to disable all other mods and just test ArkInventory by itself**
-
-:memo: **If the issue is still there then please [check for an existing issue](https://github.com/arkayenro/arkinventory/issues) and lodge a new ticket if required.**
-
-:memo: **If the issue is gone then re-enable your other mods one by one until the issue comes back, then report that to me as well as the other mods author**
+:memo: [Rules](https://github.com/arkayenro/arkinventory/wiki/Rules)
 
 <br>
 
-See ChangeHistory.md and VersionHistory.txt for further details
+:memo: If you are having an issue the first step is to disable all other mods and just test ArkInventory by itself
+
+:memo: If the issue is still there, please [check for an existing issue](https://github.com/arkayenro/arkinventory/issues) and create a new issue if required.
+
+:memo: If the issue is gone, re-enable your other mods one by one until the issue comes back, then note the last mod you enabled in your issue as well as notifying the author of the other mod
 
 <br>
+
+See [ChangeHistory.md](https://github.com/arkayenro/arkinventory/blob/master/ChangeHistory.md) for changes to the latest version.
+See [VersionHistory.md](https://github.com/arkayenro/arkinventory/blob/master/VersionHistory.md) for all previous changes.
+
+---
 
 ### :boom: The NoLib variant
 
-it seems quite a few people are somehow getting the NoLib variant from their download client when they didn't specifically ask for it instead of the full variant and its causing issues as they don't have the required libraries installed separately.  Please ensure you are downloading the full variant.  if you see nolib in the filename then its the wrong variant, unless you are actually installing all of the required libraries separately as well.  If you have to you can manually download the full variant from here.
+it seems quite a few people are somehow getting the NoLib variant from their download client when they didn't specifically ask for it, instead of the full variant, and its causing issues as they don't have the required libraries installed separately.  Please ensure you are downloading the full.  if you see nolib in the filename then its the wrong variant, unless you are actually installing all of the required libraries separately as well.  If you have to you can manually download the full variant from [CurseForge](https://www.curseforge.com/wow/addons/ark-inventory), [WoWInterface](https://www.wowinterface.com/downloads/info6488-ArkInventory.html), or [Wago](https://addons.wago.io/addons/arkinventory).
 
 ### :boom: Junk Sell getting blocked
 
-While auto-destroy remains blocked, From 30960 onwards you can setup a Key Binding to manually sell and destroy your items.  Note that blizzard require one keypress per deletion, so if you have multiple items that need to be deleted you will need to press the Key Binding multiple times.  A message will be output if you have remaining items that can still be deleted.
+While auto-destroy remains blocked, From 30960 onwards you can setup a Key Binding to manually sell and destroy your items.  Note that blizzard require one keypress per item deletion, so if you have multiple items that need to be deleted you will need to press the Key Binding multiple times.  A message will be output if you have remaining items that can still be deleted.
 
-### :warning: Alpha / Beta Versions: Ensure you make a backup copy of your saved variables file
+### :warning: Ensure you have backup copies of your saved variables file
 
-Sometimes you cannot revert back to a previous version without a backup so before installing any alpha/beta version please make sure you have made a backup of your saved variable file
+Sometimes you cannot revert back to a previous version without a backup, especially alpha or beta versions, so before upgrading please make sure you have made a backup of your saved variables file
 
-Your saved variable file is normally located in `...\World of Warcraft\_client_\WTF\Account\yourwowaccountname\SavedVariables\ArkInventory.lua`
+Your saved variables file is normally located at `...\World of Warcraft\_client_\WTF\Account\yourwowaccountname\SavedVariables\ArkInventory.lua`
 
-If you have your download client set to automatically download alpha/beta versions then it is your responsibility to ensure you have adequate backups of your saved variables file - do not complain if you lose your configuration or it gets screwed up because of an alpha/beta version, it is always a possibility so you need to be prepared.
+It is your responsibility to ensure you have adequate backups of your saved variables file.  You dont have to do them frequently, just after you've made major changes to your config is probably fine for most people, but you should get into the habit of making backups because when it does corrupt you wont have to reconfigure everything from scratch.
 
-A simple way to back it up is to just do a copy and paste then rename the new file (using the version number of ArkInventory or the date is a good idea), eg ArkInventory-30900.lua, or ArkInventory-20191228.lua
+If you have your download client set to automatically download alpha/beta versions you should definitely have backups.
+
+A simple way to back up the saved variables file is to just do a copy and paste then rename the new file (using the version number of ArkInventory or the date is a good idea), eg ArkInventory-30900.lua, or ArkInventory-20191228.lua

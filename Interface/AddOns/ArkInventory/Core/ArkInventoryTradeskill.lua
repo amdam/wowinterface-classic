@@ -11,8 +11,10 @@ local C_MountJournal = _G.C_MountJournal
 local loc_id = ArkInventory.Const.Location.Mount
 local PLAYER_MOUNT_LEVEL = 20
 
+
 ArkInventory.Tradeskill = {
 	Const = {
+		Frame = nil,
 		Type = {
 			Enchant = 1,
 			Result = 2,
@@ -20,6 +22,7 @@ ArkInventory.Tradeskill = {
 		},
 	},
 }
+
 
 local collection = {
 	
@@ -301,20 +304,54 @@ function ArkInventory.Tradeskill.isTradeskillObject( h )
 end
 
 
-local function helper_GoodToScan( )
+local function helper_GoodToScan1( )
 	
-	if not TradeSkillFrame:IsVisible( ) then
-		--ArkInventory.Output( "SCAN ABORTED> window is no longer open" )
+	if not ArkInventory:IsEnabled( ) then return end
+	
+	if not ArkInventory.Tradeskill.IsReady( ) then return end
+	
+	local loc_id = ArkInventory.Const.Location.Tradeskill
+	if not ArkInventory.Global.Location[loc_id].proj then
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> tradeskill location is not supported in this expansion" )
+		return
+	end
+	
+	local loc_id = ArkInventory.Const.Location.Tradeskill
+	if not ArkInventory.isLocationMonitored( loc_id ) then
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> tradeskill location not monitored" )
+		return
+	end
+	
+	return true
+	
+end
+
+local function helper_GoodToScan2( )
+	
+	if not helper_GoodToScan1( ) then return end
+	
+	if not C_TradeSkillUI then
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> C_TradeSkillUI does not exist" )
+		return
+	end
+	
+	if not ArkInventory.Tradeskill.Const.Frame then
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> tradeskill frame does not exist" )
+		return
+	end
+	
+	if not ArkInventory.Tradeskill.Const.Frame:IsVisible( ) then
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> ", ArkInventory.Tradeskill.Const.Frame:GetName( ), " window is no longer open" )
 		return
 	end
 	
 	if not C_TradeSkillUI.IsTradeSkillReady( ) then
-		--ArkInventory.Output( "SCAN ABORTED> not ready" )
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> not ready" )
 		return
 	end
 	
 	if C_TradeSkillUI.IsTradeSkillGuild( ) then
-		--ArkInventory.Output( "SCAN ABORTED> guild linked" )
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> guild linked" )
 		return
 	end
 	
@@ -325,34 +362,36 @@ local function helper_GoodToScan( )
 		
 		local osd = ArkInventory.ObjectStringDecode( link )
 		if osd.id ~= codex.player.data.info.guid then
-			--ArkInventory.Output( "SCAN ABORTED> linked from another player: ", osd.id, " (", linkedPlayerName, ")" )
+			ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> linked from another player: ", osd.id, " (", linkedPlayerName, ")" )
 			return
 		else
-			--ArkInventory.Output( "LINKED> but its mine: ", osd.id )
+			--ArkInventory.OutputDebug( "TRADESKILL: LINKED> but its mine: ", osd.id )
 			-- although the number of recipies dont seem to line up???
 			-- posibly due the higher ranked recipes not being included in a linked list
 			-- or it could be something else, when i figure it out i'll do something with it
-			--ArkInventory.Output( "SCAN ABORTED> linked has issues i need to sort out first" )
+			ArkInventory.OutputDebug( "TRADESKILL: SCAN ABORTED> linked has issues i need to sort out first" )
 			return
 		end
 		
 	end
 	
-	local tradeSkillID, skillLineName, skillLineRank, skillLineMaxRank, skillLineModifier, parentSkillLineID, parentSkillLineName =  C_TradeSkillUI.GetTradeSkillLine( )
-	return parentSkillLineID or tradeSkillID
+	
+	local info = ArkInventory.CrossClient.UIGetProfessionInfo( )
+	ArkInventory.OutputDebug( "TRADESKILL: ui profession is ", info.parentProfessionID or info.professionID, " / ", info )
+	return info.parentProfessionID or info.professionID
 	
 end
 
 local function helper_LoadRecipe( skillID, rid )
 	
 	local cache = collection.cache
-	local osd
-	
-	
+	local key, osd
 	
 	--/dump C_TradeSkillUI.GetRecipeInfo( 184493 )
+	--/dump C_TradeSkillUI.GetRecipeInfo( 378302 )
+	
 	local info = C_TradeSkillUI.GetRecipeInfo( rid )
-	if info and info.type == "recipe" then
+	if info and ( info.type == "recipe" or info.createsItem ) and not info.isDummyRecipe then
 		
 		info.link = C_TradeSkillUI.GetRecipeLink( rid )
 		osd = ArkInventory.ObjectStringDecode( info.link )
@@ -398,7 +437,6 @@ local function helper_LoadRecipe( skillID, rid )
 			update = true
 		end
 		
-		
 	end
 	
 	return key, info, update
@@ -409,64 +447,70 @@ local function Scan_UI( )
 	
 	local update = false
 	
-	if not helper_GoodToScan( ) then
-		--ArkInventory.Output( "NOT READY TO SCAN" )
-		return
-	end
+	if not helper_GoodToScan2( ) then return end
 	
 	local codex = ArkInventory.GetPlayerCodex( )
 	local link, linkedPlayerName = C_TradeSkillUI.GetTradeSkillListLink( )
-	local tradeSkillID, skillLineName, skillLineRank, skillLineMaxRank, skillLineModifier, parentSkillLineID, parentSkillLineName =  C_TradeSkillUI.GetTradeSkillLine( )
+	local info = ArkInventory.CrossClient.UIGetProfessionInfo( )
 	
-	local skillID = parentSkillLineID or tradeSkillID
-	local name = parentSkillLineName or skillLineName
-	--ArkInventory.Output( "SCANNING [", skillID, "]=[", name, "]" )
+	local skillID = info.parentProfessionID or info.professionID
+	local name = info.parentProfessionName or info.professionName
+	ArkInventory.OutputDebug( "TRADESKILL: SCANNING TRADESKILL [", skillID, "]=[", name, "]" )
 	
 	local recipeList = C_TradeSkillUI.GetAllRecipeIDs( )
 	
-	local sd = collection.sv.data[skillID]
+	local cache = collection.cache
+	local sv = collection.sv
+	
+	local sd = sv.data[skillID]
 	sd.id = skillID
 	sd.link = link
 	sd.name = name
 	sd.icon = C_TradeSkillUI.GetTradeSkillTexture( skillID )
 	sd.numTotal = #recipeList
 	
-	local cache = collection.cache
-	local sv = collection.sv
 	local known = 0
 	local info, osd, key
 	for _, rid in pairs( recipeList ) do
-		
+		--ArkInventory.OutputDebug( "TRADESKILL: SCANNING RECIPE [", rid, "]" )
 		key, info, update = helper_LoadRecipe( skillID, rid )
 		if info then
 			
-			if info.learned then
-				known = known + 1
-			end
+			if not key then
+				
+				--ArkInventory.Output( "nil key returned for recipe [", rid, "] [", info, "]" )
+				
+			else
+				
+				if info.learned then
+					known = known + 1
+				end
+				
+				sv.enchant[key].s = skillID
+				
+				if sv.enchant[key].r == "0" then
+					-- do not update unless result is empty.  it shouldnt change from blizzards side, and we can clear it if we have to, but this allows us to correct it
+					sv.enchant[key].r = info.resultHB
+				end
+				
+				if ArkInventory.Global.dataexport then
+					sv.enchant[key].cat = cache[key].categoryID
+					sv.enchant[key].name = cache[key].name
+					sv.enchant[key].src = cache[key].sourceType
+				end
+				
+				
+				osd = ArkInventory.ObjectStringDecode( info.resultLink )
+				if osd.h_base ~= key then
+					--collection.result[osd.h_base] = key
+					--ArkInventory.Output( "sv.result[", info.resultHB, "][", key, "] = ", skillID )
+					sv.result[osd.h_base][key] = skillID
+				end
+				
+				if update then
+					helper_CreateXrefKeys( key, info.resultHB )
+				end
 			
-			sv.enchant[key].s = skillID
-			
-			if sv.enchant[key].r == "0" then
-				-- do not update unless result is empty.  it shouldnt change from blizzards side, and we can clear it if we have to, but this allows us to correct it
-				sv.enchant[key].r = info.resultHB
-			end
-			
-			if ArkInventory.Global.dataexport then
-				sv.enchant[key].cat = cache[key].categoryID
-				sv.enchant[key].name = cache[key].name
-				sv.enchant[key].src = cache[key].sourceType
-			end
-			
-			
-			osd = ArkInventory.ObjectStringDecode( info.resultLink )
-			if osd.h_base ~= key then
-				--collection.result[osd.h_base] = key
-				--ArkInventory.Output( "sv.result[", info.resultHB, "][", key, "] = ", skillID )
-				sv.result[osd.h_base][key] = skillID
-			end
-			
-			if update then
-				helper_CreateXrefKeys( key, info.resultHB )
 			end
 			
 		else
@@ -535,22 +579,22 @@ local function Scan_UI( )
 	end
 	
 	
-	--ArkInventory.Output( "SCAN COMPLETE> ", sd.numTotal, " exist, ", sd.numKnown, " known" )
+	ArkInventory.OutputDebug( "TRADESKILL: SCAN COMPLETE> ", sd.numTotal, " exist, ", sd.numKnown, " known" )
 	
 	collection.queue[skillID] = nil
 	
 	if update then
-		--ArkInventory.Output( "SCHEDULE UPDATE" )
+		ArkInventory.OutputDebug( "TRADESKILL: SCHEDULE UPDATE" )
 		ArkInventory:SendMessage( "EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET", "UPDATE" )
 	else
-		--ArkInventory.Output( "IGNORED (NO UPDATES FOUND)" )
+		ArkInventory.OutputDebug( "TRADESKILL: IGNORED (NO UPDATES FOUND)" )
 	end
 	
 end
 
 local function Scan_Threaded( thread_id )
 	
-	--ArkInventory.Output( "SCAN THREAD START" )
+	ArkInventory.OutputDebug( "TRADESKILL: SCAN THREAD START" )
 	
 	if collection.hasSound == nil then
 		collection.hasSound = ArkInventory.CrossClient.GetCVarBool( "Sound_EnableSFX" )
@@ -567,7 +611,7 @@ local function Scan_Threaded( thread_id )
 		
 		-- infinite loop until queue is empty
 		
-		--ArkInventory.Output( "QUEUE: ", collection.queue )
+		ArkInventory.OutputDebug( "TRADESKILL: QUEUE = ", collection.queue )
 		
 		-- get next in queue
 		local skillID
@@ -589,11 +633,11 @@ local function Scan_Threaded( thread_id )
 		
 		--ArkInventory.Output( " " )
 		
-		if TradeSkillFrame and TradeSkillFrame:IsVisible( ) and collection.isOpened then
+		if ArkInventory.Tradeskill.Const.Frame and ArkInventory.Tradeskill.Const.Frame:IsVisible( ) and collection.isOpened then
 			-- i opened it but its not closed
 			-- the thread probably got restarted
 			-- close it and keep going
-			--ArkInventory.Output( "THREAD RESTART? - WINDOW IS OPEN - CLOSING WINDOW" )
+			--ArkInventory.Output( "TRADESKILL: THREAD RESTART? - WINDOW IS OPEN - CLOSING WINDOW" )
 			
 			C_TradeSkillUI.CloseTradeSkill( )
 			ArkInventory.ThreadYield( thread_id )
@@ -601,51 +645,51 @@ local function Scan_Threaded( thread_id )
 		end
 		
 		
-		--ArkInventory.Output( "CHECK WINDOW IS CLOSED" )
+		ArkInventory.OutputDebug( "TRADESKILL: CHECK WINDOW IS CLOSED" )
 		--while not collection.isClosed do
-		while TradeSkillFrame and TradeSkillFrame:IsVisible( ) do
+		while ArkInventory.Tradeskill.Const.Frame and ArkInventory.Tradeskill.Const.Frame:IsVisible( ) do
 			-- if the user has the tradeskill window opened, wait here until it is closed
 			ArkInventory.ThreadYield( thread_id )
 		end
-		--ArkInventory.Output( "WINDOW IS CLOSED" )
+		ArkInventory.OutputDebug( "TRADESKILL: WINDOW IS CLOSED" )
 		
 		
-		--ArkInventory.Output( "OPEN WINDOW [", skillID, "]" )
+		ArkInventory.OutputDebug( "TRADESKILL: OPEN WINDOW [", skillID, "]" )
 		collection.isScanDone = false
 		collection.isOpened = true
 		
-		C_TradeSkillUI.OpenTradeSkill( skillID )
+		C_TradeSkillUI.OpenTradeSkill( skillID ) -- NOTE this is a protected function in dragonflight
 		ArkInventory.ThreadYield( thread_id )
 		
 		
 		-- wait for the event to trigger a scan and get back to us
+		ArkInventory.OutputDebug( "TRADESKILL: WAITING FOR SCAN [", skillID, "]" )
 		while not collection.isScanDone do
-			--ArkInventory.Output( "WAITING FOR SCAN [", skillID, "]" )
 			ArkInventory.ThreadYield( thread_id )
 		end
 		
-		--ArkInventory.Output( "SCAN COMPLETED [", skillID, "]" )
+		ArkInventory.OutputDebug( "TRADESKILL: SCAN COMPLETED [", skillID, "]" )
 		
 		-- have to close the window or archaeology causes issues with the next tradeskill as it wasnt meant to be opened this way
 		
 		
-		--ArkInventory.Output( "CLOSING WINDOW" )
+		ArkInventory.OutputDebug( "TRADESKILL: CLOSING WINDOW" )
 		
 		C_TradeSkillUI.CloseTradeSkill( )
 		ArkInventory.ThreadYield( thread_id )
 		
-		while TradeSkillFrame and TradeSkillFrame:IsVisible( ) do
+		
+		while ArkInventory.Tradeskill.Const.Frame and ArkInventory.Tradeskill.Const.Frame:IsVisible( ) do
 			-- if the user has the tradeskill window opened, wait here until it is closed
 			ArkInventory.ThreadYield( thread_id )
 		end
 		collection.isOpened = false
 		
-		--ArkInventory.Output( "WINDOW IS CLOSED" )
+		ArkInventory.OutputDebug( "TRADESKILL: WINDOW IS CLOSED" )
 		
 	end
 	
-	--ArkInventory.Output( "SCAN THREAD END" )
-	
+	ArkInventory.OutputDebug( "TRADESKILL: SCAN THREAD END" )
 	
 end
 
@@ -653,7 +697,7 @@ local function Scan( )
 	
 	ArkInventory.Tradeskill.ImportCrossRefTable( )
 	
-	--ArkInventory.Output( "SCAN START" )
+	ArkInventory.OutputDebug( "TRADESKILL: SCAN START" )
 	
 	local thread_id = ArkInventory.Global.Thread.Format.Tradeskill
 	local thread_function = function ( )
@@ -675,68 +719,95 @@ end
 
 function ArkInventory.Tradeskill.ScanHeaders( )
 	
-	--ArkInventory.Output( "Tradeskill.ScanHeaders" )
+	ArkInventory.OutputDebug( "TRADESKILL: ScanHeaders" )
 	
 	if not ArkInventory.Global.Mode.Database then
+		
 		-- not ready yet
 		ArkInventory:SendMessage( "EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET", "SCAN_HEADERS" )
 		return
+		
 	end
+	
+	if not collection.isReady then
+		
+		ArkInventory.OutputDebug( "TRADESKILL: init tradeskill" )
+		
+		collection.sv = ArkInventory.db.cache.tradeskill
+		if not collection.sv then
+			--ArkInventory.OutputWarning( "db.cache.tradeskill is nil" )
+		else
+			ArkInventory.OutputDebug( "TRADESKILL: db.cache.tradeskill is good" )
+		end
+		
+		ArkInventory.ObjectCacheTooltipClear( )
+		
+		if ArkInventory.ClientCheck( ArkInventory.Const.ENUM.EXPANSION.DRAGONFLIGHT ) then
+			ArkInventory.LoadAddOn( "Blizzard_Professions" )
+			ArkInventory.Tradeskill.Const.Frame = ProfessionsFrame
+		else
+			ArkInventory.LoadAddOn( "Blizzard_TradeSkillUI" )
+			ArkInventory.Tradeskill.Const.Frame = TradeSkillFrame
+		end
+		
+		if not ArkInventory.Tradeskill.Const.Frame then
+			ArkInventory.OutputDebug( "TRADESKILL: frame does not exist" )
+		end
+		
+		collection.isReady = true
+		
+	end
+	
+	
+	if not helper_GoodToScan1( ) then return end
+	
 	
 	local loc_id = ArkInventory.Const.Location.Tradeskill
 	local codex = ArkInventory.GetPlayerCodex( )
 	
-	if not collection.isReady then
-		--ArkInventory.Output( "tradeskill ready" )
-		collection.isReady = true
-		collection.sv = ArkInventory.db.cache.tradeskill
-		ArkInventory.ObjectCacheTooltipClear( )
-	end
-	
-	local p = { ArkInventory.CrossClient.GetProfessions( ) }
-	--ArkInventory.Output( "skills active = [", p, "]" )
+	local p = ArkInventory.CrossClient.GetProfessions( )
+	ArkInventory.OutputDebug( "TRADESKILL: skills active = [", p, "]" )
 	
 	local info = codex.player.data.info
 	info.tradeskill = info.tradeskill or { }
-	--ArkInventory.Output( "skills saved = [", info.tradeskill, "]" )
+	ArkInventory.OutputDebug( "TRADESKILL: skills saved = [", info.tradeskill, "]" )
 	
 	local changed = false
 	for index = 1, ArkInventory.Const.Tradeskill.maxLearn do
 		
 		if p[index] then
 			
-			local name, texture, rank, maxRank, numSpells, spelloffset, skillLine, rankModifier = ArkInventory.CrossClient.GetProfessionInfo( p[index] )
-			
-			if info.tradeskill[index] ~= skillLine then
+			local professionInfo = ArkInventory.CrossClient.GetProfessionInfo( p[index] )
+			if info.tradeskill[index] ~= professionInfo.skillLine then
 				
 				if info.tradeskill[index] then
 					
 					-- had a different skill here before
 					
 					local oldSkillID = info.tradeskill[index]
-					--ArkInventory.Output( "tradeskill [", index, "] changed from [", oldSkillID, "] ", ArkInventory.Const.Tradeskill.Data[oldSkillID].text, " to [", skillLine, "] ", name )
+					--ArkInventory.Output( "tradeskill [", index, "] changed from [", oldSkillID, "] ", ArkInventory.Const.Tradeskill.Data[oldSkillID].text, " to [", professionInfo.skillLine, "] ", professionInfo.name )
 					
 					-- need to clean codex.player.data.tradeskill.data[oldSkillID]
 					
 				else
 					
 					-- learnt a tradeskill
-					--ArkInventory.Output( "tradeskill [", index, "] learnt [", skillLine, "] [", name, "]" )
-					collection.queue[skillLine] = true
+					--ArkInventory.Output( "tradeskill [", index, "] learnt [", professionInfo.skillLine, "] [", professionInfo.name, "]" )
+					collection.queue[professionInfo.skillLine] = true
 					
 				end
 				
 				changed = true
-				info.tradeskill[index] = skillLine
+				info.tradeskill[index] = professionInfo.skillLine
 				
 			end
 			
 			if ArkInventory.isLocationMonitored( loc_id ) and codex.profile.location[loc_id].loadscan and not collection.isInit then
-				--ArkInventory.Output( "QUEUE ADD ", skillLine )
+				ArkInventory.OutputDebug( "TRADESKILL: QUEUE ADD ", professionInfo.skillLine )
 				if Skillet and Skillet:IsEnabled( ) then
 					-- ignore scan on load
 				else
-					collection.queue[skillLine] = true
+					collection.queue[professionInfo.skillLine] = true
 					changed = true
 				end
 			end
@@ -767,14 +838,17 @@ function ArkInventory.Tradeskill.ScanHeaders( )
 		ArkInventory.Frame_Main_DrawStatus( nil, ArkInventory.Const.Window.Draw.Recalculate )
 	end
 	
-	--ArkInventory.Output( "QUEUE_START" )
-	ArkInventory:SendMessage( "EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET", "QUEUE_START" )
+	if ArkInventory.ClientCheck( nil, ArkInventory.Const.ENUM.EXPANSION.SHADOWLANDS ) then
+		-- C_TradeSkillUI.OpenTradeSkill is now a protected function in dragonflight so cant be done any more
+		ArkInventory.OutputDebug( "TRADESKILL: QUEUE_START" )
+		ArkInventory:SendMessage( "EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET", "QUEUE_START" )
+	end
 	
 end
 
 function ArkInventory.Tradeskill.OnEnable( )
 	
-	--ArkInventory.Output( "tradeskill onenable" )
+	--ArkInventory.Output( "tradeskill on enable" )
 	local loc_id = ArkInventory.Const.Location.Tradeskill
 	
 	collection.isReady = false
@@ -791,14 +865,7 @@ function ArkInventory:EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET( events )
 	
 	--ArkInventory.Output( "TRADESKILL BUCKET [", events, "]" )
 	
-	if not ArkInventory:IsEnabled( ) then return end
-	
-	local loc_id = ArkInventory.Const.Location.Tradeskill
-	if not ArkInventory.isLocationMonitored( loc_id ) then
-		--ArkInventory.Output( "IGNORED (NOT MONITORED)" )
-		return
-	end
-	
+	if not helper_GoodToScan1( ) then return end
 	
 	if events["SCAN_HEADERS"] or events["SKILL_LINES_CHANGED"] then
 		ArkInventory.Tradeskill.ScanHeaders( )
@@ -806,6 +873,7 @@ function ArkInventory:EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET( events )
 	
 	if events["NEW_RECIPE_LEARNED"] then
 		-- do something with this?
+		--ArkInventory.Tradeskill.ScanHeaders( )
 	end
 	
 	if events["UPDATE"] then
@@ -823,32 +891,10 @@ function ArkInventory:EVENT_ARKINV_TRADESKILL_UPDATE( event, ... )
 	
 	--ArkInventory.Output( "EVENT [", event, "]" )
 	
-	if not ArkInventory:IsEnabled( ) then return end
-	
-	local loc_id = ArkInventory.Const.Location.Tradeskill
-	if not ArkInventory.isLocationMonitored( loc_id ) then
-		--ArkInventory.Output( "IGNORED (NOT MONITORED)" )
-		return
-	end
-	
-	
-	if event == "SKILL_LINES_CHANGED" then
-		ArkInventory:SendMessage( "EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET", event )
-		return
-	end
-	
-	local codex = ArkInventory.GetPlayerCodex( )
-	if not ArkInventory.isLocationMonitored( loc_id ) then
-		--ArkInventory.Output( "IGNORED (TRADESKILL NOT MONITORED)" )
-		return
-	end
-	
-	
 	if event == "TRADE_SKILL_CLOSE" then
 		collection.isClosed = true
 		return
 	end
-	
 	
 	if event == "TRADE_SKILL_DATA_SOURCE_CHANGED" then
 		
@@ -859,7 +905,7 @@ function ArkInventory:EVENT_ARKINV_TRADESKILL_UPDATE( event, ... )
 			collection.isScanning = false
 			collection.isScanDone = true
 		else
-			--ArkInventory.Output( "IGNORED (TRADESKILL BEING SCANNED???)" )
+			--ArkInventory.Output( "IGNORED (TRADESKILL SCAN IN PROGRESS)" )
 		end
 		
 		return
@@ -869,3 +915,10 @@ function ArkInventory:EVENT_ARKINV_TRADESKILL_UPDATE( event, ... )
 	ArkInventory:SendMessage( "EVENT_ARKINV_TRADESKILL_UPDATE_BUCKET", event )
 	
 end
+
+--[[
+possibly useful stuff for later
+
+C_TradeSkillUI.GetProfessionInfoBySkillLineID( skillID )
+
+]]--

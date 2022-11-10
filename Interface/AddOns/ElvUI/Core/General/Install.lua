@@ -157,11 +157,15 @@ function E:SetupCVars(noDisplayMsg)
 	if E.Retail then
 		SetCVar('cameraDistanceMaxZoomFactor', 2.6) -- This has a setting on classic/tbc
 	else
+		SetCVar('ActionButtonUseKeyDown', 1) -- dont set this for retail because of aura right click issue
 		SetCVar('chatClassColorOverride', 0)
 	end
 
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:SetValue('SHIFT')
-	_G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown:RefreshValue()
+	local ActionButtonPickUp = _G.InterfaceOptionsActionBarsPanelPickupActionKeyDropDown
+	if ActionButtonPickUp then
+		ActionButtonPickUp:SetValue('SHIFT')
+		ActionButtonPickUp:RefreshValue()
+	end
 
 	if E.private.nameplates.enable then
 		NP:CVarReset()

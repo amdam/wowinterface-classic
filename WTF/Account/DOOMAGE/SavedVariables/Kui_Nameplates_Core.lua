@@ -7,10 +7,10 @@ KuiNameplatesCoreSaved = {
 	["226_TARGET_SIZE"] = true,
 	["profiles"] = {
 		["default"] = {
-			["target_arrows_size"] = 40,
+			["level_text"] = true,
 			["target_arrows"] = true,
 			["auras_show_all_self"] = true,
-			["level_text"] = true,
+			["target_arrows_size"] = 40,
 		},
 	},
 }

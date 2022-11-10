@@ -1,22 +1,16 @@
-tag 4da0b460463e4b40fa12a222ffe4df409d61dc41 DetailsRetail.v9.2.7.10018.146
+tag d8c07e343f99678ef49b14772a4f20ee9b999b6a Details.DF.Wrath.10259.146
 Author:	Tercio Jose <terciob19@hotmail.com>
-Date:	Wed Aug 31 19:15:29 2022 -0300
+Date:	Wed Nov 2 20:42:10 2022 -0300
 
-commit 27ca0d6df73caa348f61ca1e3b95c7e33a050e31
+commit 32e0a5b8dfbcee5710e6d7b4fcec771e2964585e
 Author: Tercio Jose <terciob19@hotmail.com>
-Date:   Wed Aug 31 19:15:06 2022 -0300
+Date:   Wed Nov 2 20:41:43 2022 -0300
 
-    Version Bump
+    Removed the encounter_start message from Wrath
 
-commit 57bc1895a68c20dec674bee86c0f882eb4d50076
-Author: Colton Schlosser <1498529+cltnschlosser@users.noreply.github.com>
-Date:   Wed Aug 31 17:10:58 2022 -0500
+commit c48d032c1676bc5c4789fb12396a3d22a28a2d01
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Wed Nov 2 20:08:36 2022 -0300
 
-    Fix IsWotLKWow typo
-
-commit 57bc1895a68c20dec674bee86c0f882eb4d50076
-Author: Colton Schlosser <1498529+cltnschlosser@users.noreply.github.com>
-Date:   Wed Aug 31 17:10:58 2022 -0500
-
-    Fix IsWotLKWow typo
+    Fix for some error involving gradient color
 

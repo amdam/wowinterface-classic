@@ -2,14 +2,16 @@
 
 License: All Rights Reserved, (c) 2006-2018
 
-$Revision: 2899 $
-$Date: 2021-08-15 23:38:31 +1000 (Sun, 15 Aug 2021) $
+$Revision: 2997 $
+$Date: 2022-10-27 00:36:30 +1100 (Thu, 27 Oct 2022) $
 
 ]]--
 
 ArkInventorySearch = LibStub( "AceAddon-3.0" ):NewAddon( "ArkInventorySearch" )
 
 function ArkInventorySearch:OnEnable( )
+	
+	if ArkInventory.TOCVersionFail( true ) then return end
 	
 	ArkInventory.Search.frame = ARKINV_Search
 	
@@ -250,87 +252,83 @@ function ArkInventorySearch.Frame_Table_Refresh_Threaded( frame, thread_id )
 	
 	for p, pd in ArkInventory.spairs( ArkInventory.db.player.data ) do
 		
-		if pd.info.proj == WOW_PROJECT_ID then
+		for l, ld in pairs( pd.location ) do
 			
-			for l, ld in pairs( pd.location ) do
+			if ( not ArkInventory.Global.Location[l].excludeFromGlobalSearch ) and ArkInventory.ClientCheck( ArkInventory.Global.Location[l].proj ) then
 				
-				if ( not ArkInventory.Global.Location[l].excludeFromGlobalSearch ) and ArkInventory.ClientCheck( ArkInventory.Global.Location[l].proj ) then
+				for b, bd in pairs( ld.bag ) do
 					
-					for b, bd in pairs( ld.bag ) do
+					for s, sd in pairs( bd.slot ) do
 						
-						for s, sd in pairs( bd.slot ) do
+						if sd.h then
 							
-							if sd.h then
+							local id = ArkInventory.ObjectIDSearch( sd.h )
+							
+							if not ArkInventorySearch.cache[id] then
 								
-								local id = ArkInventory.ObjectIDSearch( sd.h )
+								info = ArkInventory.GetObjectInfo( id )
+								class = info.class
+								texture = info.texture
+								name = info.name
+								q = info.q
 								
-								if not ArkInventorySearch.cache[id] then
-									
-									info = ArkInventory.GetObjectInfo( id )
-									class = info.class
-									texture = info.texture
-									name = info.name
-									q = info.q
-									
-									if name and name ~= ArkInventory.Localise["DATA_NOT_READY"] then
-										txt = ArkInventory.Search.GetContent( id )
-										ArkInventorySearch.cache[id] = { name = name, txt = txt, texture = texture, q = q, info = info }
-									else
-										name = ""
-										txt = ""
-										if not ( class == "empty" or class == "copper" ) then
-											--ArkInventory.Output( "not found ", id )
-											ArkInventorySearch.rebuild = ArkInventorySearch.rebuild + 1
-										end
-									end
-									
+								if name and name ~= ArkInventory.Localise["DATA_NOT_READY"] then
+									txt = ArkInventory.Search.GetContent( id )
+									ArkInventorySearch.cache[id] = { name = name, txt = txt, texture = texture, q = q, info = info }
 								else
-									
-									class = ArkInventorySearch.cache[id].info.osd.class
-									texture = ArkInventorySearch.cache[id].texture
-									name = ArkInventorySearch.cache[id].name
-									q = ArkInventorySearch.cache[id].q
-									txt = ArkInventorySearch.cache[id].txt
-									
+									name = ""
+									txt = ""
+									if not ( class == "empty" or class == "copper" ) then
+										--ArkInventory.Output( "not found ", id )
+										ArkInventorySearch.rebuild = ArkInventorySearch.rebuild + 1
+									end
 								end
 								
+							else
 								
+								class = ArkInventorySearch.cache[id].info.osd.class
+								texture = ArkInventorySearch.cache[id].texture
+								name = ArkInventorySearch.cache[id].name
+								q = ArkInventorySearch.cache[id].q
+								txt = ArkInventorySearch.cache[id].txt
 								
-								local ignore = false
-								
-								--ArkInventory.Output( "[", filter, "] [", name, "] [", txt, "]" )
-								if class == "empty" or class == "copper" then
+							end
+							
+							
+							
+							local ignore = false
+							
+							--ArkInventory.Output( "[", filter, "] [", name, "] [", txt, "]" )
+							if class == "empty" or class == "copper" then
+								ignore = true
+							end
+							
+							if not ignore and filter ~= "" and txt ~= "" then
+								if not string.find( txt, filter, nil, true ) then
 									ignore = true
 								end
+							end
+							
+							if not ignore then
 								
-								if not ignore and filter ~= "" and txt ~= "" then
-									if not string.find( txt, filter, nil, true ) then
-										ignore = true
-									end
-								end
-								
-								if not ignore then
+								if not tt[id] then
 									
-									if not tt[id] then
-										
-										tt[id] = true
-										
-										c = c + 1
-										ArkInventorySearch.SourceTable[c] = { id = id, sorted = name, name = name, h = id, q = q, t = texture }
-										
-										--if name == "" then
-											--ArkInventory.Output2( id, " / ", txt )
-										--end
-										
-									end
+									tt[id] = true
+									
+									c = c + 1
+									ArkInventorySearch.SourceTable[c] = { id = id, sorted = name, name = name, h = id, q = q, t = texture }
+									
+									--if name == "" then
+										--ArkInventory.Output2( id, " / ", txt )
+									--end
 									
 								end
 								
-								if thread_id then
-									--ArkInventory.Output( p, " - ", l, ".", b )
-									ArkInventory.ThreadYield( thread_id )
-								end
-								
+							end
+							
+							if thread_id then
+								--ArkInventory.Output( p, " - ", l, ".", b )
+								ArkInventory.ThreadYield( thread_id )
 							end
 							
 						end

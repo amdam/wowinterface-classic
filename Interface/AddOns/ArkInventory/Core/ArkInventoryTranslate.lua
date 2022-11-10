@@ -80,9 +80,9 @@ local updateTable = {
 
 
 local itemTable = { -- key, project, 0=name | 1=itemtype | 2=itemsubtype, item id
-	{ "WOW_ITEM_PROJECTILE_ARROW", not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ), 3, 2512 },
-	{ "WOW_ITEM_PROJECTILE_BULLET", not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ), 3, 2516 },
-	{ "WOW_ITEM_SOULSHARD", not ArkInventory.ClientCheck( ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL ), 1, 6265 },
+	{ "WOW_ITEM_PROJECTILE_ARROW", ArkInventory.ClientCheck( nil, ArkInventory.Const.ENUM.EXPANSION.WRATH ), 3, 2512 },
+	{ "WOW_ITEM_PROJECTILE_BULLET", ArkInventory.ClientCheck( nil, ArkInventory.Const.ENUM.EXPANSION.WRATH ), 3, 2516 },
+	{ "WOW_ITEM_SOULSHARD", ArkInventory.ClientCheck( nil, ArkInventory.Const.ENUM.EXPANSION.WRATH ), 1, 6265 },
 }
 
 
@@ -177,8 +177,8 @@ local spellTable = { -- key, project, table of spell ids
 --	{ "WOW_SKILL_ENCHANTING", nil, { 7411 } }, -- WOW_ITEM_CLASS_RECIPE_ENCHANTING
 --	{ "WOW_SKILL_ENGINEERING", nil, { 4036 } }, -- WOW_ITEM_CLASS_RECIPE_ENGINEERING
 --	{ "WOW_SKILL_HERBALISM", nil, { 2366 } },
---	{ "WOW_SKILL_INSCRIPTION", ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL, { 45357 } }, -- WOW_ITEM_CLASS_RECIPE_INSCRIPTION
---	{ "WOW_SKILL_JEWELCRAFTING", ArkInventory.Const.BLIZZARD.CLIENT.CODE.RETAIL, { 25229 } }, -- WOW_ITEM_CLASS_RECIPE_JEWELCRAFTING
+--	{ "WOW_SKILL_INSCRIPTION", nil, { 45357 } }, -- WOW_ITEM_CLASS_RECIPE_INSCRIPTION
+--	{ "WOW_SKILL_JEWELCRAFTING", nil, { 25229 } }, -- WOW_ITEM_CLASS_RECIPE_JEWELCRAFTING
 --	{ "WOW_SKILL_LEATHERWORKING", nil, { 2108 } }, -- WOW_ITEM_CLASS_RECIPE_LEATHERWORKING
 --	{ "WOW_SKILL_MINING", nil, { 2575 } },
 	{ "WOW_SKILL_SKINNING", nil, { 8613 } },

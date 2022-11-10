@@ -285,7 +285,7 @@ local genericsLocales = {
         ["koKR"] = false,
         ["esMX"] = "Detalles de objeto",
         ["enUS"] = true,
-        ["zhCN"] = false,
+        ["zhCN"] = "物品的详细信息",
         ["zhTW"] = false,
         ["esES"] = "Detalles de objeto",
         ["frFR"] = "Détails de l’objet",
@@ -386,6 +386,18 @@ local genericsLocales = {
         ["esES"] = "Grupo",
         ["frFR"] = "Groupe",
     },
+    ["Party"] = {
+        ["ptBR"] = nil,
+        ["ruRU"] = "Группа",
+        ["deDE"] = nil,
+        ["koKR"] = nil,
+        ["esMX"] = "Grupo",
+        ["enUS"] = true,
+        ["zhCN"] = nil,
+        ["zhTW"] = nil,
+        ["esES"] = "Grupo",
+        ["frFR"] = "Groupe",
+    },
     ["Raid"] = {
         ["ptBR"] = "Raide",
         ["ruRU"] = "Рейд",
@@ -405,11 +417,23 @@ local genericsLocales = {
         ["koKR"] = false,
         ["esMX"] = "Vendedores",
         ["enUS"] = true,
-        ["zhCN"] = false,
+        ["zhCN"] = "供应商",
         ["zhTW"] = false,
         ["esES"] = "Vendedores",
         ["frFR"] = "Vendeurs",
-    }
+    },
+    ["Achievements"] = {
+        ["ptBR"] = false,
+        ["ruRU"] = "Достижения",
+        ["deDE"] = "Erfolge",
+        ["koKR"] = false,
+        ["esMX"] = "Logros",
+        ["enUS"] = true,
+        ["zhCN"] = "成就",
+        ["zhTW"] = false,
+        ["esES"] = "Logros",
+        ["frFR"] = "Hauts faits",
+    },
 }
 
 for k, v in pairs(genericsLocales) do

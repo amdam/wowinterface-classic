@@ -4,6 +4,7 @@ local _QuestieAuto = QuestieAuto.private
 
 
 -- NPC Id based.
+---@see QuestieAutoPrivate
 _QuestieAuto.disallowedNPC = {
     -- AQ
     -- Ally
@@ -52,6 +53,7 @@ _QuestieAuto.disallowedNPC = {
     [25163] = true, -- Anchorite Kairthos (Shattered Sun Offensive Title NPC)
 }
 
+---@see QuestieAutoPrivate
 _QuestieAuto.disallowedQuests = {
     -- Escort Quests
     [155] = true, -- The Defias Traitor (The Defias Brotherhood)
@@ -190,4 +192,9 @@ _QuestieAuto.disallowedQuests = {
     [8371] = true,
     [8385] = true,
     [64845] = true,
+    --
+    [12174] = true, -- Flies you across Dragonblight
+    [12567] = true, -- Blessing of Zim'Abwa repeatable
+    [12618] = true, -- Blessing of Zim'Torga repeatable
+    [12656] = true, -- Blessing of Zim'Rhuk repeatable
 }

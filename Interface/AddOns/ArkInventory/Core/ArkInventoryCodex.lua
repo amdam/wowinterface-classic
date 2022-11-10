@@ -121,25 +121,25 @@ function ArkInventory.GetLocationCodex( loc_id )
 	end
 	
 	if not codex.profile_id or codex.profile_id ~= codex.toon.data.profile then
-		--ArkInventory.Output( "codex profile changed for ", codex.player.current, " from ", codex.profile_id, " to ", codex.toon.data.profile )
+		ArkInventory.OutputDebug( "codex profile changed for ", codex.player.current, " from ", codex.profile_id, " to ", codex.toon.data.profile )
 		codex.profile_id, codex.profile = ArkInventory.ConfigInternalProfileGet( codex.toon.data.profile, true )
 		changed = true
 	end
 	
 	if not codex.style_id or codex.style_id ~= codex.profile.location[loc_id].style then
-		--ArkInventory.Output( "codex style changed for ", codex.player.current, " from ", codex.style_id, " to ", codex.profile.location[loc_id].style )
+		ArkInventory.OutputDebug( "codex style changed for ", codex.player.current, " from ", codex.style_id, " to ", codex.profile.location[loc_id].style )
 		codex.style_id, codex.style = ArkInventory.ConfigInternalDesignGet( codex.profile.location[loc_id].style, true )
 		changed = true
 	end
 
 	if not codex.layout_id or codex.layout_id ~= codex.profile.location[loc_id].layout then
-		--ArkInventory.Output( "codex layout changed for ", codex.player.current, " from ", codex.layout_id, " to ", codex.profile.location[loc_id].layout )
+		ArkInventory.OutputDebug( "codex layout changed for ", codex.player.current, " from ", codex.layout_id, " to ", codex.profile.location[loc_id].layout )
 		codex.layout_id, codex.layout = ArkInventory.ConfigInternalDesignGet( codex.profile.location[loc_id].layout, true )
 		changed = true
 	end
 	
 	if not codex.catset_id or codex.catset_id ~= codex.profile.location[loc_id].catset then
-		--ArkInventory.Output( "codex catset changed for ", codex.player.current, " from ", codex.catset_id, " to ", codex.profile.location[loc_id].catset )
+		ArkInventory.OutputDebug( "codex catset changed for ", codex.player.current, " from ", codex.catset_id, " to ", codex.profile.location[loc_id].catset )
 		codex.catset_id, codex.catset = ArkInventory.ConfigInternalCategorysetGet( codex.profile.location[loc_id].catset, true )
 		changed = true
 	end

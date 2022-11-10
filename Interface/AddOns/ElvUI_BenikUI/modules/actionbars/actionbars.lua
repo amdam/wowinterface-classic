@@ -11,7 +11,7 @@ local C_TimerAfter = C_Timer.After
 local MAX_TOTEMS = MAX_TOTEMS
 local MAX_STANCES = GetNumShapeshiftForms()
 local Masque = E.Masque
-local MasqueGroup = Masque and Masque:Group('ElvUI', 'ActionBars')
+local MasqueGroup = Masque and E.private.actionbar.masque.actionbars
 
 -- GLOBALS: NUM_PET_ACTION_SLOTS
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
@@ -131,7 +131,7 @@ function mod:StancebarShadows()
 	for i = 1, MAX_STANCES do
 		local button = _G['ElvUI_StanceBarButton'..i]
 		if BUI.ShadowMode and not MasqueGroup then
-			if button.backdrop and not button.backdrop.shadow then
+			if button and not button.shadow then
 				button:CreateSoftShadow()
 			end
 		end

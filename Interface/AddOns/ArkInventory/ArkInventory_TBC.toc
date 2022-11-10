@@ -3,8 +3,8 @@
 ## Title: ArkInventory [TBC]
 ## Author: Arkayenro - Khaz'goroth
 ## Email: arkayenro at gmail dot com
-## Version: 30968
-## X-ReleaseType: Alpha
+## Version: 31004
+## X-ReleaseType: 
 ## SavedVariables: ARKINVDB
 
 ## Notes: Allows you to view all items from all your characters on the same account, when-ever and where-ever you want.
@@ -15,7 +15,7 @@
 ## LoadManagers: AddonLoader
 ## X-LoadOn-Always: delayed
 
-## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibPeriodicTable-3.1, LibSharedMedia-3.0, LibDataBroker-1.1, LibDialog-1.0, BattlePetBreedID, Outfitter, ItemRack, GearQuipper, GearQuipper-TBC, ClosetGnome, SellJunk, Scrap, ReagentRestocker, TradeSkillMaster, Skillet
+## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibPeriodicTable-3.1, LibSharedMedia-3.0, LibDataBroker-1.1, LibDialog-1.0, BattlePetBreedID, Outfitter, ItemRack, GearQuipper, GearQuipper-TBC, ClosetGnome, SellJunk, Scrap, ReagentRestocker, TradeSkillMaster, Skillet, Peddler
 ## X-Embeds: Ace3, AceGUI-3.0-SharedMediaWidgets, LibPeriodicTable-3.1, LibSharedMedia-3.0, LibDataBroker-1.1, LibDialog-1.0
 
 ## X-Category: Inventory
@@ -82,3 +82,4 @@ Core\ArkInventoryTranslate.lua
 Core\ArkInventoryRealms.lua
 
 Core\ArkInventoryDataExtract.lua
+Core\ArkInventoryTools.lua

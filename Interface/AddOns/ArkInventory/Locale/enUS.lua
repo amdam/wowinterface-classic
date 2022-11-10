@@ -46,7 +46,7 @@ if not L then return end
 	
 	
 --	status bar/bag text
-	L["STATUS_NO_DATA"] = "ERR"
+	L["STATUS_NO_DATA"] = "No Data"
 	L["STATUS_PURCHASE"] = "Buy"
 	
 	
@@ -89,9 +89,11 @@ if not L then return end
 	L["CATEGORY_CONSUMABLE_FOOD_PET"] = "Pet Food"
 	L["CATEGORY_CONSUMABLE_POTION_HEAL"] = "Health (Potion/Stone)"
 	L["CATEGORY_CONSUMABLE_POTION_MANA"] = "Mana (Potion/Gem)"
+	L["CATEGORY_CONSUMABLE_ELIXIR"] = "Elixir"
 	L["CATEGORY_CONSUMABLE_ELIXIR_BATTLE"] = "Elixir (Battle)"
 	L["CATEGORY_CONSUMABLE_ELIXIR_GUARDIAN"] = "Elixir (Guardian)"
 	L["CATEGORY_CONSUMABLE_BANDAGE"] = "Bandage"
+	L["CATEGORY_CONSUMABLE_POTION"] = "Potion"
 	L["CATEGORY_CONSUMABLE_FLASK"] = "Flask"
 	L["CATEGORY_CONSUMABLE_SCROLL"] = "Scroll"
 	L["CATEGORY_CONSUMABLE_CHAMPION_EQUIPMENT"] = "Champion Equipment"
@@ -115,7 +117,7 @@ if not L then return end
 	L["STATUS_SHORTNAME_MAILBOX"] = "Mail"
 	L["STATUS_SHORTNAME_MINING"] = "Mng"
 	L["STATUS_SHORTNAME_MOUNT"] = "Mnt"
-	L["STATUS_SHORTNAME_REAGENTBANK"] = "Rgt"
+	L["STATUS_SHORTNAME_REAGENT"] = "Rgt"
 	L["STATUS_SHORTNAME_FISHING"] = "Fish"
 	L["STATUS_SHORTNAME_TOKEN"] = "Tkn"
 	L["STATUS_SHORTNAME_TOY"] = "Toy"
@@ -346,7 +348,6 @@ if not L then return end
 	L["CONFIG_GENERAL_MESSAGES_OBJECTCACHE_NOTFOUND"] = "Not Found"
 	L["CONFIG_GENERAL_MESSAGES_OBJECTCACHE_NOTFOUND_DESC"] = "Show a message when object data is not returned from the server after five attempts"
 	
-	
 	L["CONFIG_GENERAL_BUCKET"] = "Update Timers"
 	L["CONFIG_GENERAL_BUCKET_DESC"] = "Adjust the update time for the %1$s\n\nUpdate timers run every X seconds allowing you to throttle window updates."
 	L["CONFIG_GENERAL_BUCKET_CUSTOM_DESC"] = "use a custom value for the %1$s update timer.\n\nThe default value for this timer is %2$0.1d seconds"
@@ -387,15 +388,7 @@ if not L then return end
 	
 --	configuration options > auto
 	L["CONFIG_AUTO"] = "Auto Open/Close"
-	L["CONFIG_AUTO_BANK"] = "Bank"
-	L["CONFIG_AUTO_VAULT"] = "Guild Bank"
-	L["CONFIG_AUTO_MAILBOX"] = "Mailbox"
-	L["CONFIG_AUTO_MERCHANT"] = "Merchant/Vendor"
-	L["CONFIG_AUTO_TRADE"] = "Trade"
-	L["CONFIG_AUTO_AUCTION"] = "Auction House"
-	L["CONFIG_AUTO_VOID"] = "Void Storage"
 	L["CONFIG_AUTO_SCRAP"] = "Scrapping Machine"
-	L["CONFIG_AUTO_TRANSMOG"] = "Transmogrifier"
 	L["CONFIG_AUTO_COMBAT"] = "Enter Combat"
 	
 	L["CONFIG_AUTO_OPEN"] = "Auto Open"
@@ -425,6 +418,7 @@ if not L then return end
 	L["CONFIG_DESIGN_PLURAL"] = "Designs"
 	
 	L["CONFIG_BLUEPRINT"] = "Blueprint"
+	L["CONFIG_BLUEPRINT_VALIDATE"] = "The %%1$s [%%2$s] being used by the %1$s location no longer exists.  Please check %2$s > %3$s > %4$s > %5$s > %6$s"
 	
 	L["CONFIG_STYLE"] = "Style"
 	L["CONFIG_STYLE_PLURAL"] = "Styles"
@@ -440,6 +434,9 @@ if not L then return end
 	L["CONFIG_DESIGN_WINDOW_WIDTH_DESC"] = "set the maximum number of items to display in a single row"
 	L["CONFIG_DESIGN_WINDOW_HEIGHT_DESC"] = "set the maximum height of the window (in pixels)\n\nif you have more items than will fit then the window will scroll, less items and it will shrink"
 	L["CONFIG_DESIGN_WINDOW_BACKGROUND_COLOUR_DESC"] = "set the background colour of the window"
+	L["CONFIG_DESIGN_WINDOW_SCROLLBAR"] = "Scroll Bar"
+	L["CONFIG_DESIGN_WINDOW_SCROLLBAR_STYLE_DESC"] = "set the background style of the windows scroll bar"
+	L["CONFIG_DESIGN_WINDOW_SCROLLBAR_COLOUR_DESC"] = "set the background colour of the windows scroll bar"
 	L["CONFIG_DESIGN_WINDOW_BORDER_SHOW_DESC"] = "display a border around the window"
 	L["CONFIG_DESIGN_WINDOW_BORDER_STYLE_DESC"] = "set the border style for the window"
 	L["CONFIG_DESIGN_WINDOW_BORDER_COLOUR_DESC"] = "set the border colour for the window"
@@ -513,19 +510,21 @@ if not L then return end
 	L["CONFIG_DESIGN_ITEM_ITEMCOUNT"] = "Item Count"
 	L["CONFIG_DESIGN_ITEM_ITEMCOUNT_DESC"] = "show item stack counts"
 	L["CONFIG_DESIGN_ITEM_STATUSICON"] = "Status Icons"
-	L["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE"] = "upgrade status icon"
-	L["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE_SHOW_DESC"] = "show the item upgrade status icon"
-	L["CONFIG_DESIGN_ITEM_STATUSICON_JUNK"] = "junk status icon"
-	L["CONFIG_DESIGN_ITEM_STATUSICON_JUNK_SHOW_DESC"] = "show the junk status icon"
+	L["CONFIG_DESIGN_ITEM_STATUSICON_TEXT"] = "%1$s icon"
+	L["CONFIG_DESIGN_ITEM_STATUSICON_DESC"] = "Enabled: Show the %1$s when required.\n\nDisabled: Never show the %1$s."
+	L["CONFIG_DESIGN_ITEM_STATUSICON_UPGRADE"] = UPGRADE or "Upgrade"
 	L["CONFIG_DESIGN_ITEM_STATUSICON_QUEST_BANG_DESC"] = "show the quest bang (!) icon"
 	L["CONFIG_DESIGN_ITEM_STATUSICON_QUEST_BORDER_DESC"] = "show the quest border"
 	L["CONFIG_DESIGN_ITEM_SIZE"] = "Base Item Size"
 	L["CONFIG_DESIGN_ITEM_SIZE_DESC"] = "set the size of the item icon before it is scaled (default size is %d)"
 	
 	L["CONFIG_DESIGN_ITEM_OVERLAY"] = "Overlays"
-	L["CONFIG_DESIGN_ITEM_OVERLAY_AZERITE"] = "Azerite"
+	L["CONFIG_DESIGN_ITEM_OVERLAY_TEXT"] = "%1$s overlay"
 	L["CONFIG_DESIGN_ITEM_OVERLAY_NZOTH"] = "N'Zoth Corruption"
-	L["CONFIG_DESIGN_ITEM_OVERLAY_DESC"] = "Enabled: Use the %1$s item overlay when required.\n\nDisabled: Do not use the %1$s item overlay."
+	L["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK"] = "Profession Quality"
+	L["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK_NUMBER_DESC"] = "Enabled: Show the %1$s as a number\n\nDisabled: Show the %1$s as an icon"
+	L["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK_CUSTOM_DESC"] = "Enabled: Use a custom colour for the %1$s\n\nDisabled: Use the default colours for the %1$s"
+	L["CONFIG_DESIGN_ITEM_OVERLAY_PROFESSIONRANK_COLOUR_DESC"] = "Set the colour of the %1$s"
 	
 	L["CONFIG_DESIGN_ITEM_COOLDOWN_SHOW_DESC"] = "Display cooldowns"
 	L["CONFIG_DESIGN_ITEM_COOLDOWN_GLOBAL"] = "Update on GCD"
@@ -600,7 +599,6 @@ if not L then return end
 	L["CONFIG_JUNK_COMBAT_DESC"] = "When enabled will keep selling/destroying while in combat"
 	
 	
-	
 -- sorting
 	L["CONFIG_SORTING"] = "Sorting"
 	
@@ -650,6 +648,8 @@ if not L then return end
 	L["CONFIG_SORTING_INCLUDE_SLOTID_DESC"] = "include slot id when sorting."
 	L["CONFIG_SORTING_INCLUDE_COUNT"] = "item count"
 	L["CONFIG_SORTING_INCLUDE_COUNT_DESC"] = "include item count when sorting."
+	L["CONFIG_SORTING_INCLUDE_RANK"] = "profession quality"
+	L["CONFIG_SORTING_INCLUDE_RANK_DESC"] = "include the profession quality when sorting."
 	
 	L["CONFIG_SORTING_DIRECTION_DESC"] = "if this is ticked then %1$s will be sorted in descending order\n\nif this is not ticked %1$s will be sorted in ascending order"
 	L["CONFIG_SORTING_ORDER"] = "Sort Order"
@@ -889,6 +889,10 @@ if not L then return end
 	L["COVENANT"] = "Covenant"
 	L["ALPHA"] = "Alpha"
 	L["BAGS"] = "Bags"
+	L["OPTION_NOT_AVILABLE_EXPANSION"] = "This option is not available in this expansion"
+	L["SIZE"] = "Size"
+	L["AZERITE"] = "Azerite"
+	L["COSMETIC"] = COSMETIC or ITEM_COSMETIC or "Cosmetic"
 	
 	
 -- libdatabroker

@@ -15,6 +15,21 @@ local RegisterStateDriver = RegisterStateDriver
 local InCombatLockdown = InCombatLockdown
 local hooksecurefunc = hooksecurefunc
 
+local MICRO_BUTTONS = _G.MICRO_BUTTONS or {
+	'CharacterMicroButton',
+	'SpellbookMicroButton',
+	'TalentMicroButton',
+	'AchievementMicroButton',
+	'QuestLogMicroButton',
+	'GuildMicroButton',
+	'LFDMicroButton',
+	'EJMicroButton',
+	'CollectionsMicroButton',
+	'MainMenuMicroButton',
+	'HelpMicroButton',
+	'StoreMicroButton',
+}
+
 local microBar = CreateFrame('Frame', 'ElvUI_MicroBar', E.UIParent)
 microBar:SetSize(100, 100)
 
@@ -78,7 +93,7 @@ function AB:HandleMicroButton(button)
 		button.Flash:SetTexture()
 	end
 
-	local l, r, t, b = 0.22, 0.81, 0.26, 0.82
+	local l, r, t, b = 0.1, 0.85, 0.12, 0.78
 	if not E.Retail then
 		l, r, t, b = 0.17, 0.87, 0.5, 0.908
 	end
@@ -136,7 +151,7 @@ do
 	function AB:ShownMicroButtons()
 		wipe(buttons)
 
-		for _, name in next, _G.MICRO_BUTTONS do
+		for _, name in next, MICRO_BUTTONS do
 			local button = _G[name]
 			if button and button:IsShown() then
 				tinsert(buttons, name)
@@ -194,28 +209,13 @@ function AB:UpdateMicroButtons()
 
 	if microBar.mover then
 		if AB.db.microbar.enabled then
-			E:EnableMover(microBar.mover:GetName())
+			E:EnableMover(microBar.mover.name)
 		else
-			E:DisableMover(microBar.mover:GetName())
+			E:DisableMover(microBar.mover.name)
 		end
 	end
 
-	if E.Retail then
-		AB:UpdateGuildMicroButton()
-	end
-
 	AB:UpdateMicroBarVisibility()
-end
-
-function AB:UpdateGuildMicroButton()
-	local btn = _G.GuildMicroButton
-	local tabard = _G.GuildMicroButtonTabard
-	tabard:SetInside(btn)
-	tabard.background:SetInside(btn)
-	tabard.background:SetTexCoord(0.17, 0.87, 0.5, 0.908)
-	tabard.emblem:ClearAllPoints()
-	tabard.emblem:Point('TOPLEFT', btn, 4, -4)
-	tabard.emblem:Point('BOTTOMRIGHT', btn, -4, 8)
 end
 
 function AB:SetupMicroBar()
@@ -227,11 +227,20 @@ function AB:SetupMicroBar()
 	microBar.visibility:SetScript('OnShow', function() microBar:Show() end)
 	microBar.visibility:SetScript('OnHide', function() microBar:Hide() end)
 
-	for _, x in pairs(_G.MICRO_BUTTONS) do
+	for _, x in pairs(MICRO_BUTTONS) do
 		AB:HandleMicroButton(_G[x])
 	end
 
-	_G.MicroButtonPortrait:SetInside(_G.CharacterMicroButton)
+	if not E.Retail then
+		_G.MicroButtonPortrait:SetInside(_G.CharacterMicroButton)
+	end
+
+	-- With this method we might don't taint anything. Instead of using :Kill()
+	local MenuPerformanceBar = _G.MainMenuBarPerformanceBar or _G.MainMenuMicroButton.MainMenuBarPerformanceBar
+	if MenuPerformanceBar then
+		MenuPerformanceBar:SetAlpha(0)
+		MenuPerformanceBar:SetScale(0.00001)
+	end
 
 	AB:SecureHook('UpdateMicroButtons')
 	AB:SecureHook('UpdateMicroButtonsParent')
@@ -240,10 +249,6 @@ function AB:SetupMicroBar()
 	if not E.Retail then
 		hooksecurefunc('SetLookingForGroupUIAvailable', AB.UpdateMicroButtons)
 	end
-
-	-- With this method we might don't taint anything. Instead of using :Kill()
-	_G.MainMenuBarPerformanceBar:SetAlpha(0)
-	_G.MainMenuBarPerformanceBar:SetScale(0.00001)
 
 	if E.Wrath then
 		_G.PVPMicroButtonTexture:ClearAllPoints()

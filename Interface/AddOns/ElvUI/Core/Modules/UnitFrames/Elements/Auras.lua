@@ -218,8 +218,7 @@ function UF:Construct_AuraIcon(button)
 	button:RegisterForClicks('RightButtonUp')
 	button:SetScript('OnClick', UF.Aura_OnClick)
 
-	button.cd.CooldownOverride = 'unitframe'
-	E:RegisterCooldown(button.cd)
+	E:RegisterCooldown(button.cd, 'unitframe')
 
 	local auras = button:GetParent()
 	local frame = auras:GetParent()
@@ -508,7 +507,7 @@ function UF:ConvertFilters(auras, priority)
 	end
 end
 
-function UF:CheckFilter(source, spellName, spellID, canDispel, isFriend, isPlayer, unitIsCaster, myPet, otherPet, isBossDebuff, allowDuration, noDuration, castByPlayer, nameplateShowSelf, nameplateShowAll, filterList)
+function UF:CheckFilter(source, spellName, spellID, canDispel, isFriend, isPlayer, unitIsCaster, myPet, otherPet, isBossDebuff, allowDuration, noDuration, isMount, castByPlayer, nameplateShowSelf, nameplateShowAll, filterList)
 	for _, data in next, filterList do
 		local status = data.status
 		local skip = (status == 1 and not isFriend) or (status == 2 and isFriend)
@@ -533,6 +532,7 @@ function UF:CheckFilter(source, spellName, spellID, canDispel, isFriend, isPlaye
 				local name = data.name
 				local found = (allowDuration and ((name == 'Personal' and isPlayer)
 					or (name == 'nonPersonal' and not isPlayer)
+					or (name == 'Mount' and isMount)
 					or (name == 'Boss' and isBossDebuff)
 					or (name == 'MyPet' and myPet)
 					or (name == 'OtherPet' and otherPet)
@@ -546,6 +546,7 @@ function UF:CheckFilter(source, spellName, spellID, canDispel, isFriend, isPlaye
 				-- Blacklists
 				or ((name == 'blockCastByPlayers' and castByPlayer)
 				or (name == 'blockNoDuration' and noDuration)
+				or (name == 'blockMount' and isMount)
 				or (name == 'blockNonPersonal' and not isPlayer)
 				or (name == 'blockDispellable' and canDispel)
 				or (name == 'blockNotDispellable' and not canDispel)) and 0
@@ -614,11 +615,12 @@ function UF:AuraFilter(unit, button, name, icon, count, debuffType, duration, ex
 	button.name = name
 	button.priority = 0
 
+	local isMount = E.MountIDs[spellID]
 	local noDuration = (not duration or duration == 0)
 	local allowDuration = noDuration or (duration and duration > 0 and (not db.maxDuration or db.maxDuration == 0 or duration <= db.maxDuration) and (not db.minDuration or db.minDuration == 0 or duration >= db.minDuration))
 
 	if self.filterList then
-		local filterCheck, spellPriority = UF:CheckFilter(source, name, spellID, button.canDispel, button.isFriend, button.isPlayer, button.unitIsCaster, button.myPet, button.otherPet, isBossDebuff, allowDuration, noDuration, castByPlayer, nameplateShowPersonal, nameplateShowAll, self.filterList)
+		local filterCheck, spellPriority = UF:CheckFilter(source, name, spellID, button.canDispel, button.isFriend, button.isPlayer, button.unitIsCaster, button.myPet, button.otherPet, isBossDebuff, allowDuration, noDuration, isMount, castByPlayer, nameplateShowPersonal, nameplateShowAll, self.filterList)
 		if spellPriority then button.priority = spellPriority end -- this is the only difference from auarbars code
 		button.filterPass = filterCheck
 		return filterCheck

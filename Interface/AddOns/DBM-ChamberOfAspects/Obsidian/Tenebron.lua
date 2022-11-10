@@ -3,12 +3,12 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20220911214932")
+mod:SetRevision("20221102181724")
 mod:SetCreatureID(30452)
 mod:SetEncounterID(1092)
 mod:SetModelID(27082)
-mod:SetHotfixNoticeRev(20220805000000)
-mod:SetMinSyncRevision(20220805000000)
+mod:SetHotfixNoticeRev(20221009000000)
+mod:SetMinSyncRevision(20221009000000)
 mod:DisableMultiBossPulls()
 
 mod:RegisterCombat("combat")

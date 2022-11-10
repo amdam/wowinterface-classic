@@ -134,7 +134,7 @@ function ArkInventory.API.ItemFrameLoadedIterate( loc, bag )
 	
 	ArkInventory.API.ItemFrameLoadedIterate( ) = everything
 	ArkInventory.API.ItemFrameLoadedIterate( ArkInventory.Const.Location.Bank ) = just the bank
-	ArkInventory.API.ItemFrameLoadedIterate( ArkInventory.Const.Location.Bank, ArkInventory.Global.Location[ArkInventory.Const.Location.Bank].tabReagent ) = just the reagent bank
+	ArkInventory.API.ItemFrameLoadedIterate( ArkInventory.Const.Location.Bank, ArkInventory.Global.Location[ArkInventory.Const.Location.Bank].ReagentBag ) = just the reagent bank
 	
 	for framename, frame, loc_id, bag_id, slot_id in ArkInventory.API.ItemFrameLoadedIterate( loc, bag ) do
 		your code goes here
@@ -256,7 +256,7 @@ function ArkInventory.API.BlizzardBagIdToInternalId( blizzard_id )
 		
 ]]--
 	
-	return ArkInventory.ArkInventory.BlizzardBagIdToInternalId( blizzard_id )
+	return ArkInventory.BlizzardBagIdToInternalId( blizzard_id )
 	
 end
 

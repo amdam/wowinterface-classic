@@ -33,980 +33,8 @@ ArkInventory.Lib = { -- libraries live here
 	
 ]]--
 
+
 ArkInventory.Table = { } -- table functions live here, coded elsewhere
-
-ArkInventory.Const = { -- constants
-	
-	Program = {
-		Name = "ArkInventory",
-		Version = nil, -- calculated at load
-	},
-	
-	BLIZZARD = {
-		
-		TOC = select( 4, GetBuildInfo( ) ) or 0,
---		/dump ArkInventory.Const.BLIZZARD.TOC
-		
-		CLIENT = {
-			ID = "",
-			NAME = "",
-			CODE = {
-				RETAIL = "RETAIL",
-				RETAIL_PTR = "RETAIL>PTR",
-				RETAIL_BETA = "RETAIL>PTR>BETA",
-				CLASSIC = "CLASSIC",
-				CLASSIC_PTR = "CLASSIC>PTR",
-				CLASSIC_BETA = "CLASSIC>PTR>BETA",
-				TBC = "TBC",
-				TBC_PTR = "TBC>PTR",
-				TBC_BETA = "TBC>PTR>BETA",
-				WRATH = "WRATH",
-				WRATH_PTR = "WRATH>PTR",
-				WRATH_BETA = "WRATH>PTR>BETA",
-			},
-		},
-		
-		GLOBAL = {
-			TOOLTIP = {
-				UPDATETIMER = 1, --TOOLTIP_UPDATE_TIME = 0.2
-			},
-			FONT = {
-				COLOR = {
-					ALREADYKNOWN = "fefe1f1f",
-				},
-			},
-			ITEMQUALITY = {
-				MISSING = -2,
-				UNKNOWN = -1,
-				POOR = ( Enum and Enum.ItemQuality.Poor ) or LE_ITEM_QUALITY_POOR or 0,
-				COMMON = ( Enum and Enum.ItemQuality.Common ) or LE_ITEM_QUALITY_COMMON or 1,
-				UNCOMMON = ( Enum and Enum.ItemQuality.Good )or LE_ITEM_QUALITY_UNCOMMON or 2,
-				RARE = ( Enum and Enum.ItemQuality.Rare ) or LE_ITEM_QUALITY_RARE or 3,
-				EPIC = ( Enum and Enum.ItemQuality.Epic ) or LE_ITEM_QUALITY_EPIC or 4,
-				LEGENDARY = ( Enum and Enum.ItemQuality.Legendary ) or LE_ITEM_QUALITY_LEGENDARY or 5,
-				ARTIFACT = ( Enum and Enum.ItemQuality.Artifact ) or LE_ITEM_QUALITY_ARTIFACT or 6,
-				HEIRLOOM = ( Enum and Enum.ItemQuality.Heirloom ) or LE_ITEM_QUALITY_HEIRLOOM or 7,
-				TOKEN = ( Enum and Enum.ItemQuality.WoWToken ) or LE_ITEM_QUALITY_WOWTOKEN or 8,
-			},
-			EXPANSION = {
-				CURRENT = LE_EXPANSION_LEVEL_CURRENT or 0,
-				CLASSIC = LE_EXPANSION_CLASSIC or 0,
-				BC = LE_EXPANSION_BURNING_CRUSADE or 1,
-				WRATH = LE_EXPANSION_WRATH_OF_THE_LICH_KING or 2,
-				CATA = LE_EXPANSION_CATACLYSM or 3,
-				PANDARIA = LE_EXPANSION_MISTS_OF_PANDARIA or 4,
-				DRAENOR = LE_EXPANSION_WARLORDS_OF_DRAENOR or 5,
-				LEGION = LE_EXPANSION_LEGION or 6,
-				BFA = LE_EXPANSION_BATTLE_FOR_AZEROTH or 7,
-				SHADOWLANDS = LE_EXPANSION_SHADOWLANDS or 8,
-			},
-			CONTAINER = {
-				SLOTSIZE = 37,
-				SLOTMAX = MAX_CONTAINER_ITEMS or 36,
-				FILTER = {
-					COUNT = NUM_LE_BAG_FILTER_FLAGS or 5,
-					IGNORECLEANUP = LE_BAG_FILTER_FLAG_IGNORE_CLEANUP or 1,
-					EQUIPMENT = LE_BAG_FILTER_FLAG_EQUIPMENT or 2,
-					JUNK = LE_BAG_FILTER_FLAG_JUNK or 5,
-				},
-			},
-			GUILDBANK = {
-				WIDTH = NUM_GUILDBANK_COLUMNS or 14,
-				HEIGHT = NUM_SLOTS_PER_GUILDBANK_GROUP or 7,
-				SLOTS_PER_TAB = MAX_GUILDBANK_SLOTS_PER_TAB or 98,
-				LOG_TIME_PREPEND = GUILD_BANK_LOG_TIME_PREPEND or "|cff009999  ",
-			},
-			VOIDSTORAGE = {
-				SLOTMAX = VOID_STORAGE_MAX or 80,
-				PAGES = VOID_STORAGE_PAGES or 2,
-			},
-			PET = {
-				FILTER = {
-					COLLECTED = LE_PET_JOURNAL_FILTER_COLLECTED or 1,
-					NOTCOLLECTED = LE_PET_JOURNAL_FILTER_NOT_COLLECTED or 2,
-				},
-			},
-			BATTLEPET = {
-				ENEMY = LE_BATTLE_PET_ENEMY or 2,
-			},
-			MAILBOX = {
-				MAXATTACHMENTS = ATTACHMENTS_MAX_RECEIVE,
-			},
-		},
-		
-		FUNCTION = {
-			GETITEMINFO = {
-				NAME = 1,
-				LINK = 2,
-				QUALITY = 3,
-				ILVL_BASE = 4,
-				USELEVEL = 5,
-				TYPE = 6,
-				SUBTYPE = 7,
-				STACKSIZE = 8,
-				EQUIP = 9,
-				TEXTURE = 10,
-				VENDORPRICE = 11,
-				TYPEID = 12,
-				SUBTYPEID = 13,
-				BINDING = 14,
-				EXPANSION = 15,
-				SETID = 16,
-				CRAFT = 17,
-			},
-			GETITEMINFOINSTANT = {
-				ID = 1,
-				TYPE = 2,
-				SUBTYPE = 3,
-				EQUIP = 4,
-				TEXTURE = 5,
-				TYPEID = 6,
-				SUBTYPEID = 7,
-			},
-			GETSPELLINFO = {
-				NAME = 1,
-				TEXTURE = 3,
-			}
-		},
-		
-	},
-	
-	Frame = {
-		Main = {
-			Name = "ARKINV_Frame",
-			MiniActionButtonSize = 12,
-		},
-		Title = {
-			Name = "Title",
-			Height = 20,
-			MinHeight = 20,
-		},
-		Scroll = {
-			Name = "Scroll",
-			stepSize = 40,
-		},
-		Container = {
-			Name = "ScrollContainer",
-		},
-		Log = {
-			Name = "Log",
-		},
-		Info = {
-			Name = "Info",
-		},
-		Changer = {
-			Name = "Changer",
-			Height = 58,
-		},
-		Status = {
-			Name = "Status",
-			Height = 10,
-			MinHeight = 20,
-		},
-		Search = {
-			Name = "Search",
-			Height = 10,
-			MinHeight = 20,
-		},
-		Scrolling = {
-			List = "List",
-			ScrollBar = "ScrollBar",
-		},
-		Config = {
-			Internal = "ArkInventory",
-			Blizzard = "ArkInventoryConfigBlizzard",
-		},
-		Cooldown = {
-			Name = "Cooldown",
-		},
-	},
-	
-	Event = {
-		BagUpdate = 1,
-		--ObjectLock = 2,
-		--PlayerMoney = 3,
-		--GuildMoney = 4,
-		--TabInfo = 5,
-		--SkillUpdate = 6,
-		--ItemUpdate = 7,
-		--BagEmpty = 8,
-	},
-	
-	Location = {
-		Bag = 1,
-		Keyring = 2,
-		Bank = 3,
-		Vault = 4,
-		Mailbox = 5,
-		Wearing = 6,
-		Pet = 7,
-		Mount = 8,
-		Currency = 9,
-		Auction = 10,
-		--Spellbook = 11,
-		Tradeskill = 12,
-		Void = 13,
-		Toybox = 14,
-		Heirloom = 15,
-		Reputation = 16,
-		MountEquipment = 17,
-	},
-	
-	Offset = {
-		Vault = 1000,
-		Mailbox = 2000,
-		Wearing = 3000,
-		Pet = 4000,
-		Currency = 5000,
-		Mount = 6000,
-		Auction = 7000,
-		--Spellbook = 8000,
-		Tradeskill = 1400,
-		Void = 1500,
-		Toybox = 1200,
-		Heirloom = 1300,
-		Reputation = 1600,
-		MountEquipment = 6100,
-	},
-	
-	Bag = {
-		Status = { -- these need to be negative values,  do not use -1
-			Unknown = -2,
-			Active = -3,
-			Empty = -4,
-			Purchase = -5,
-			NoAccess = -6,
-		},
-	},
-	
-	Slot = {
-		
-		Type = { -- slot type numbers, do not change this order, just add new ones to the end of the list
-			Unknown = 0,
-			Bag = 1,
-			Keyring = 3,
-			Soulshard = 5,
-			Herbalism = 6,
-			Enchanting = 7,
-			Engineering = 8,
-			Jewelcrafting = 9,
-			Mining = 10,
-			Bullet = 11,
-			Arrow = 12,
-			Projectile = 12,
-			Leatherworking = 13,
-			Wearing = 14,
-			Mailbox = 15,
-			Inscription = 16,
-			Critter = 17,
-			Mount = 18,
-			Currency = 19,
-			Auction = 20,
-			--Spellbook = 21,
-			Tradeskill = 22,
-			Fishing = 23,
-			Void = 24,
-			Cooking = 25,
-			Toybox = 26,
-			ReagentBank = 27,
-			Heirloom = 28,
-			Reputation = 29,
-		},
-		
-		New = {
-			No = false,
-			Yes = 1,
-			Inc = 2,
-			Dec = 3,
-		},
-		
-		Data = { },
-		
-		ItemLevel = {
-			Min = 1,
-			Max = 9999,
-		},
-		
-		CharacterPaneOrder = {
-			["INVTYPE_NON_EQUIP"] = 0,
-			["INVTYPE_HEAD"] = 1,
-			["INVTYPE_NECK"] = 2,
-			["INVTYPE_SHOULDER"] = 3,
-			["INVTYPE_CLOAK"] = 4,
-			["INVTYPE_CHEST"] = 5,
-			["INVTYPE_ROBE"] = 5,
-			["INVTYPE_BODY"] = 6, -- shirt
-			["INVTYPE_TABARD"] = 7,
-			["INVTYPE_WRIST"] = 8,
-			
-			["INVTYPE_HAND"] = 9,
-			["INVTYPE_WAIST"] = 10,
-			["INVTYPE_LEGS"] = 11,
-			["INVTYPE_FEET"] = 12,
-			["INVTYPE_FINGER"] = 13,
-			["INVTYPE_TRINKET"] = 15,
-			
-			["INVTYPE_WEAPON"] = 17,
-			["INVTYPE_2HWEAPON"] = 17,
-			["INVTYPE_WEAPONMAINHAND"] = 17,
-			["INVTYPE_RANGED"] = 17,
-			["INVTYPE_RANGEDRIGHT"] = 17,
-			
-			["INVTYPE_SHIELD"] = 18,
-			["INVTYPE_WEAPONOFFHAND"] = 18,
-			["INVTYPE_HOLDABLE"] = 18,
-			
-			["INVTYPE_THROWN"] = 20,
-			["INVTYPE_RELIC"] = 20,
-			["INVTYPE_AMMO"] = 20,
-			
-			["INVTYPE_BAG"] = 0,
-			["INVTYPE_QUIVER"] = 0,
-		},
-		
-	},
-	
-	Anchor = {
-		Default = 0,
-		BottomRight = 1,
-		BottomLeft = 2,
-		TopLeft = 3,
-		TopRight = 4,
-		Top = 5,
-		Bottom = 6,
-		Left = 7,
-		Right = 8,
-		Center = 9,
-	},
-	
-	Direction = {
-		Horizontal = 1,
-		Vertical = 2,
-	},
-	
-	Window = {
-		
-		Min = {
-			Rows = 1,
-			Columns = 6,
-			Width = 400,
-		},
-		
-		Draw = {
-			Init = 0, -- intital state, only exists at load, never set to init
-			Restart = 1, -- rebuild the entire window from scratch
-			Recalculate = 2, -- calculate
-			Resort = 3, -- sort
-			Refresh = 4, -- item changes
-			None = 5, -- nothing
-		},
-		
-		Title = {
-			SizeNormal = 1,
-			SizeThin = 2,
-		},
-	},
-	
-	Font = {
-		Face = "Arial Narrow",
-		Height = 16,
-		MinHeight = 4,
-		MaxHeight = 72,
-	},
-	
-	Fade = 0.6,
-	GuildTag = "+",
-	PlayerIDSep = " - ",
-	
-	ItemClass = {
-		
-		["UNKNOWN"] = -2,
-		
-		["EMPTY"] = -1,
-		
-		["CONSUMABLE"] = LE_ITEM_CLASS_CONSUMABLE,
-		["CONSUMABLE_EXPLOSIVES_AND_DEVICES"] = 0,
-		["CONSUMABLE_POTION"] = 1,
-		["CONSUMABLE_ELIXIR"] = 2,
-		["CONSUMABLE_FLASK"] = 3,
-		["CONSUMABLE_SCROLL"] = 4,
-		["CONSUMABLE_FOOD_AND_DRINK"] = 5,
-		["CONSUMABLE_ITEM_ENHANCEMENT"] = 6,
-		["CONSUMABLE_BANDAGE"] = 7,
-		["CONSUMABLE_OTHER"] = 8,
-		["CONSUMABLE_VANTUSRUNE"] = 9,
-		
-		["CONTAINER"] = LE_ITEM_CLASS_CONTAINER,
-		["CONTAINER_BAG"] = 0,
-		["CONTAINER_SOULSHARD"] = 1,
-		["CONTAINER_HERBALISM"] = 2,
-		["CONTAINER_ENCHANTING"] = 3,
-		["CONTAINER_ENGINEERING"] = 4,
-		["CONTAINER_JEWELCRAFTING"] = 5,
-		["CONTAINER_MINING"] = 6,
-		["CONTAINER_LEATHERWORKING"] = 7,
-		["CONTAINER_INSCRIPTION"] = 8,
-		["CONTAINER_FISHING"] = 9,
-		["CONTAINER_COOKING"] = 10,
-		
-		["WEAPON"] = LE_ITEM_CLASS_WEAPON,
-		["WEAPON_AXE1H"] = LE_ITEM_WEAPON_AXE1H,
-		["WEAPON_AXE2H"] = LE_ITEM_WEAPON_AXE2H,
-		["WEAPON_BOW"] = LE_ITEM_WEAPON_BOWS,
-		["WEAPON_GUN"] = LE_ITEM_WEAPON_GUNS,
-		["WEAPON_MACE1H"] = LE_ITEM_WEAPON_MACE1H,
-		["WEAPON_MACE2H"] = LE_ITEM_WEAPON_MACE2H,
-		["WEAPON_POLEARM"] = LE_ITEM_WEAPON_POLEARM,
-		["WEAPON_SWORD1H"] = LE_ITEM_WEAPON_SWORD1H,
-		["WEAPON_SWORD2H"] = LE_ITEM_WEAPON_SWORD2H,
-		["WEAPON_WARGLAIVE"] = LE_ITEM_WEAPON_WARGLAIVE,
-		["WEAPON_STAFF"] = LE_ITEM_WEAPON_STAFF,
-		["WEAPON_EXOTIC1H"] = LE_ITEM_WEAPON_EXOTIC1H,
-		["WEAPON_EXOTIC2H"] = LE_ITEM_WEAPON_EXOTIC2H,
-		["WEAPON_FIST"] = LE_ITEM_WEAPON_UNARMED,
-		["WEAPON_GENERIC"] = LE_ITEM_WEAPON_GENERIC,
-		["WEAPON_DAGGER"] = LE_ITEM_WEAPON_DAGGER,
-		["WEAPON_THROWN"] = LE_ITEM_WEAPON_THROWN,
-		["WEAPON_SPEAR"] = LE_ITEM_WEAPON_SPEAR,
-		["WEAPON_CROSSBOW"] = LE_ITEM_WEAPON_CROSSBOW,
-		["WEAPON_WAND"] = LE_ITEM_WEAPON_WAND,
-		["WEAPON_FISHING"] = LE_ITEM_WEAPON_FISHINGPOLE,
-		
-		["GEM"] = LE_ITEM_CLASS_GEM,
-		["GEM_INTELLECT"] = LE_ITEM_GEM_INTELLECT,
-		["GEM_STRENGTH"] = LE_ITEM_GEM_STRENGTH,
-		["GEM_STAMINA"] = LE_ITEM_GEM_STAMINA,
-		["GEM_SPIRIT"] = LE_ITEM_GEM_SPIRIT,
-		["GEM_CRITICALSTRIKE"] = LE_ITEM_GEM_CRITICALSTRIKE,
-		["GEM_MASTERY"] = LE_ITEM_GEM_MASTERY,
-		["GEM_HASTE"] = LE_ITEM_GEM_HASTE,
-		["GEM_VERSATILITY"] = LE_ITEM_GEM_VERSATILITY,
-		["GEM_MULTIPLESTATS"] = LE_ITEM_GEM_MULTIPLESTATS,
-		["GEM_ARTIFACTRELIC"] = LE_ITEM_GEM_ARTIFACTRELIC,
-		
-		["ARMOR"] = LE_ITEM_CLASS_ARMOR,
-		["ARMOR_GENERIC"] = LE_ITEM_ARMOR_GENERIC,
-		["ARMOR_CLOTH"] = LE_ITEM_ARMOR_CLOTH,
-		["ARMOR_LEATHER"] = LE_ITEM_ARMOR_LEATHER,
-		["ARMOR_MAIL"] = LE_ITEM_ARMOR_MAIL,
-		["ARMOR_PLATE"] = LE_ITEM_ARMOR_PLATE,
-		["ARMOR_COSMETIC"] = LE_ITEM_ARMOR_COSMETIC,
-		--["ARMOR_BUCKLER"] = LE_ITEM_ARMOR_BUCKLER,
-		["ARMOR_SHIELD"] = LE_ITEM_ARMOR_SHIELD,
-		["ARMOR_LIBRAM"] = LE_ITEM_ARMOR_LIBRAM,
-		["ARMOR_IDOL"] = LE_ITEM_ARMOR_IDOL,
-		["ARMOR_TOTEM"] = LE_ITEM_ARMOR_TOTEM,
-		["ARMOR_SIGIL"] = LE_ITEM_ARMOR_SIGIL,
-		["ARMOR_RELIC"] = LE_ITEM_ARMOR_RELIC,
-		
-		["REAGENT"] = LE_ITEM_CLASS_REAGENT,
-		["REAGENT_REAGENT"] = 0,
-		["REAGENT_KEYSTONE"] = 1,
-		
-		["PROJECTILE"] = LE_ITEM_CLASS_PROJECTILE,
-		["PROJECTILE_WAND"] = 0,
-		["PROJECTILE_BOLT"] = 1,
-		["PROJECTILE_ARROW"] = 2,
-		["PROJECTILE_BULLET"] = 3,
-		["PROJECTILE_THROWN"] = 4,
-		
-		["TRADEGOODS"] = LE_ITEM_CLASS_TRADEGOODS,
-		["TRADEGOODS_TRADEGOODS"] = 0,
-		["TRADEGOODS_PARTS"] = 1,
-		["TRADEGOODS_EXPLOSIVES"] = 2,
-		["TRADEGOODS_DEVICES"] = 3,
-		["TRADEGOODS_JEWELCRAFTING"] = 4,
-		["TRADEGOODS_CLOTH"] = 5,
-		["TRADEGOODS_LEATHER"] = 6,
-		["TRADEGOODS_METAL_AND_STONE"] = 7,
-		["TRADEGOODS_COOKING"] = 8,
-		["TRADEGOODS_HERBS"] = 9,
-		["TRADEGOODS_ELEMENTAL"] = 10,
-		["TRADEGOODS_OTHER"] = 11,
-		["TRADEGOODS_ENCHANTING"] = 12,
-		["TRADEGOODS_MATERIALS"] = 13,
-		["TRADEGOODS_ITEM_ENCHANTMENT"] = 14,
-		["TRADEGOODS_WEAPON_ENCHANTMENT"] = 15,
-		["TRADEGOODS_INSCRIPTION"] = 16,
-		["TRADEGOODS_EXPLOSIVES_AND_DEVICES"] = 17,
-		
-		["ITEM_ENHANCEMENT"] = LE_ITEM_CLASS_ITEM_ENHANCEMENT,
-		
-		["RECIPE"] = LE_ITEM_CLASS_RECIPE,
-		["RECIPE_BOOK"] = LE_ITEM_RECIPE_BOOK,
-		["RECIPE_LEATHERWORKING"] = LE_ITEM_RECIPE_LEATHERWORKING,
-		["RECIPE_TAILORING"] = LE_ITEM_RECIPE_TAILORING,
-		["RECIPE_ENGINEERING"] = LE_ITEM_RECIPE_ENGINEERING,
-		["RECIPE_BLACKSMITHING"] = LE_ITEM_RECIPE_BLACKSMITHING,
-		["RECIPE_COOKING"] = LE_ITEM_RECIPE_COOKING,
-		["RECIPE_ALCHEMY"] = LE_ITEM_RECIPE_ALCHEMY,
-		["RECIPE_FIRST_AID"] = LE_ITEM_RECIPE_FIRST_AID,
-		["RECIPE_ENCHANTING"] = LE_ITEM_RECIPE_ENCHANTING,
-		["RECIPE_FISHING"] = LE_ITEM_RECIPE_FISHING,
-		["RECIPE_JEWELCRAFTING"] = LE_ITEM_RECIPE_JEWELCRAFTING,
-		["RECIPE_INSCRIPTION"] = LE_ITEM_RECIPE_INSCRIPTION,
-		
-		["QUIVER"] = LE_ITEM_CLASS_QUIVER,
-		["QUIVER_QUIVER"] = 0,  -- OBSOLETE
-		["QUIVER_BOLT"] = 1, -- OBSOLETE
-		["QUIVER_QUIVER"] = 2,
-		["QUIVER_AMMO"] = 3,
-		
-		["QUEST"] = LE_ITEM_CLASS_QUESTITEM,
-		["QUEST_QUEST"] = 0,
-		
-		["KEY"] = LE_ITEM_CLASS_KEY,
-		["KEY_KEY"] = 0,
-		["KEY_LOCKPICK"] = 1,
-		
-		["MISC"] = LE_ITEM_CLASS_MISCELLANEOUS,
-		["MISC_JUNK"] = LE_ITEM_MISCELLANEOUS_JUNK,
-		["MISC_REAGENT"] = LE_ITEM_MISCELLANEOUS_REAGENT,
-		["MISC_PET"] = LE_ITEM_MISCELLANEOUS_COMPANION_PET,
-		["MISC_HOLIDAY"] = LE_ITEM_MISCELLANEOUS_HOLIDAY,
-		["MISC_OTHER"] = LE_ITEM_MISCELLANEOUS_OTHER,
-		["MISC_MOUNT"] = LE_ITEM_MISCELLANEOUS_MOUNT,
-		
-		["GLYPH"] = LE_ITEM_CLASS_GLYPH,
-		
-		["BATTLEPET"] = LE_ITEM_CLASS_BATTLEPET,
---		"0 Humanoid", -- [163]
---		"1 Dragonkin", -- [164]
---		"2 Flying", -- [165]
---		"3 Undead", -- [166]
---		"4 Critter", -- [167]
---		"5 Magic", -- [168]
---		"6 Elemental", -- [169]
---		"7 Beast", -- [170]
---		"8 Aquatic", -- [171]
---		"9 Mechanical", -- [172]
-		
-		["WOW_TOKEN"] = ITEM_CLASS_WOW_TOKEN,
---		"0 WoW Token", -- [174]
-		
-	},
-	
-	Cursor = {
-		Drag = [[Interface\CURSOR\Crosshairs]],
-		UnableDrag = [[Interface\CURSOR\UnableCrosshairs]],
-		--Driver Gunner Interact Item 
-	},
-	
-	Texture = {
-		
-		Missing = [[Interface\Icons\Temp]],
-		
-		Empty = {
-			Item = [[Interface\PaperDoll\UI-Backpack-EmptySlot]],
-			Bag = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]],
-		},
-		
-		CategoryDamaged = [[Interface\Icons\Spell_Shadow_DeathCoil]],
-		CategoryEnabled = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
-		CategoryDisabled = [[Interface\RAIDFRAME\ReadyCheck-NotReady]],
-		
-		BackgroundDefault = "Solid",
-		
-		BorderDefault = "Blizzard Tooltip",
-		BorderNone = "None",
-		
-		Border = {
-			["Blizzard Tooltip"] = {
-				["size"] = 16,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 4,
-					["bar"] = 3,
-					["window"] = 3,
-				},
-				["scale"] = 1,
-			},
-			["Blizzard Dialog"] = {
-				["size"] = 32,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 9,
-					["bar"] = 6,
-					["window"] = 6,
-				},
-			},
-			["Blizzard Dialog Gold"] = {
-				["size"] = 32,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 9,
-					["bar"] = 6,
-					["window"] = 6,
-				},
-			},
-			["ArkInventory Tooltip 1"] = {
-				["size"] = 16,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 3,
-					["bar"] = 3,
-					["window"] = 3,
-				},
-			},
-			["ArkInventory Tooltip 2"] = {
-				["size"] = 16,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 4,
-					["bar"] = 3,
-					["window"] = 3,
-				},
-			},
-			["ArkInventory Tooltip 3"] = {
-				["size"] = 16,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 5,
-					["bar"] = 4,
-					["window"] = 4,
-				},
-			},
-			["ArkInventory Square 1"] = {
-				["size"] = 16,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 3,
-					["bar"] = 3,
-					["window"] = 3,
-				},
-			},
-			["ArkInventory Square 2"] = {
-				["size"] = 16,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 4,
-					["bar"] = 3,
-					["window"] = 3,
-				},
-			},
-			["ArkInventory Square 3"] = {
-				["size"] = 16,
-				["offset"] = nil,
-				["offsetdefault"] = {
-					["slot"] = 5,
-					["bar"] = 4,
-					["window"] = 4,
-				},
-			},
-		},
-		
-		Junk = [[Interface\Icons\INV_Misc_Coin_02]],
-		
-		Yes = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
-		No = [[Interface\RAIDFRAME\ReadyCheck-NotReady]],
-		
-		Checked = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
-		atWar = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
-		
-	},
-	
-	SortKeys = { -- true = keep, false = remove
-		bagid = true,
-		slotid = true,
-		count = true,
-		itemcount = false,
-		category = true,
-		location = true,
-		itemuselevel = true,
-		itemstatlevel = true,
-		itemtype = true,
-		quality = true,
-		name = true,
-		vendorprice = true,
-		itemage = true,
-		id = true,
-		slottype = true,
-		expansion = true,
-	},
-	
-	DatabaseDefaults = { },
-	
-	MountTypes = {
-		["l"] = 0x01, -- land
-		["a"] = 0x02, -- air
---		["s"] = 0x04, -- water surface
-		["u"] = 0x08, -- underwater
-		["x"] = 0x00, -- ignored / unknown
-	},
-	
-	booleantable = { true, false },
-	
-	Realm = { }, -- connected realm array
-	
-	SortWhen = {
-		Instant = 1,
-		Open = 2,
-		Manual = 3,
-	},
-	
-	ActionID = {
-		MainMenu = 0,
-		Close = 1,
-		EditMode = 2,
-		Rules = 3,
-		Search = 4,
-		SwitchCharacter = 5,
-		SwitchLocation = 6,
-		Restack = 7,
-		Changer = 8,
-		Refresh = 9,
-	},
-	
-	Bind = { -- ITEM_BINDx
-		Never = 0,
-		Use = 1,
-		Equip = 2,
-		Pickup = 3,
-		Account = 4,
-	},
-	
-	Reputation = {
-		Custom = {
-			Default = 1,
-			Custom = 2,
-		},
-		Style = {
-			TooltipNormal = "*st**pv**pr* (*br*)", -- rep tooltip
-			TooltipItemCount = "*st**pv**pr* (*br*)", -- itemcount tooltip
-			TwoLines = "*st**pv**pr*\n*bc*", -- List view
-			OneLine = "*st**pv**pr* *bc*", -- LDB tooltip
-			OneLineWithName = "*nn*: *st**pv**pr* *bc*", -- LDB text
-		},
-	},
-	
-	Transmog = {
-		State = {
-			CanLearnMyself = 1,
-			CanLearnMyselfSecondary = 2,
-			CanLearnOther = 3,
-			CanLearnOtherSecondary = 4,
-		},
-		StyleDefault = "Smiley Face",
-		SharedMediaType = "arkinventory-icons-transmog",
-	},
-	
-	Class = {
-		Account = "ACCOUNT",
-		Guild = "GUILD",
-	},
-	
-	Move = {
-		Bar = 1,
-		Category = 2,
-	},
-	
-	IDType = {
-		Count = 1,
-		Search = 2,
-	},
-	
-	Tooltip = {
-		-- used to convert tooltip:SetText into tooltip:SetHyperlink
-		customHyperlinkFormat = "ArkInventory!!!%s",
-		customHyperlinkMatch = "^ArkInventory!!!(.+)$",
-		
-		Search = {
-			Full = 0, -- checks everything
-			Base = 1, -- meant to skip around items in patterns/recipes
-			Short = 2, -- stops at the first blank line
-		},
-	},
-	
-	CategoryTypes = { "SYSTEM", "CONSUMABLE", "TRADEGOODS", "SKILL", "CLASS", "EMPTY", "CUSTOM", "RULE", },
-	
-	--Tradeskill = { }, -- created elsewhere (needs localise which isnt available here)
-	
-	Flying = {
-		Never = {
-			Instance = {
-				[1191] = true, -- Ashran (PvP)
-				[1203] = true, -- Frostfire Finale
-				[1265] = true, -- Tanaan Jungle Intro
-				[1463] = true, -- Helheim Exterior Area
-				[1669] = true, -- Argus
-				
-				[1107] = true, -- Warlock Order Hall - Dreadscar Rift
-				[1469] = true, -- Shaman Order Hall - The Heart of Azeroth
-				[1479] = true, -- Warrior Order Hall - Skyhold
-				[1514] = true, -- Monk Order Hall - The Wandering Isle
-				[1519] = true, -- Demon Hunter Order Hall - The Fel Hammer
-				
-				[1557] = true, -- Class Trial Boost
-				
-				[1750] = true, -- Exodar - Argus Intro
-				[1760] = true, -- Battle for Lordaeron Scenario
-				[1876] = true, -- Battle for Stormgarde
-				
-				-- bfa - island expeditions
-				[1893] = true, -- dread chain
-				[1897] = true, -- molten cay
-				[1892] = true, -- rotting mire
-				[1898] = true, -- skittering hollow
-				[1813] = true, -- un'gol ruins
-				[1882] = true, -- verdant isles
-				[1883] = true, -- whispering reef
-				
-				-- extra races
-				[1917] = true, -- Gorgrond - Mag'har scenario
-				
-				-- shadowlands
-				[2364] = true, -- The Maw Intro
-				[2363] = true, -- night fae - queens conservatory
-				
-				-- /dump GetInstanceInfo( )
-			},
-			Map = {
-				[1543] = true, -- Shadowlands / The Maw
-				[1670] = true, -- Shadowlands / Oribos Level 1
-				[1671] = true, -- Shadowlands / Oribos Level 2
-				[1961] = true, -- Shadowlands / Korthia
-				
-				-- /dump C_Map.GetBestMapForUnit( "player" )
-			},
-		},
-		Achievement = {
---			[1116] = 10018 -- Draenor -- Draenor Pathfinder
---			[1464] = 10018 -- Tanaan Jungle
---			[1152] = 10018 -- Horde Garrison Level 1
---			[1330] = 10018 -- Horde Garrison Level 2
---			[1153] = 10018 -- Horde Garrison Level 3
---			[1154] = 10018 -- Horde Garrison Level 4
---			[1158] = 10018 -- Alliance Garrison Level 1
---			[1331] = 10018 -- Alliance Garrison Level 2
---			[1159] = 10018 -- Alliance Garrison Level 3
---			[1160] = 10018 -- Alliance Garrison Level 4
-			
---			[1220] = 11446 -- Broken Isles -- Broken Isles Pathfinder Part 2
-			
-			[1642] = 13250, -- Zandalar / Battle for Azeroth Pathfinder Part 2
-			[1643] = 13250, -- Kul Tiras / Battle for Azeroth Pathfinder Part 2
-			[1718] = 13250, -- Nazjatar / Battle for Azeroth Pathfinder Part 2
---			[0000] = 13250, -- Rustbucket / Battle for Azeroth Pathfinder Part 2
-			[2374] = 15514, -- Shadowlands / Zereth Mortis
-		},
-		Spell = {
-		},
-		Quest = {
-			[2222] = 63893, -- Shadowlands Flying
-		},
-		Bug735 = {
-			[0] = true, -- Eastern Kingdoms
-			[1] = true, -- Kalimdor
---			[530] = true, -- Outland (appears to be working now)
-			[571] = true, -- Northrend
-			[730] = true, -- Maelstrom (Deepholm)
---			[870] = true, -- Pandaria (appears to be working now)
-		},
-	},
-	
-	YieldAfter = 25,
-	
-}
-
-function ArkInventory.OutputSerialize( d )
-	if d == nil then
-		return "nil"
-	elseif type( d ) == "number" then
-		return tostring( d )
-	elseif type( d ) == "string" then
-		--return string.format( "%q", d )
-		return d
-	elseif type( d ) == "boolean" then
-		if d then
-			return "true"
-		else
-			return "false"
-		end
-	elseif type( d ) == "table" then
-		local tmp = { }
-		local c = 0
-		for k, v in pairs( d ) do
-			c = c + 1
-			tmp[c] = string.format( "[%s]=%s", ArkInventory.OutputSerialize( k ), ArkInventory.OutputSerialize( v ) )
-		end
-		return string.format( "{ %s }", table.concat( tmp, ", " ) )
-	else
-		return string.format( "**%s**", type( d ) or ArkInventory.Localise["UNKNOWN"] )
-	end
-end
-
-local ArkInventory_TempOutputTable = { }
-
-function ArkInventory.Output( ... )
-	
-	if not DEFAULT_CHAT_FRAME then
-		return
-	end
-	
-	ArkInventory.Table.Wipe( ArkInventory_TempOutputTable )
-	
-	local n = select( '#', ... )
-	
-	if n == 0 then
-		
-		ArkInventory:Print( "nil" )
-		
-	else
-		
-		for i = 1, n do
-			local v = select( i, ... )
-			ArkInventory_TempOutputTable[i] = ArkInventory.OutputSerialize( v )
-		end
-		
-		ArkInventory:Print( table.concat( ArkInventory_TempOutputTable ) )
-		
-	end
-	
-end
-
-function ArkInventory.Output2( ... )
-	if ArkInventory.Global.Debug2 then
-		ArkInventory.Output( "|cff17ffc1", ... ) -- fffff99a
-	end
-end
-
-function ArkInventory.OutputThread( ... )
-	if ArkInventory.db.option.thread.debug then
-		ArkInventory.Output( "|cffffff9aTHREAD> ", ... )
-	end
-end
-
-function ArkInventory.OutputDebug( ... )
-	if ArkInventory.Global.Debug then
-		ArkInventory.Output( "|cffffff9aDEBUG> ", ... )
-	end
-end
-
-function ArkInventory.OutputWarning( ... )
-	ArkInventory.Output( "|cfffa8000WARNING> ", ... )
-end
-
-function ArkInventory.OutputError( ... )
-	ArkInventory.Output( RED_FONT_COLOR_CODE, ERROR_CAPS, "> ", ... )
-end
-
-function ArkInventory.OutputDebugModeSet( value )
-	
-	if ArkInventory.Global.Debug ~= value then
-		
-		local state = ArkInventory.Localise["ENABLED"]
-		if not value then
-			state = ArkInventory.Localise["DISABLED"]
-		end
-		
-		ArkInventory.Global.Debug = value
-		
-		ArkInventory.Output( "debug mode is now ", state )
-		
-	end
-	
-end
-
 
 function ArkInventory.Table.Sum( src, fnc )
 	local r = 0
@@ -1227,51 +255,1059 @@ function ArkInventory.spairs( tbl, cf )
 	
 end
 
---[[
--- /dump GetItemClassInfo( ArkInventory.Const.ItemClass.ARMOR )
--- /dump GetItemSubClassInfo( ArkInventory.Const.ItemClass.ARMOR, ArkInventory.Const.ItemClass.ARMOR_LEATHER )
 
-for x = 0, 50 do
-	--local x = ArkInventory.Const.ItemClass.TRADEGOODS_HERBS
-	local n = GetItemClassInfo( x )
-	if n and n ~= "" then
-		ArkInventory.Output( "----------" )
-		ArkInventory.Output( x, " ", n )
-	end
-	for y = 0, 50 do
-		n = GetItemSubClassInfo( x, y )
-		if n and n ~= "" then
-			ArkInventory.Output( y, " ", n )
+
+
+
+function ArkInventory.OutputSerialize( d )
+	if d == nil then
+		return "nil"
+	elseif type( d ) == "number" then
+		return tostring( d )
+	elseif type( d ) == "string" then
+		--return string.format( "%q", d )
+		return d
+	elseif type( d ) == "boolean" then
+		if d then
+			return "true"
+		else
+			return "false"
 		end
-	end
-end
-]]--
-
---[[
-local name
-for x = 352170, 352180 do
---	if IsSpellKnown( x ) then
-		name = GetSpellInfo( x )
---		if name and string.match( string.lower( name ), "flying" ) then
-			ArkInventory.Output( x, " = ", name, " / ", IsSpellKnown( x ) )
---			GetSpellInfo( 352177 )
---			IsSpellKnown( 352177 )
---		end
---	end
-end
-]]--
-
--- item_openable = right click to open
---[[
-local z = "while in combat"
-ArkInventory.Output( "search=", z )
-for k, v in pairs (_G) do
-	if type( k ) == "string" and type( v ) == "string" then
-		--if string.match( string.lower( k ), string.lower( z ) ) then -- found in key
-		if string.match( string.lower( v ), string.lower( z ) ) then -- found in value
-		--if string.lower( v ) == string.lower( z ) then -- exact match with value
-			ArkInventory.Output( k, "=", v )
+	elseif type( d ) == "table" then
+		local tmp = { }
+		local c = 0
+		for k, v in pairs( d ) do
+			c = c + 1
+			tmp[c] = string.format( "[%s]=%s", ArkInventory.OutputSerialize( k ), ArkInventory.OutputSerialize( v ) )
 		end
+		return string.format( "{ %s }", table.concat( tmp, ", " ) )
+	else
+		return string.format( "**%s**", type( d ) or ArkInventory.Localise["UNKNOWN"] )
 	end
 end
---]]
+
+local ArkInventory_TempOutputTable = { }
+function ArkInventory.Output( ... )
+	
+	if not DEFAULT_CHAT_FRAME then
+		return
+	end
+	
+	ArkInventory.Table.Wipe( ArkInventory_TempOutputTable )
+	
+	local n = select( '#', ... )
+	
+	if n == 0 then
+		
+		ArkInventory:Print( "nil" )
+		
+	else
+		
+		for i = 1, n do
+			local v = select( i, ... )
+			ArkInventory_TempOutputTable[i] = ArkInventory.OutputSerialize( v )
+		end
+		
+		ArkInventory:Print( table.concat( ArkInventory_TempOutputTable ) )
+		
+	end
+	
+end
+
+function ArkInventory.Output2( ... )
+	if ArkInventory.Global.Debug2 then
+		ArkInventory.Output( "|cff17ffc1", ... ) -- fffff99a
+	end
+end
+
+function ArkInventory.OutputThread( ... )
+	if ArkInventory.db.option.thread.debug then
+		ArkInventory.Output( "|cffffff9aTHREAD> ", ... )
+	end
+end
+
+function ArkInventory.OutputDebug( ... )
+	if ArkInventory.Global.Debug then
+		ArkInventory.Output( "|cffffff9aDEBUG> ", ... )
+	end
+end
+
+function ArkInventory.OutputWarning( ... )
+	ArkInventory.Output( "|cfffa8000WARNING> ", ... )
+end
+
+function ArkInventory.OutputError( ... )
+	ArkInventory.Output( RED_FONT_COLOR_CODE, ERROR_CAPS, "> ", ... )
+end
+
+function ArkInventory.OutputDebugModeSet( value )
+	
+	if ArkInventory.Global.Debug ~= value then
+		
+		local state = ArkInventory.Localise["ENABLED"]
+		if not value then
+			state = ArkInventory.Localise["DISABLED"]
+		end
+		
+		ArkInventory.Global.Debug = value
+		
+		ArkInventory.Output( "debug mode is now ", state )
+		
+	end
+	
+end
+
+
+
+
+ArkInventory.Const = { -- constants
+	
+	Program = {
+		Name = "ArkInventory",
+		Version = nil, -- calculated at load
+	},
+	
+	BLIZZARD = {
+		
+--		/dump ArkInventory.Const.BLIZZARD.TOC
+		TOC = select( 4, GetBuildInfo( ) ) or 0,
+		
+		CLIENT = {
+			ID = nil,
+			NAME = "",
+			EXPANSION = { },
+			PTR = 0.1,
+			BETA = 0.2,
+		},
+		
+		GLOBAL = {
+			TOOLTIP = {
+				UPDATETIMER = 1, --TOOLTIP_UPDATE_TIME = 0.2
+			},
+			FONT = {
+				COLOR = {
+					UNUSABLE1 = "fefe1f1f", -- shadowlands
+					UNUSABLE2 = "ffff2020", -- dragonflight
+				},
+			},
+			PROFESSIONRANK = {
+				COLOR = {
+					[0] = { r = 255 / 255, g = 255 / 255, b = 255 / 255 },
+					[1] = { r = 169 / 255, g = 113 / 255, b =  66 / 255 },
+					[2] = { r = 192 / 255, g = 192 / 255, b = 192 / 255 },
+					[3] = { r = 215 / 255, g = 190 / 255, b = 105 / 255 },
+					[4] = { r =  80 / 255, g = 200 / 255, b = 120 / 255 },
+					[5] = { r = 222 / 255, g = 129 / 255, b =  35 / 255 },
+				},
+				OFFSET = {
+					[1] = { x = -5, y = -5 },
+					[2] = { x = -1, y = -5 },
+					[3] = { x = -1, y = -3 },
+					[4] = { x = -1, y = -1 },
+					[5] = { x = -1, y = -1 },
+				}
+			},
+			CONTAINER = {
+				SLOTSIZE = 37,
+				NUM_SLOT_MAX = MAX_CONTAINER_ITEMS or 36,
+				FILTER = {
+					IGNORECLEANUP = LE_BAG_FILTER_FLAG_IGNORE_CLEANUP or ( Enum.BagSlotFlags and Enum.BagSlotFlags.DisableAutoSort ) or 1,
+					ASSIGN_TO_BAG = BAG_FILTER_ASSIGN_TO,
+					LABELS = BAG_FILTER_LABELS,
+				},
+				NUM_BAGS_NORMAL = NUM_BAG_SLOTS or NUM_BAG_FRAMES or 4,
+				NUM_BAGS_REAGENT = NUM_REAGENTBAG_FRAMES or 0,
+				NUM_BAGS = 0, -- calculated further down
+			},
+			BANK = {
+				NUM_BAGS = NUM_BANKBAGSLOTS or 7,
+				NUM_SLOTS = NUM_BANKGENERIC_SLOTS or 7 * 4,
+			},
+			REAGENTBANK = {
+				NUM_SLOTS = 7 * 7 * 2,
+			},
+			GUILDBANK = {
+				NUM_TABS = MAX_GUILDBANK_TABS,
+				WIDTH = NUM_GUILDBANK_COLUMNS or 14,
+				HEIGHT = NUM_SLOTS_PER_GUILDBANK_GROUP or 7,
+				SLOTS_PER_TAB = MAX_GUILDBANK_SLOTS_PER_TAB or 14 * 7,
+				LOG_TIME_PREPEND = GUILD_BANK_LOG_TIME_PREPEND or "|cff009999  ",
+			},
+			VOIDSTORAGE = {
+				NUM_SLOT_MAX = VOID_STORAGE_MAX or 80,
+				NUM_PAGES = VOID_STORAGE_PAGES or 2,
+			},
+			PET = {
+				FILTER = {
+					COLLECTED = LE_PET_JOURNAL_FILTER_COLLECTED or 1,
+					NOTCOLLECTED = LE_PET_JOURNAL_FILTER_NOT_COLLECTED or 2,
+				},
+			},
+			MAILBOX = {
+				NUM_ATTACHMENT_MAX = ATTACHMENTS_MAX_RECEIVE,
+			},
+		},
+		
+		FUNCTION = {
+			GETITEMINFO = {
+				NAME = 1,
+				LINK = 2,
+				QUALITY = 3,
+				ILVL_BASE = 4,
+				USELEVEL = 5,
+				TYPE = 6,
+				SUBTYPE = 7,
+				STACKSIZE = 8,
+				EQUIP = 9,
+				TEXTURE = 10,
+				VENDORPRICE = 11,
+				TYPEID = 12,
+				SUBTYPEID = 13,
+				BINDING = 14,
+				EXPANSION = 15,
+				SETID = 16,
+				CRAFT = 17,
+			},
+			GETITEMINFOINSTANT = {
+				ID = 1,
+				TYPE = 2,
+				SUBTYPE = 3,
+				EQUIP = 4,
+				TEXTURE = 5,
+				TYPEID = 6,
+				SUBTYPEID = 7,
+			},
+			GETSPELLINFO = {
+				NAME = 1,
+				TEXTURE = 3,
+			}
+		},
+		
+	},
+	
+	ENUM = {
+		BAGINDEX = {
+			BACKPACK = BACKPACK_CONTAINER or ( Enum.BagIndex and Enum.BagIndex.Backpack ) or 0,
+			BANK = BANK_CONTAINER or ( Enum.BagIndex and Enum.BagIndex.Bank ) or -1,
+			REAGENTBANK = REAGENTBANK_CONTAINER or ( Enum.BagIndex and Enum.BagIndex.Reagentbank ) or -3,
+			REAGENTBAG = ( Enum.BagIndex and Enum.BagIndex.Reagentbag ) or 5,
+			KEYRING = KEYRING_CONTAINER or ( Enum.BagIndex and Enum.BagIndex.Keyring ) or -2
+		},
+		ITEMCLASS = {
+			UNKNOWN = {
+				PARENT = -2,
+			},
+			EMPTY = {
+				PARENT = -1,
+			},
+			CONSUMABLE = {
+				PARENT = LE_ITEM_CLASS_CONSUMABLE or Enum.ItemClass.Consumable or 0,
+				EXPLOSIVES_AND_DEVICES = 0,
+				POTION = Enum.ItemConsumableSubclass.Potion or 1,
+				ELIXIR = Enum.ItemConsumableSubclass.Elixir or 2,
+				FLASK = 3 or Enum.ItemConsumableSubclass.Flask or 3,
+				SCROLL = 4 or Enum.ItemConsumableSubclass.Scroll or 4,
+				FOOD_AND_DRINK = 5 or Enum.ItemConsumableSubclass.Fooddrink or 5,
+				ITEM_ENHANCEMENT = 6 or Enum.ItemConsumableSubclass.Itemenhancement or 6,
+				BANDAGE = 7 or Enum.ItemConsumableSubclass.Bandage or 7,
+				OTHER = 8 or Enum.ItemConsumableSubclass.Other or 8,
+				VANTUSRUNE = 9 or Enum.ItemConsumableSubclass.Vantusrune or 9,
+			},
+			CONTAINER = {
+				PARENT = LE_ITEM_CLASS_CONTAINER or Enum.ItemClass.Container or 1,
+				BAG = 0,
+				SOULSHARD = 1,
+				HERBALISM = 2,
+				ENCHANTING = 3,
+				ENGINEERING = 4,
+				JEWELCRAFTING = 5,
+				MINING = 6,
+				LEATHERWORKING = 7,
+				INSCRIPTION = 8,
+				FISHING = 9,
+				COOKING = 10,
+				REAGENT = 11,
+			},
+			WEAPON = {
+				PARENT = LE_ITEM_CLASS_WEAPON or Enum.ItemClass.Weapon or 2,
+				AXE1H = LE_ITEM_WEAPON_AXE1H or Enum.ItemWeaponSubclass.Axe1H or 0,
+				AXE2H = LE_ITEM_WEAPON_AXE2H or Enum.ItemWeaponSubclass.Axe2H or 1,
+				BOW = LE_ITEM_WEAPON_BOWS or Enum.ItemWeaponSubclass.Bows or 2,
+				GUN = LE_ITEM_WEAPON_GUNS or Enum.ItemWeaponSubclass.Guns or 3,
+				MACE1H = LE_ITEM_WEAPON_MACE1H or Enum.ItemWeaponSubclass.Mace1H or 4,
+				MACE2H = LE_ITEM_WEAPON_MACE2H or Enum.ItemWeaponSubclass.Mace2H or 5,
+				POLEARM = LE_ITEM_WEAPON_POLEARM or Enum.ItemWeaponSubclass.Polearm or 6,
+				SWORD1H = LE_ITEM_WEAPON_SWORD1H or Enum.ItemWeaponSubclass.Sword1H or 7,
+				SWORD2H = LE_ITEM_WEAPON_SWORD2H or Enum.ItemWeaponSubclass.Sword2H or 8,
+				WARGLAIVE = LE_ITEM_WEAPON_WARGLAIVE or Enum.ItemWeaponSubclass.Warglaive or 9,
+				STAFF = LE_ITEM_WEAPON_STAFF or Enum.ItemWeaponSubclass.Staff or 10,
+				EXOTIC1H = LE_ITEM_WEAPON_EXOTIC1H or Enum.ItemWeaponSubclass.Bearclaw or 11,
+				EXOTIC2H = LE_ITEM_WEAPON_EXOTIC2H or Enum.ItemWeaponSubclass.Catclaw or 12,
+				FIST = LE_ITEM_WEAPON_UNARMED or Enum.ItemWeaponSubclass.Unarmed or 13,
+				GENERIC = LE_ITEM_WEAPON_GENERIC or Enum.ItemWeaponSubclass.Generic or 14,
+				DAGGER = LE_ITEM_WEAPON_DAGGER or Enum.ItemWeaponSubclass.Dagger or 15,
+				THROWN = LE_ITEM_WEAPON_THROWN or Enum.ItemWeaponSubclass.Thrown or 16,
+				SPEAR = LE_ITEM_WEAPON_SPEAR or Enum.ItemWeaponSubclass.Obsolete3 or 17,
+				CROSSBOW = LE_ITEM_WEAPON_CROSSBOW or Enum.ItemWeaponSubclass.Crossbow or 18,
+				WAND = LE_ITEM_WEAPON_WAND or Enum.ItemWeaponSubclass.Wand or 19,
+				FISHING = LE_ITEM_WEAPON_FISHINGPOLE or Enum.ItemWeaponSubclass.Fishingpole or 20,
+			},
+			GEM = {
+				PARENT = LE_ITEM_CLASS_GEM or Enum.ItemClass.Gem or 3,
+				INTELLECT = LE_ITEM_GEM_INTELLECT or Enum.ItemGemSubclass.Intellect or 0,
+				AGILITY = LE_ITEM_GEM_AGILITY or Enum.ItemGemSubclass.Agility or 1,
+				STRENGTH = LE_ITEM_GEM_STRENGTH or Enum.ItemGemSubclass.Strength or 2,
+				STAMINA = LE_ITEM_GEM_STAMINA or Enum.ItemGemSubclass.Stamina or 3,
+				SPIRIT = LE_ITEM_GEM_SPIRIT or Enum.ItemGemSubclass.Spirit or 4,
+				CRITICALSTRIKE = LE_ITEM_GEM_CRITICALSTRIKE or Enum.ItemGemSubclass.Criticalstrike or 5,
+				MASTERY = LE_ITEM_GEM_MASTERY or Enum.ItemGemSubclass.Mastery or 6,
+				HASTE = LE_ITEM_GEM_HASTE or Enum.ItemGemSubclass.Haste or 7,
+				VERSATILITY = LE_ITEM_GEM_VERSATILITY or Enum.ItemGemSubclass.Versatility or 8,
+				OTHER = LE_ITEM_GEM_OTHER or Enum.ItemGemSubclass.Other or 9,
+				MULTIPLESTATS = LE_ITEM_GEM_MULTIPLESTATS or Enum.ItemGemSubclass.Multiplestats or 10,
+				ARTIFACTRELIC = LE_ITEM_GEM_ARTIFACTRELIC or Enum.ItemGemSubclass.Artifactrelic or 11,
+			},
+			ARMOR = {
+				PARENT = LE_ITEM_CLASS_ARMOR or Enum.ItemClass.Armor or 4,
+				GENERIC = LE_ITEM_ARMOR_GENERIC or Enum.ItemArmorSubclass.Generic or 0,
+				CLOTH = LE_ITEM_ARMOR_CLOTH or Enum.ItemArmorSubclass.Cloth or 1,
+				LEATHER = LE_ITEM_ARMOR_LEATHER or Enum.ItemArmorSubclass.Leather or 2,
+				MAIL = LE_ITEM_ARMOR_MAIL or Enum.ItemArmorSubclass.Mail or 3,
+				PLATE = LE_ITEM_ARMOR_PLATE or Enum.ItemArmorSubclass.Plate or 4,
+				COSMETIC = LE_ITEM_ARMOR_COSMETIC or Enum.ItemArmorSubclass.Cosmetic or 5,
+				--BUCKLER = LE_ITEM_ARMOR_BUCKLER,
+				SHIELD = LE_ITEM_ARMOR_SHIELD or Enum.ItemArmorSubclass.Shield or 6,
+				LIBRAM = LE_ITEM_ARMOR_LIBRAM or Enum.ItemArmorSubclass.Libram or 7,
+				IDOL = LE_ITEM_ARMOR_IDOL or Enum.ItemArmorSubclass.Idol or 8,
+				TOTEM = LE_ITEM_ARMOR_TOTEM or Enum.ItemArmorSubclass.Totem or 9,
+				SIGIL = LE_ITEM_ARMOR_SIGIL or Enum.ItemArmorSubclass.Sigil or 10,
+				RELIC = LE_ITEM_ARMOR_RELIC or Enum.ItemArmorSubclass.Relic or 11,
+			},
+			REAGENT = {
+				PARENT = LE_ITEM_CLASS_REAGENT or Enum.ItemClass.Reagent or 5,
+				REAGENT = Enum.ItemReagentSubclass.Reagent or 0,
+				KEYSTONE = Enum.ItemReagentSubclass.Keystone or 1,
+			},
+			PROJECTILE = {
+				PARENT = LE_ITEM_CLASS_PROJECTILE or Enum.ItemClass.Projectile or 6,
+				WAND = 0,
+				BOLT = 1,
+				ARROW = 2,
+				BULLET = 3,
+				THROWN = 4,
+			},
+			TRADEGOODS = {
+				PARENT = LE_ITEM_CLASS_TRADEGOODS or Enum.ItemClass.Tradegoods or 7,
+				TRADEGOODS = 0,
+				PARTS = 1,
+				EXPLOSIVES = 2,
+				DEVICES = 3,
+				JEWELCRAFTING = 4,
+				CLOTH = 5,
+				LEATHER = 6,
+				METAL_AND_STONE = 7,
+				COOKING = 8,
+				HERBS = 9,
+				ELEMENTAL = 10,
+				OTHER = 11,
+				ENCHANTING = 12,
+				MATERIALS = 13,
+				ITEM_ENCHANTMENT = 14,
+				WEAPON_ENCHANTMENT = 15,
+				INSCRIPTION = 16,
+				EXPLOSIVES_AND_DEVICES = 17,
+			},
+			ITEM_ENHANCEMENT = {
+				PARENT = LE_ITEM_CLASS_ITEM_ENHANCEMENT or Enum.ItemClass.ItemEnhancement or 8,
+			},
+			RECIPE = {
+				PARENT = LE_ITEM_CLASS_RECIPE or Enum.ItemClass.Recipe or 9,
+				BOOK = LE_ITEM_RECIPE_BOOK or Enum.ItemRecipeSubclass.Book or 0,
+				LEATHERWORKING = LE_ITEM_RECIPE_LEATHERWORKING or Enum.ItemRecipeSubclass.Leatherworking or 1,
+				TAILORING = LE_ITEM_RECIPE_TAILORING or Enum.ItemRecipeSubclass.Tailoring or 2,
+				ENGINEERING = LE_ITEM_RECIPE_ENGINEERING or Enum.ItemRecipeSubclass.Engineering or 3,
+				BLACKSMITHING = LE_ITEM_RECIPE_BLACKSMITHING or Enum.ItemRecipeSubclass.Blacksmithing or 4,
+				COOKING = LE_ITEM_RECIPE_COOKING or Enum.ItemRecipeSubclass.Cooking or 5,
+				ALCHEMY = LE_ITEM_RECIPE_ALCHEMY or Enum.ItemRecipeSubclass.Alchemy or 6,
+				FIRST_AID = LE_ITEM_RECIPE_FIRST_AID or Enum.ItemRecipeSubclass.FirstAid or 7,
+				ENCHANTING = LE_ITEM_RECIPE_ENCHANTING or Enum.ItemRecipeSubclass.Enchanting or 8,
+				FISHING = LE_ITEM_RECIPE_FISHING or Enum.ItemRecipeSubclass.Fishing or 9,
+				JEWELCRAFTING = LE_ITEM_RECIPE_JEWELCRAFTING or Enum.ItemRecipeSubclass.Jewelcrafting or 10,
+				INSCRIPTION = LE_ITEM_RECIPE_INSCRIPTION or Enum.ItemRecipeSubclass.Inscription or 11,
+			},
+			QUIVER = {
+				PARENT = LE_ITEM_CLASS_QUIVER or Enum.ItemClass.Quiver or 11,
+				-- QUIVER = 0,
+				-- BOLT = 1,
+				QUIVER = 2,
+				AMMO = 3,
+			},
+			QUEST = {
+				PARENT = LE_ITEM_CLASS_QUESTITEM or Enum.ItemClass.Questitem or 12,
+				QUEST = 0,
+			},
+			KEY = {
+				PARENT = LE_ITEM_CLASS_KEY or Enum.ItemClass.Key or 13,
+				KEY = 0,
+				LOCKPICK = 1,
+			},
+			MISC = {
+				PARENT = LE_ITEM_CLASS_MISCELLANEOUS or Enum.ItemClass.Miscellaneous or 15,
+				JUNK = LE_ITEM_MISCELLANEOUS_JUNK or Enum.ItemMiscellaneousSubclass.Junk or 0,
+				REAGENT = LE_ITEM_MISCELLANEOUS_REAGENT or Enum.ItemMiscellaneousSubclass.Reagent or 1,
+				PET = LE_ITEM_MISCELLANEOUS_COMPANION_PET or Enum.ItemMiscellaneousSubclass.CompanionPet or 2,
+				HOLIDAY = LE_ITEM_MISCELLANEOUS_HOLIDAY or Enum.ItemMiscellaneousSubclass.Holiday or 3,
+				OTHER = LE_ITEM_MISCELLANEOUS_OTHER or Enum.ItemMiscellaneousSubclass.Other or 4,
+				MOUNT = LE_ITEM_MISCELLANEOUS_MOUNT or Enum.ItemMiscellaneousSubclass.Mount or 5,
+				MOUNT_EQUIPMENT = LE_ITEM_MISCELLANEOUS_MOUNT_EQUIPMENT or Enum.ItemMiscellaneousSubclass.MountEquipment or 6,
+			},
+			GLYPH = {
+				PARENT = LE_ITEM_CLASS_GLYPH or Enum.ItemClass.Glyph or 16,
+			},
+			BATTLEPET = {
+				PARENT = LE_ITEM_CLASS_BATTLEPET or Enum.ItemClass.Battlepet or 17,
+				HUMANOID = 0, -- [163]
+				DRAGONKIN = 1, -- [164]
+				FLYING = 2, -- [165]
+				UNDEAD = 3, -- [166]
+				CRITTER = 4, -- [167]
+				MAGIC = 5, -- [168]
+				ELEMENTAL = 6, -- [169]
+				BEAST = 7, -- [170]
+				AQUATIC = 8, -- [171]
+				MECHANICAL = 9, -- [172]
+			},
+			WOW_TOKEN = {
+				PARENT = ITEM_CLASS_WOW_TOKEN or Enum.ItemClass.WoWToken or 18,
+				WOWTOKEN = 0, -- [174]
+			},
+		},
+		EXPANSION = {
+			--CURRENT = set elsewhere,
+			DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT or 9,
+			SHADOWLANDS = LE_EXPANSION_SHADOWLANDS or 8,
+			BFA = LE_EXPANSION_BATTLE_FOR_AZEROTH or 7,
+			LEGION = LE_EXPANSION_LEGION or 6,
+			DRAENOR = LE_EXPANSION_WARLORDS_OF_DRAENOR or 5,
+			PANDARIA = LE_EXPANSION_MISTS_OF_PANDARIA or 4,
+			CATACLYSM = LE_EXPANSION_CATACLYSM or 3,
+			WRATH = LE_EXPANSION_WRATH_OF_THE_LICH_KING or 2,
+			TBC = LE_EXPANSION_BURNING_CRUSADE or 1,
+			CLASSIC = LE_EXPANSION_CLASSIC or 0,
+		},
+		ITEMQUALITY = {
+			MISSING = -2,
+			UNKNOWN = -1,
+			POOR = ( Enum.ItemQuality and Enum.ItemQuality.Poor ) or LE_ITEM_QUALITY_POOR or 0,
+			STANDARD = ( Enum.ItemQuality and Enum.ItemQuality.Standard ) or LE_ITEM_QUALITY_COMMON or 1,
+			GOOD = ( Enum.ItemQuality and Enum.ItemQuality.Good )or LE_ITEM_QUALITY_UNCOMMON or 2,
+			RARE = ( Enum.ItemQuality and Enum.ItemQuality.Rare ) or LE_ITEM_QUALITY_RARE or 3,
+			EPIC = ( Enum.ItemQuality and Enum.ItemQuality.Epic ) or LE_ITEM_QUALITY_EPIC or 4,
+			LEGENDARY = ( Enum.ItemQuality and Enum.ItemQuality.Legendary ) or LE_ITEM_QUALITY_LEGENDARY or 5,
+			ARTIFACT = ( Enum.ItemQuality and Enum.ItemQuality.Artifact ) or LE_ITEM_QUALITY_ARTIFACT or 6,
+			HEIRLOOM = ( Enum.ItemQuality and Enum.ItemQuality.Heirloom ) or LE_ITEM_QUALITY_HEIRLOOM or 7,
+			WOWTOKEN = ( Enum.ItemQuality and Enum.ItemQuality.WoWToken ) or LE_ITEM_QUALITY_WOWTOKEN or 8,
+		},
+		BATTLEPET = {
+			ENEMY = LE_BATTLE_PET_ENEMY or 2,
+		},
+		SORTWHEN = {
+			ALWAYS = 1,
+			ONOPEN = 2,
+			MANUAL = 3,
+		},
+		ANCHOR = {
+			DEFAULT = 0,
+			BOTTOMRIGHT = 1,
+			BOTTOMLEFT = 2,
+			TOPLEFT = 3,
+			TOPRIGHT = 4,
+			TOP = 5,
+			BOTTOM = 6,
+			LEFT = 7,
+			RIGHT = 8,
+			CENTER = 9,
+		},
+		DIRECTION = {
+			HORIZONTAL = 1,
+			VERTICAL = 2,
+		},
+		BAGAUTOACTION = {
+			NO = 0,
+			YES = 1,
+			ALWAYS = 2,
+		},
+	},
+
+	Frame = {
+		Main = {
+			Name = "ARKINV_Frame",
+			MiniActionButtonSize = 12,
+		},
+		Title = {
+			Name = "Title",
+			Height = 20,
+			MinHeight = 20,
+		},
+		Scroll = {
+			Name = "Scroll",
+			stepSize = 40,
+		},
+		Container = {
+			Name = "ScrollContainer",
+		},
+		Log = {
+			Name = "Log",
+		},
+		Info = {
+			Name = "Info",
+		},
+		Changer = {
+			Name = "Changer",
+			Height = 58,
+		},
+		Status = {
+			Name = "Status",
+			MinHeight = 20,
+			Padding = 5,
+		},
+		Search = {
+			Name = "Search",
+			Height = 10,
+			MinHeight = 20,
+		},
+		Scrolling = {
+			List = "List",
+			ScrollBar = "ScrollBar",
+		},
+		Config = {
+			Internal = "ArkInventory",
+			Blizzard = "ArkInventoryConfigBlizzard",
+		},
+		Cooldown = {
+			Name = "Cooldown",
+		},
+	},
+	
+	Event = {
+		BagUpdate = 1,
+		--ObjectLock = 2,
+		--PlayerMoney = 3,
+		--GuildMoney = 4,
+		--TabInfo = 5,
+		--SkillUpdate = 6,
+		--ItemUpdate = 7,
+		--BagEmpty = 8,
+	},
+	
+	Location = {
+		Bag = 1,
+		Keyring = 2,
+		Bank = 3,
+		Vault = 4,
+		Mailbox = 5,
+		Wearing = 6,
+		Pet = 7,
+		Mount = 8,
+		Currency = 9,
+		Auction = 10,
+		--Spellbook = 11,
+		Tradeskill = 12,
+		Void = 13,
+		Toybox = 14,
+		Heirloom = 15,
+		Reputation = 16,
+		MountEquipment = 17,
+	},
+	
+	Offset = {
+		Vault = 1000,
+		Mailbox = 2000,
+		Wearing = 3000,
+		Pet = 4000,
+		Currency = 5000,
+		Mount = 6000,
+		Auction = 7000,
+		--Spellbook = 8000,
+		Tradeskill = 1400,
+		Void = 1500,
+		Toybox = 1200,
+		Heirloom = 1300,
+		Reputation = 1600,
+		MountEquipment = 6100,
+	},
+	
+	Bag = {
+		Status = { -- these need to be negative values,  do not use -1
+			Unknown = -2,
+			Active = -3,
+			Empty = -4,
+			Purchase = -5,
+			NoAccess = -6,
+		},
+	},
+	
+	Slot = {
+		
+		Type = { -- slot type numbers, do not change this order, just add new ones to the end of the list
+			Unknown = 0,
+			Bag = 1,
+			Keyring = 3,
+			Soulshard = 5,
+			Herbalism = 6,
+			Enchanting = 7,
+			Engineering = 8,
+			Jewelcrafting = 9,
+			Mining = 10,
+			Bullet = 11,
+			Arrow = 12,
+			Projectile = 12,
+			Leatherworking = 13,
+			Wearing = 14,
+			Mailbox = 15,
+			Inscription = 16,
+			Critter = 17,
+			Mount = 18,
+			Currency = 19,
+			Auction = 20,
+			--Spellbook = 21,
+			Tradeskill = 22,
+			Fishing = 23,
+			Void = 24,
+			Cooking = 25,
+			Toybox = 26,
+			Reagent = 27,
+			Heirloom = 28,
+			Reputation = 29,
+		},
+		
+		New = {
+			No = false,
+			Yes = 1,
+			Inc = 2,
+			Dec = 3,
+		},
+		
+		Data = { },
+		
+		ItemLevel = {
+			Min = 1,
+			Max = 9999,
+		},
+		
+		CharacterPaneOrder = {
+			["INVTYPE_NON_EQUIP"] = 0,
+			["INVTYPE_HEAD"] = 1,
+			["INVTYPE_NECK"] = 2,
+			["INVTYPE_SHOULDER"] = 3,
+			["INVTYPE_CLOAK"] = 4,
+			["INVTYPE_CHEST"] = 5,
+			["INVTYPE_ROBE"] = 5,
+			["INVTYPE_BODY"] = 6, -- shirt
+			["INVTYPE_TABARD"] = 7,
+			["INVTYPE_WRIST"] = 8,
+			
+			["INVTYPE_HAND"] = 9,
+			["INVTYPE_WAIST"] = 10,
+			["INVTYPE_LEGS"] = 11,
+			["INVTYPE_FEET"] = 12,
+			["INVTYPE_FINGER"] = 13,
+			["INVTYPE_TRINKET"] = 15,
+			
+			["INVTYPE_WEAPON"] = 17,
+			["INVTYPE_2HWEAPON"] = 17,
+			["INVTYPE_WEAPONMAINHAND"] = 17,
+			["INVTYPE_RANGED"] = 17,
+			["INVTYPE_RANGEDRIGHT"] = 17,
+			
+			["INVTYPE_SHIELD"] = 18,
+			["INVTYPE_WEAPONOFFHAND"] = 18,
+			["INVTYPE_HOLDABLE"] = 18,
+			
+			["INVTYPE_THROWN"] = 20,
+			["INVTYPE_RELIC"] = 20,
+			["INVTYPE_AMMO"] = 20,
+			
+			["INVTYPE_BAG"] = 0,
+			["INVTYPE_QUIVER"] = 0,
+			["INVTYPE_PROFESSION_TOOL"] = 0,
+			["INVTYPE_PROFESSION_GEAR"] = 0,
+		},
+		
+	},
+	
+	Window = {
+		
+		Min = {
+			Rows = 1,
+			Columns = 6,
+			Width = 400,
+		},
+		
+		Draw = {
+			Init = 0, -- intital state, only exists at load, never set to init
+			Restart = 1, -- rebuild the entire window from scratch
+			Recalculate = 2, -- calculate
+			Resort = 3, -- sort
+			Refresh = 4, -- item changes
+			None = 5, -- nothing
+		},
+		
+		Title = {
+			SizeNormal = 1,
+			SizeThin = 2,
+		},
+	},
+	
+	Font = {
+		Face = "Arial Narrow",
+		Height = 16,
+		MinHeight = 4,
+		MaxHeight = 72,
+	},
+	
+	Fade = 0.6,
+	GuildTag = "+",
+	PlayerIDSep = " - ",
+	
+	Cursor = {
+		Drag = [[Interface\CURSOR\Crosshairs]],
+		UnableDrag = [[Interface\CURSOR\UnableCrosshairs]],
+		--Driver Gunner Interact Item 
+	},
+	
+	Texture = {
+		
+		Missing = [[Interface\Icons\Temp]],
+		
+		Empty = {
+			Item = [[Interface\PaperDoll\UI-Backpack-EmptySlot]],
+			Bag = [[Interface\PaperDoll\UI-PaperDoll-Slot-Bag]],
+		},
+		
+		CategoryDamaged = [[Interface\Icons\Spell_Shadow_DeathCoil]],
+		CategoryEnabled = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
+		CategoryDisabled = [[Interface\RAIDFRAME\ReadyCheck-NotReady]],
+		
+		BackgroundDefault = "Solid",
+		
+		BorderDefault = "Blizzard Tooltip",
+		BorderNone = "None",
+		
+		Border = {
+			["Blizzard Tooltip"] = {
+				["size"] = 16,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 4,
+					["bar"] = 3,
+					["window"] = 3,
+				},
+				["scale"] = 1,
+			},
+			["Blizzard Dialog"] = {
+				["size"] = 32,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 9,
+					["bar"] = 6,
+					["window"] = 6,
+				},
+			},
+			["Blizzard Dialog Gold"] = {
+				["size"] = 32,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 9,
+					["bar"] = 6,
+					["window"] = 6,
+				},
+			},
+			["ArkInventory Tooltip 1"] = {
+				["size"] = 16,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 3,
+					["bar"] = 3,
+					["window"] = 3,
+				},
+			},
+			["ArkInventory Tooltip 2"] = {
+				["size"] = 16,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 4,
+					["bar"] = 3,
+					["window"] = 3,
+				},
+			},
+			["ArkInventory Tooltip 3"] = {
+				["size"] = 16,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 5,
+					["bar"] = 4,
+					["window"] = 4,
+				},
+			},
+			["ArkInventory Square 1"] = {
+				["size"] = 16,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 3,
+					["bar"] = 3,
+					["window"] = 3,
+				},
+			},
+			["ArkInventory Square 2"] = {
+				["size"] = 16,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 4,
+					["bar"] = 3,
+					["window"] = 3,
+				},
+			},
+			["ArkInventory Square 3"] = {
+				["size"] = 16,
+				["offset"] = nil,
+				["offsetdefault"] = {
+					["slot"] = 5,
+					["bar"] = 4,
+					["window"] = 4,
+				},
+			},
+		},
+		
+		Junk = [[Interface\Icons\INV_Misc_Coin_02]],
+		
+		Yes = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
+		No = [[Interface\RAIDFRAME\ReadyCheck-NotReady]],
+		
+		Checked = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
+		atWar = [[Interface\RAIDFRAME\ReadyCheck-Ready]],
+		
+	},
+	
+	SortKeys = { -- true = keep, false = remove
+		bagid = true,
+		slotid = true,
+		count = true,
+		itemcount = false,
+		category = true,
+		location = true,
+		itemuselevel = true,
+		itemstatlevel = true,
+		itemtype = true,
+		quality = true,
+		name = true,
+		vendorprice = true,
+		itemage = true,
+		id = true,
+		slottype = true,
+		expansion = true,
+		rank = true,
+	},
+	
+	DatabaseDefaults = { },
+	
+	MountTypes = {
+		["l"] = 0x01, -- land
+		["a"] = 0x02, -- air
+--		["s"] = 0x04, -- water surface
+		["u"] = 0x08, -- underwater
+		["x"] = 0x00, -- ignored / unknown
+	},
+	
+	booleantable = { true, false },
+	
+	Realm = { }, -- connected realm array
+	
+	ActionID = {
+		MainMenu = 0,
+		Close = 1,
+		EditMode = 2,
+		Rules = 3,
+		Search = 4,
+		SwitchCharacter = 5,
+		SwitchLocation = 6,
+		Restack = 7,
+		Changer = 8,
+		Refresh = 9,
+	},
+	
+	Bind = { -- ITEM_BINDx
+		Never = 0,
+		Use = 1,
+		Equip = 2,
+		Pickup = 3,
+		Account = 4,
+	},
+	
+	Reputation = {
+		Custom = {
+			Default = 1,
+			Custom = 2,
+		},
+		Style = {
+			TooltipNormal = "*st**pv**pr* (*br*)", -- rep tooltip
+			TooltipItemCount = "*st**pv**pr* (*br*)", -- itemcount tooltip
+			TwoLines = "*st**pv**pr*\n*bc*", -- List view
+			OneLine = "*st**pv**pr* *bc*", -- LDB tooltip
+			OneLineWithName = "*nn*: *st**pv**pr* *bc*", -- LDB text
+		},
+	},
+	
+	Transmog = {
+		State = {
+			CanLearnMyself = 1,
+			CanLearnMyselfSecondary = 2,
+			CanLearnOther = 3,
+			CanLearnOtherSecondary = 4,
+		},
+		StyleDefault = "Smiley Face",
+		SharedMediaType = "arkinventory-icons-transmog",
+	},
+	
+	Class = {
+		Account = "ACCOUNT",
+		Guild = "GUILD",
+	},
+	
+	Move = {
+		Bar = 1,
+		Category = 2,
+	},
+	
+	IDType = {
+		Count = 1,
+		Search = 2,
+	},
+	
+	Tooltip = {
+		-- used to convert tooltip:SetText into tooltip:SetHyperlink
+		customHyperlinkFormat = "ArkInventory!!!%s",
+		customHyperlinkMatch = "^ArkInventory!!!(.+)$",
+		
+		Search = {
+			Full = 0, -- checks everything
+			Base = 1, -- meant to skip around items in patterns/recipes
+			Short = 2, -- stops at the first blank line
+		},
+	},
+	
+	CategoryTypes = { "SYSTEM", "CONSUMABLE", "TRADEGOODS", "SKILL", "CLASS", "EMPTY", "CUSTOM", "RULE", },
+	
+	--Tradeskill = { }, -- created elsewhere (needs localise which isnt available here)
+	
+	Flying = {
+		Never = {
+			Instance = {
+				[1191] = true, -- Ashran (PvP)
+				[1203] = true, -- Frostfire Finale
+				[1265] = true, -- Tanaan Jungle Intro
+				[1463] = true, -- Helheim Exterior Area
+				[1669] = true, -- Argus
+				
+				[1107] = true, -- Warlock Order Hall - Dreadscar Rift
+				[1469] = true, -- Shaman Order Hall - The Heart of Azeroth
+				[1479] = true, -- Warrior Order Hall - Skyhold
+				[1514] = true, -- Monk Order Hall - The Wandering Isle
+				[1519] = true, -- Demon Hunter Order Hall - The Fel Hammer
+				
+				[1557] = true, -- Class Trial Boost
+				
+				[1750] = true, -- Exodar - Argus Intro
+				[1760] = true, -- Battle for Lordaeron Scenario
+				[1876] = true, -- Battle for Stormgarde
+				
+				-- bfa - island expeditions
+				[1893] = true, -- dread chain
+				[1897] = true, -- molten cay
+				[1892] = true, -- rotting mire
+				[1898] = true, -- skittering hollow
+				[1813] = true, -- un'gol ruins
+				[1882] = true, -- verdant isles
+				[1883] = true, -- whispering reef
+				
+				-- extra races
+				[1917] = true, -- Gorgrond - Mag'har scenario
+				
+				-- shadowlands
+				[2364] = true, -- The Maw Intro
+				[2363] = true, -- night fae - queens conservatory
+				
+				-- /dump GetInstanceInfo( )
+			},
+			Map = {
+				[1543] = true, -- Shadowlands / The Maw
+				[1670] = true, -- Shadowlands / Oribos Level 1
+				[1671] = true, -- Shadowlands / Oribos Level 2
+				[1961] = true, -- Shadowlands / Korthia
+				
+				-- /dump C_Map.GetBestMapForUnit( "player" )
+			},
+		},
+		Achievement = {
+--			[1116] = 10018 -- Draenor -- Draenor Pathfinder
+--			[1464] = 10018 -- Tanaan Jungle
+--			[1152] = 10018 -- Horde Garrison Level 1
+--			[1330] = 10018 -- Horde Garrison Level 2
+--			[1153] = 10018 -- Horde Garrison Level 3
+--			[1154] = 10018 -- Horde Garrison Level 4
+--			[1158] = 10018 -- Alliance Garrison Level 1
+--			[1331] = 10018 -- Alliance Garrison Level 2
+--			[1159] = 10018 -- Alliance Garrison Level 3
+--			[1160] = 10018 -- Alliance Garrison Level 4
+			
+--			[1220] = 11446 -- Broken Isles -- Broken Isles Pathfinder Part 2
+			
+			[1642] = 13250, -- Zandalar / Battle for Azeroth Pathfinder Part 2
+			[1643] = 13250, -- Kul Tiras / Battle for Azeroth Pathfinder Part 2
+			[1718] = 13250, -- Nazjatar / Battle for Azeroth Pathfinder Part 2
+--			[0000] = 13250, -- Rustbucket / Battle for Azeroth Pathfinder Part 2
+			[2374] = 15514, -- Shadowlands / Zereth Mortis
+		},
+		Spell = {
+		},
+		Quest = {
+			[2222] = 63893, -- Shadowlands Flying
+		},
+		Bug735 = {
+			[0] = true, -- Eastern Kingdoms
+			[1] = true, -- Kalimdor
+--			[530] = true, -- Outland (appears to be working now)
+			[571] = true, -- Northrend
+			[730] = true, -- Maelstrom (Deepholm)
+--			[870] = true, -- Pandaria (appears to be working now)
+		},
+	},
+	
+	YieldAfter = 25,
+	
+	ObjectDataMaxAttempts = 10,
+	
+}
+
+ArkInventory.Const.ClassArmor = {
+	[ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.CLOTH] = { MAGE = 1, PRIEST = 1, WARLOCK = 1 },
+	[ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.LEATHER] = { DRUID = 1, ROGUE = 1, LOWLEVELHUNTER = 1, MONK = 1, DEMONHUNTER = 1 },
+	[ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.MAIL] = { HUNTER = 1, SHAMAN = 1, EVOKER = 1 },
+	[ArkInventory.Const.ENUM.ITEMCLASS.ARMOR.PLATE] = { PALADIN = 1, WARRIOR = 1, DEATHKNIGHT = 1 },
+}
+
+ArkInventory.Const.BLIZZARD.GLOBAL.CONTAINER.NUM_BAGS = ArkInventory.Const.BLIZZARD.GLOBAL.CONTAINER.NUM_BAGS_NORMAL + ArkInventory.Const.BLIZZARD.GLOBAL.CONTAINER.NUM_BAGS_REAGENT
+
+
+-- populate the min/max toc values, and ids for each expansion
+for k, v in pairs( ArkInventory.Const.ENUM.EXPANSION ) do
+	if k ~= "CURRENT" then
+		ArkInventory.Const.BLIZZARD.CLIENT.EXPANSION[v] = {
+			ID = v,
+			TOC = {
+				MIN = ( v + 1 ) * 10000,
+				MAX = ( v + 2 ) * 10000 - 1,
+			},
+		}
+	end
+end

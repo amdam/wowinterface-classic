@@ -468,7 +468,7 @@ local WOTLK_NAXXRAMAS_AC_TABLE = {	--[Glory of the Raider]
     IgnoreAsSource = true,
 	CoinTexture = "Achievement",
 	[RAID10_DIFF] = {
-		{ 1, 2137 },
+		{ 1, 2137, 44175 },
 		{ 2, 578 },			    { 17, 1858 },
 		{ 3, 1856 },			{ 18, 1996 },
 		{ 4, 1997 },			{ 19, 2178 },
@@ -480,7 +480,7 @@ local WOTLK_NAXXRAMAS_AC_TABLE = {	--[Glory of the Raider]
         { 10, 2187 },
 	},
     [RAID25_DIFF] = {
-		{ 1, 2138 },
+		{ 1, 2138, 44164 },
 		{ 2, 579 },			    { 17, 1859 },
 		{ 3, 1857 },			{ 18, 2139 },
 		{ 4, 2140 },			{ 19, 2179 },
@@ -500,7 +500,7 @@ local WOTLK_ULDUAR_AC_TABLE = {	--[Glory of the Ulduar Raider]
     IgnoreAsSource = true,
 	CoinTexture = "Achievement",
 	[RAID10_DIFF] = {
-		{ 1, 2957 },
+		{ 1, 2957, 45802 },
 		{ 2, 3056 },			{ 17, 2930 },
 		{ 3, 2923 },			{ 18, 3058 },
 		{ 4, 2941 },			{ 19, 2953 },
@@ -510,7 +510,7 @@ local WOTLK_ULDUAR_AC_TABLE = {	--[Glory of the Ulduar Raider]
 		{ 8, 3158 }
 	},
     [RAID25_DIFF] = {
-		{ 1, 2958 },
+		{ 1, 2958, 45801 },
 		{ 2, 3057 },			{ 17, 2929 },
 		{ 3, 2924 },			{ 18, 3059 },
 		{ 4, 2944 },			{ 19, 2954 },
@@ -527,7 +527,7 @@ local WOTLK_ICC_AC_TABLE = {	--[Glory of the Icecrown Raider]
 	ExtraList = true,
 	CoinTexture = "Achievement",
 	[RAID10_DIFF] = {
-		{ 1, 4602 },
+		{ 1, 4602, 51954 },
 		{ 2, 4534 },			{ 17, 4535 },
 		{ 3, 4536 },			{ 18, 4537 },
 		{ 4, 4538 },			{ 19, 4577 },
@@ -536,12 +536,12 @@ local WOTLK_ICC_AC_TABLE = {	--[Glory of the Icecrown Raider]
 		{ 7, 4580 },			{ 22, 4601 },
 	},
 	[RAID10H_DIFF] = {
-		{ 1, 4602 },
+		{ 1, 4602, 51954 },
 		{ 2, 4628 },			{ 17, 4629 },
 		{ 3, 4630 },			{ 18, 4631 },
 	},
     [RAID25_DIFF] = {
-		{ 1, 4603 },
+		{ 1, 4603, 51955 },
 		{ 2, 4610 },			{ 17, 4611 },
 		{ 3, 4612 },			{ 18, 4613 },
 		{ 4, 4614 },			{ 19, 4615 },
@@ -551,7 +551,7 @@ local WOTLK_ICC_AC_TABLE = {	--[Glory of the Icecrown Raider]
 		{ 8, 4622 }
 	},
 	[RAID25H_DIFF] = {
-		{ 1, 4603 },
+		{ 1, 4603, 51955 },
 		{ 2, 4632 },			{ 17, 4633 },
 		{ 3, 4634 },			{ 18, 4635 },
 	},
@@ -561,7 +561,7 @@ data["AhnKahet"] = {
     nameFormat = NAME_AZJOL,
 	MapID = 4494,
     EncounterJournalID = 271,
-	--InstanceID = 560,
+	InstanceID = 619,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "AhnKahet",
@@ -697,7 +697,7 @@ data["AzjolNerub"] = {
     nameFormat = NAME_AZJOL,
 	MapID = 4277,
     EncounterJournalID = 272,
-	--InstanceID = 560,
+	InstanceID = 601,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "AzjolNerub",
@@ -793,7 +793,7 @@ data["AzjolNerub"] = {
 data["DrakTharonKeep"] = {
 	MapID = 4196,
     EncounterJournalID = 273,
-	--InstanceID = 560,
+	InstanceID = 600,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "DrakTharonKeep",
@@ -912,12 +912,12 @@ data["DrakTharonKeep"] = {
 data["Gundrak"] = {
 	MapID = 4416,
     EncounterJournalID = 274,
-	--InstanceID = 560,
+	InstanceID = 604,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "Gundrak",
 	AtlasMapFile = {"Gundrak"},
-	LevelRange = {75, 79, 80},
+	LevelRange = {71, 76, 78},
 	items = {
         { -- GundrakSladran / 34
             name = AL["Slad'ran"],
@@ -1029,6 +1029,7 @@ data["Gundrak"] = {
             [NORMAL_DIFF] = {
                 { 1, 35594 }, -- Snowmelt Silken Cinch
 		        { 2, 35593 }, -- Steel Bear Trap Bracers
+                { 3, 37646 }, -- Burning Skull Pendant
             },
             [HEROIC_DIFF] = {
                 { 1, 37647 }, -- Cloak of Bloodied Waters
@@ -1047,7 +1048,7 @@ data["HallsofLightning"] = {
     nameFormat = NAME_ULDUAR,
 	MapID = 4272,
     EncounterJournalID = 275,
-	--InstanceID = 560,
+	InstanceID = 602,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "UlduarHallsofLightning",
@@ -1178,7 +1179,7 @@ data["HallsofStone"] = {
     nameFormat = NAME_ULDUAR,
 	MapID = 4264,
     EncounterJournalID = 277,
-	--InstanceID = 560,
+	InstanceID = 599,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "UlduarHallsofStone",
@@ -1298,7 +1299,7 @@ data["TheCullingOfStratholme"] = {
     nameFormat = NAME_CAVERNS_OF_TIME,
 	MapID = 4100,
     EncounterJournalID = 279,
-	--InstanceID = 560,
+	InstanceID = 595,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "CoTOldStratholme",
@@ -1431,7 +1432,7 @@ data["TheNexus"] = {
     nameFormat = NAME_NEXUS,
 	MapID = 4265,
     EncounterJournalID = 281,
-	--InstanceID = 560,
+	InstanceID = 576,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TheNexus",
@@ -1555,7 +1556,7 @@ data["TheOculus"] = {
     nameFormat = NAME_NEXUS,
 	MapID = 4228,
     EncounterJournalID = 282,
-	--InstanceID = 560,
+	InstanceID = 578,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TheOculus",
@@ -1688,7 +1689,7 @@ data["TheOculus"] = {
 
 data["VioletHold"] = {
 	MapID = 4415,
-	--InstanceID = 560,
+	InstanceID = 608,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "VioletHold",
@@ -1847,7 +1848,7 @@ data["UtgardeKeep"] = {
     nameFormat = NAME_UTGARDE,
 	MapID = 206,
     EncounterJournalID = 285,
-	--InstanceID = 560,
+	InstanceID = 574,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "UtgardeKeep",
@@ -1946,7 +1947,7 @@ data["UtgardePinnacle"] = {
     nameFormat = NAME_UTGARDE,
 	MapID = 1196,
     EncounterJournalID = 286,
-	--InstanceID = 560,
+	InstanceID = 575,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "UtgardePinnacle",
@@ -2078,7 +2079,7 @@ data["TrialoftheChampion"] = {
     nameFormat = NAME_AT,
 	MapID = 4723,
     EncounterJournalID = 284,
-	--InstanceID = 560,
+	InstanceID = 650,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TrialOfTheChampion",
@@ -2260,7 +2261,7 @@ data["ForgeOfSouls"] = {
     nameFormat = NAME_ICC,
 	MapID = 4809,
     EncounterJournalID = 280,
-	--InstanceID = 560,
+	InstanceID = 632,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "FHTheForgeOfSouls",
@@ -2343,7 +2344,7 @@ data["PitOfSaron"] = {
     nameFormat = NAME_ICC,
 	MapID = 4813,
     EncounterJournalID = 278,
-	--InstanceID = 560,
+	InstanceID = 658,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "FHPitOfSaron",
@@ -2446,7 +2447,7 @@ data["HallsOfReflection"] = {
     nameFormat = NAME_ICC,
 	MapID = 4820,
     EncounterJournalID = 276,
-	--InstanceID = 560,
+	InstanceID = 668,
     ContentType = DUNGEON_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "FHHallsOfReflection",
@@ -3314,7 +3315,7 @@ data["NaxxramasWrath"] = {
 data["TheEyeOfEternity"] = {
     nameFormat = NAME_NEXUS,
 	MapID = 4500,
-	--InstanceID = 560,
+	InstanceID = 616,
     ContentType = RAID_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TheEyeOfEternity",
@@ -3374,7 +3375,7 @@ data["TheEyeOfEternity"] = {
 
 data["ObsidianSanctum"] = {
 	MapID = 4493,
-	--InstanceID = 560,
+	InstanceID = 615,
     ContentType = RAID_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "ObsidianSanctum",
@@ -3463,7 +3464,7 @@ data["ObsidianSanctum"] = {
 data["Ulduar"] = {
 	MapID = 4273,
     EncounterJournalID = 759,
-	--InstanceID = 560,
+	InstanceID = 603,
     ContentType = RAID_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "UlduarA",
@@ -4243,6 +4244,7 @@ data["Ulduar"] = {
 -- Trial of the Crusader / T9
 data["TrialoftheCrusader"] = {
 	EncounterJournalID = 757,
+	InstanceID = 649,
 	MapID = 4722,
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "TrialOfTheCrusader",
@@ -5208,6 +5210,7 @@ data["TrialoftheCrusader"] = {
 data["WrathOnyxiasLair"] = {
 	EncounterJournalID = 760,
 	MapID = 2159,
+    InstanceID = 249,
     AtlasModule = "Atlas_ClassicWoW",
 	AtlasMapID = "OnyxiasLair",
     AtlasMapFile = "CL_OnyxiasLair",
@@ -5284,6 +5287,7 @@ data["WrathOnyxiasLair"] = {
 data["IcecrownCitadel"] = {
 	EncounterJournalID = 758,
 	MapID = 4812,
+	InstanceID = 631,
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "IcecrownCitadelA",
     AtlasMapFile = {"IcecrownCitadelA", "IcecrownEnt"},
@@ -6210,6 +6214,7 @@ data["IcecrownCitadel"] = {
 data["RubySanctum"] = {
 	EncounterJournalID = 761,
 	MapID = 4987,
+    InstanceID = 724,
     AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "RubySanctum",
     AtlasMapFile = {"RubySanctum"},
@@ -6296,7 +6301,7 @@ data["RubySanctum"] = {
 local ROLE_DD = AL["Damage Dealer"]
 data["VaultofArchavon"] = {
 	MapID = 4603,
-	--InstanceID = 560,
+	InstanceID = 624,
     ContentType = RAID_CONTENT,
 	AtlasModule = ATLAS_MODULE_NAME,
 	AtlasMapID = "VaultOfArchavon",
